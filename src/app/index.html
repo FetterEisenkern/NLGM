@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>NLGM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <h1 id="title">NLGM</h1>
+    <div>
+        <table class="table is-hoverable">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>date</th>
+                    <th>patient</th>
+                    <th>data</th>
+                </tr>
+            </thead>
+            <tbody id="table"></tbody>
+        </table>
+    </div>
+    <div id="dataPlot" style="width:90%;height:500px;"></div>
+    <!-- TODO: static version -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- IPC communication -->
+    <script src="js/renderer.js"></script>
+</body>
+
+</html>

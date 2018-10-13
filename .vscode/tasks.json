@@ -1,0 +1,17 @@
+{
+    "tasks": [
+        {
+            "label": "start",
+            "problemMatcher": "$jshint",
+            "args": [
+                "${file}"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "src/",
+            "problemMatcher": []
+        }
+    ]
+}
