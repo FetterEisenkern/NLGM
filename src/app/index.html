@@ -6,29 +6,116 @@
     <title>NLGM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="css/bulma.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <h1 id="title">NLGM</h1>
-    <div>
-        <table class="table is-hoverable">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>date</th>
-                    <th>patient</th>
-                    <th>data</th>
-                </tr>
-            </thead>
-            <tbody id="table"></tbody>
-        </table>
+    <!-- Tabs -->
+    <div class="tabs is-centered">
+        <ul>
+            <li id="view-tab" class="is-active"><a>View</a></li>
+            <li id="database-tab"><a>Database</a></li>
+            <li id="connection-tab"><a>Connection</a></li>
+        </ul>
     </div>
-    <div id="dataPlot" style="width:90%;height:500px;"></div>
-    <!-- TODO: static version -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- IPC communication -->
+    <!-- Tab 1 -->
+    <div id="view">
+        <div class="columns">
+            <!-- Left Side -->
+            <div class="column is-three-quarters">
+                <!-- Plot -->
+                <div id="dataPlot"></div>
+                <!-- Latest Data -->
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="content">
+                                    ah
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="#" class="card-footer-item">Select</a>
+                                <a href="#" class="card-footer-item">Remove</a>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side -->
+            <div class="column">
+                <!-- Data -->
+                <div class="field">
+                    <label class="label">Patient</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-success" type="text" placeholder="Name" value="Hans">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Length 1</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-success" type="text" placeholder="in cm" value="">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-ruler-horizontal"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Length 2</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-success" type="text" placeholder="in cm" value="">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-ruler-horizontal"></i>
+                        </span>
+                    </div>
+                </div>
+                <br>
+                <div>Result: 0<br><br>
+                    <a class="button is-success" disabled>
+                        <span>Save</span>
+                    </a>
+                    <a class="button is-primary">
+                            <span>New</span>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Database Tab -->
+    <div id="database" class="hidden">
+        <!-- Database Table -->
+        <div class="columns">
+            <div class="column">
+                <table class="table is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Patient</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Connection Tab -->
+    <div id="connection" class="hidden">
+        <div class="columns">
+            <!-- Port Control & Status -->
+            <div class="column">
+                <a id="check-port" class="button is-danger">Not Connected</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/plotly-latest.min.js"></script>
+    <script src="js/nlgm.js"></script>
     <script src="js/renderer.js"></script>
 </body>
 

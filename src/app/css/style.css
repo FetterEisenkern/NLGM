@@ -1,0 +1,7 @@
+.hidden {
+    display: none;
+}
+
+div.plotly-notifier {
+    visibility: hidden;
+}

@@ -1,66 +1,66 @@
 const Database = require('./database');
 const Controller = require('./controller');
+const Cache = require('./cache');
 
 class Processor {
     constructor() {
         this.db = new Database('nlgm.db');
         this.controller = new Controller(115200);
-        this.cache = undefined;
+        this.cache = new Cache();
+        this.timeout = undefined;
+        this.renderCallback = undefined;
+        this.portCloseCallaback = undefined;
     }
     static default() {
         return new Processor();
     }
     init() {
-        this.db.init().testInsert();
+        this.db.init()//.testInsert();
         this.controller
             .init()
             .then(() => {
                 if (this.controller.isInitialized) {
-                    this.controller.listen(this.listener)
+                    this.controller.listenOn('data', this.handleData);
+                    this.controller.listenOn('close', this.handleClose);
                 }
             });
         return this;
     }
     checkPort() {
-        if (!this.controller.isInitialized) {
-            this.controller.init();
-        }
-        return this.controller.isInitialized;
+        this.controller.reInit();
+        return this;
     }
     shutdown() {
         this.db.shutdown();
         this.controller.shutdown();
         return this;
     }
-    listener(data) {
+    handleData(data) {
         console.log(data);
-        if (this.cache == undefined) {
-            this.createCache();
-        }
-        this.cache.results[this.cache.curIndex].push(data);
+
+        this.cache.add(data);
+        this.cache.process();
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            this.cache.done();
+            this.renderCallback(this.cache.objects);
+        }, 1000);
     }
-    processCache() {
-        this.db.insert(this.cache.patient, { m1: this.cache.results[0], m2: this.cache.results[1] });
-        return this;
+    handleClose() {
+        this.portCloseCallaback();
     }
-    processNext() {
-        ++this.cache.curIndex;
-        return this;
+    canSave() {
+        return this.cache.objects.length == 2;
     }
-    processPatient(patient) {
-        this.cache.patient = patient;
-        return this;
-    }
-    createCache() {
-        this.cache = {
-            patient: 'Hans',
-            curIndex: 0,
-            results: []
-        };
+    saveData(patient, l1, l2) {
+        this.db.insert(patient, { l1, l2, m1: this.cache.get(0), m2: this.cache.get(1) });
+        this.clearCache();
         return this;
     }
     clearCache() {
-        this.cache = undefined;
+        this.cache.clear();
+        this.renderCallback(this.cache.objects);
         return this;
     }
 }

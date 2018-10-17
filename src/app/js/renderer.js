@@ -4,10 +4,6 @@ const title = document.querySelector('#title');
 const table = document.querySelector('#table');
 const plot = document.querySelector('#dataPlot');
 
-/* ipcRenderer.on('alice', (ev, ...args) => {
-    console.log(args[0]);
-}); */
-
 var lines = undefined;
 
 var plotLayout = {
@@ -38,7 +34,7 @@ var clearPlot = () => {
     lines = [];
 };
 var renderPlot = () => {
-    Plotly.newPlot(plot, lines, plotLayout, { displayModeBar: false });
+    Plotly.newPlot(plot, lines, plotLayout, { responsive: true, displayModeBar: false });
 };
 
 clearPlot();
@@ -73,7 +69,7 @@ var renderTable = () => {
     }
 };
 
-title.addEventListener('click', () => {
+databaseTab.addEventListener('click', () => {
     list = [];
     ipcRenderer.send('request-data');
 });

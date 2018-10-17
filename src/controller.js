@@ -59,9 +59,9 @@ class Controller {
         this.init();
         return this;
     }
-    listen(callback) {
+    listenOn(event, callback) {
         if (this.parser != undefined) {
-            this.parser.on('data', callback);
+            this.parser.on(event, callback);
         }
         return this;
     }
