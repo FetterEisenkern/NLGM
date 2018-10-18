@@ -6,52 +6,45 @@ class Controller {
         this.baudRate = baudRate;
         this.port = undefined;
         this.parser = undefined;
-        this.isInitialized = false;
+        this.io = undefined;
     }
     init() {
-        if (this.isInitialized) {
-            return;
-        }
-
-        let source = undefined;
         return SerialPort.list((err, ports) => {
             if (err) {
                 console.error(err);
             } else {
                 for (let port of ports) {
                     if (port.manufacturer && port.manufacturer.startsWith("Arduino")) {
-                        console.log("Found port!");
-                        /*
-                            Linux:
-                                /dev/ttyACM0
-                                usb-Arduino__www.arduino.cc__0043_5543733373735191C140-if00
-                                Arduino (www.arduino.cc)
-                        */
-                        console.log(source.comName);
-                        console.log(source.pnpId);
-                        console.log(source.manufacturer);
-                        source = port;
+                        this.io = {
+                            name: port.comName,
+                            id: port.pnpId,
+                            mf: port.manufacturer
+                        };
                         break;
                     }
                 }
             }
         }).then(() => {
-            if (source != undefined) {
-                this.port = new SerialPort(source.comName, { baudRate: this.baudRate }, (err) => console.error(err));
+            if (this.io != undefined) {
+                this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => console.error(err));
                 this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
 
-                this.isInitialized = true;
+                if (this.isConnected()) {
+                    console.log(`Opened port to: ${this.io.name}`);
+                } else {
+                    console.error(`Failed to open port to: ${this.io.name}`);
+                }
             } else {
-                console.log("Failed to find port!");
+                console.error("Failed to find port!");
             }
         });
     }
     shutdown() {
-        if (this.isInitialized && this.port.isOpen) {
+        if (this.isConnected()) {
             this.parser.destroy();
             this.port.close();
         }
-        this.isInitialized = false;
+        this.io = undefined;
         return this;
     }
     reInit() {
@@ -59,11 +52,20 @@ class Controller {
         this.init();
         return this;
     }
+    isConnected() {
+        return this.port && this.port.isOpen;
+    }
     listenOn(event, callback) {
         if (this.parser != undefined) {
             this.parser.on(event, callback);
         }
         return this;
+    }
+    getInfo() {
+        return {
+            info: this.io,
+            isConnected: this.isConnected()
+        };
     }
 }
 

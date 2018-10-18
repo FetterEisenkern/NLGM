@@ -19,7 +19,7 @@ class Processor {
         this.controller
             .init()
             .then(() => {
-                if (this.controller.isInitialized) {
+                if (this.controller.isConnected()) {
                     this.controller.listenOn('data', this.handleData);
                     this.controller.listenOn('close', this.handleClose);
                 }

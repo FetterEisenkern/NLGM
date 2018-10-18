@@ -15,15 +15,7 @@ const createWindow = () => {
         win = null;
     });
 
-    ipcMain.on('request-data', (ev) => {
-        processor.db.selectAll((_, row) => {
-            ev.sender.send('data-row-request', row);
-        });
-    });
-    ipcMain.on('check-port', (ev) => {
-        processor.checkPort();
-        ev.sender.send('port-state-request', processor.controller.port.isOpen);
-    });
+    // View
     ipcMain.on('can-save', (ev) => {
         ev.sender.send('can-save-request', processor.canSave());
     });
@@ -32,6 +24,17 @@ const createWindow = () => {
     });
     ipcMain.on('clear-data', () => {
         processor.clearData();
+    });
+    // Database
+    ipcMain.on('request-data', (ev) => {
+        processor.db.selectAll((_, row) => {
+            ev.sender.send('data-row-request', row);
+        });
+    });
+    // Connection
+    ipcMain.on('port-info', (ev) => {
+        processor.checkPort();
+        ev.sender.send('port-info-request', processor.controller.getInfo());
     });
 };
 

@@ -20,37 +20,53 @@
             <li id="connection-tab"><a>Connection</a></li>
         </ul>
     </div>
-    <!-- Tab 1 -->
+    <!-- View Tab -->
     <div id="view">
         <div class="columns">
             <!-- Left Side -->
-            <div class="column is-three-quarters">
+            <div class="column is-1"></div>
+            <div class="column is-8">
                 <!-- Plot -->
-                <div id="dataPlot"></div>
+                <div id="view-plot"></div>
                 <!-- Latest Data -->
                 <div class="columns">
-                    <div class="column is-one-quarter">
-                        <div class="card">
+                    <div class="column is-1"></div>
+                    <div id="data-queue-1" class="column is-one-quarter">
+                        <!-- <div class="card">
                             <div class="card-content">
-                                <div class="content">
-                                    ah
-                                </div>
+                                <div class="content">trace 0</div>
                             </div>
                             <footer class="card-footer">
-                                <a href="#" class="card-footer-item">Select</a>
-                                <a href="#" class="card-footer-item">Remove</a>
+                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
                             </footer>
-                        </div>
+                        </div> -->
+                    </div>
+                    <div id="data-queue-2" class="column is-one-quarter">
+                    </div>
+                    <div id="data-queue-3" class="column is-one-quarter">
+                    </div>
+                    <div id="data-queue-4" class="column is-one-quarter">
+                    </div>
+                    <!-- Result -->
+                    <div class="column is-2">
+                        <nav class="level">
+                            <div class="level-item has-text-centered">
+                                <div>
+                                    <p class="heading">Result</p>
+                                    <p class="title">0 m/s</p>
+                                </div>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>
             <!-- Right Side -->
-            <div class="column">
+            <div class="column is-2">
                 <!-- Data -->
                 <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="Name" value="Hans">
+                        <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="Hans">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -59,7 +75,7 @@
                 <div class="field">
                     <label class="label">Length 1</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="in cm" value="">
+                        <input id="length-1-input" class="input is-success" type="text" placeholder="in cm" value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
@@ -68,20 +84,30 @@
                 <div class="field">
                     <label class="label">Length 2</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="in cm" value="">
+                        <input id="length-2-input" class="input is-success" type="text" placeholder="in cm" value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
                     </div>
                 </div>
-                <br>
-                <div>Result: 0<br><br>
-                    <a class="button is-success" disabled>
-                        <span>Save</span>
-                    </a>
-                    <a class="button is-primary">
-                            <span>New</span>
-                        </a>
+                <a id="save-btn" class="button is-success" disabled>
+                    <span>Save</span>
+                </a>
+                <a id="new-btn" class="button is-primary">
+                    <span>New</span>
+                </a>
+                <!-- Warning Modal -->
+                <div id="warning-modal" class="modal">
+                    <div id="modal-bg" class="modal-background"></div>
+                    <div class="modal-card">
+                        <section class="modal-card-body">
+                            <p>Create new?</p>
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button id="modal-new-btn" class="button">Create New</button>
+                            <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
+                        </footer>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,33 +116,89 @@
     <div id="database" class="hidden">
         <!-- Database Table -->
         <div class="columns">
-            <div class="column">
-                <table class="table is-hoverable">
+            <div class="column is-1"></div>
+            <!-- Left Side -->
+            <div class="column is-8">
+                <table class="table is-hoverable is-fullwidth is-striped">
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Date</th>
                             <th>Patient</th>
-                            <th>Data</th>
+                            <th>Result</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody id="table"></tbody>
+                    <tbody id="database-table"></tbody>
                 </table>
             </div>
+            <!-- Right Side -->
+            <div class="column is-2">
+                    <!-- Search -->
+                    <h3 class="subtitle is-3">Search</h3>
+                    <div class="field">
+                        <label class="label">Patient</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Result</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input id="length-1-input" class="input is-success" type="text" placeholder="in m/s" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-ruler-horizontal"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Warning Modal -->
+                    <div id="warning-modal" class="modal">
+                        <div id="modal-bg" class="modal-background"></div>
+                        <div class="modal-card">
+                            <section class="modal-card-body">
+                                <p>Create new?</p>
+                            </section>
+                            <footer class="modal-card-foot">
+                                <button id="modal-new-btn" class="button">Create New</button>
+                                <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <!-- Connection Tab -->
     <div id="connection" class="hidden">
         <div class="columns">
             <!-- Port Control & Status -->
-            <div class="column">
-                <a id="check-port" class="button is-danger">Not Connected</a>
+            <div class="column is-4"></div>
+            <div class="column is-4">
+                <h3 class="subtitle is-3">Port Info</h3>
+                <table class="table is-hoverable">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td id="port-name"></td>
+                        </tr>
+                        <tr>
+                            <th>Id</th>
+                            <td id="port-id"></td>
+                        </tr>
+                        <tr>
+                            <th>Manufacturer</th>
+                            <td id="port-manufacturer"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a id="connect-btn" class="button is-danger">Connect</a>
             </div>
         </div>
     </div>
     <script src="lib/js/plotly-latest.min.js"></script>
     <script src="js/nlgm.js"></script>
-    <script src="js/renderer.js"></script>
 </body>
 
 </html>
