@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "rebuild": "$(npm bin)/electron-rebuild"
+    "rebuild": "electron-rebuild",
+    "pack": "electron-packager . --out=../bin --asar --overwrite"
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
@@ -13,6 +14,8 @@
   },
   "devDependencies": {
     "electron": "^2.0.10",
-    "electron-rebuild": "^1.8.2"
+    "electron-packager": "^12.2.0",
+    "electron-rebuild": "^1.8.2",
+    "windows-build-tools": "^5.0.0"
   }
 }

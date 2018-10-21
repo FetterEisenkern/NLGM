@@ -7,7 +7,7 @@ const processor = Processor.default().init();
 
 const createWindow = () => {
     window = new BrowserWindow({ width: 1080, height: 720 });
-    window.loadFile('./app/index.html');
+    window.loadFile(__dirname + '/app/index.html');
 
     //window.webContents.openDevTools({ mode: 'bottom' });
 

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3422cb92-ff8d-453f-9fa6-e07b63dea5d0}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile>main.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <NodeExePath>$(SolutionDir)\node_modules\electron\dist\electron.exe</NodeExePath>
+    <NodeExeArguments>
+    </NodeExeArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="algorithms.js" />
+    <Content Include="cache.js" />
+    <Content Include="controller.js" />
+    <Content Include="database.js" />
+    <Content Include="main.js" />
+    <Content Include="processor.js" />
+    <Content Include="app\index.html" />
+    <Content Include="app\css\style.css" />
+    <Content Include="app\js\nlgm.js" />
+    <Content Include="app\lib\css\all.css" />
+    <Content Include="app\lib\css\all.min.css" />
+    <Content Include="app\lib\css\brands.css" />
+    <Content Include="app\lib\css\brands.min.css" />
+    <Content Include="app\lib\css\bulma.css" />
+    <Content Include="app\lib\css\bulma.min.css" />
+    <Content Include="app\lib\css\fontawesome.css" />
+    <Content Include="app\lib\css\fontawesome.min.css" />
+    <Content Include="app\lib\css\regular.css" />
+    <Content Include="app\lib\css\regular.min.css" />
+    <Content Include="app\lib\css\solid.css" />
+    <Content Include="app\lib\css\solid.min.css" />
+    <Content Include="app\lib\css\svg-with-js.css" />
+    <Content Include="app\lib\css\svg-with-js.min.css" />
+    <Content Include="app\lib\css\v4-shims.css" />
+    <Content Include="app\lib\css\v4-shims.min.css" />
+    <Content Include="app\lib\js\plotly-latest.min.js" />
+    <Content Include="app\lib\webfonts\fa-brands-400.svg" />
+    <Content Include="app\lib\webfonts\fa-regular-400.svg" />
+    <Content Include="app\lib\webfonts\fa-solid-900.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app" />
+    <Folder Include="app\css" />
+    <Folder Include="app\js" />
+    <Folder Include="app\lib" />
+    <Folder Include="app\lib\css" />
+    <Folder Include="app\lib\js" />
+    <Folder Include="app\lib\webfonts" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

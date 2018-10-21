@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NLGM", "NLGM.njsproj", "{3422CB92-FF8D-453F-9FA6-E07B63DEA5D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D84EAFFE-0CD1-437B-97C3-07862E1948F4}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\package.json = ..\package.json
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "arduino", "arduino", "{5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "serial-test", "serial-test", "{9C8006F5-AF4F-463B-B4F5-C95C20A720E2}"
+	ProjectSection(SolutionItems) = preProject
+		..\arduino\serial-test\serial-test.ino = ..\arduino\serial-test\serial-test.ino
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3422CB92-FF8D-453F-9FA6-E07B63DEA5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3422CB92-FF8D-453F-9FA6-E07B63DEA5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3422CB92-FF8D-453F-9FA6-E07B63DEA5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3422CB92-FF8D-453F-9FA6-E07B63DEA5D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9} = {D84EAFFE-0CD1-437B-97C3-07862E1948F4}
+		{9C8006F5-AF4F-463B-B4F5-C95C20A720E2} = {5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DC56133-28C3-4C19-A227-6CBE06C24922}
+	EndGlobalSection
+EndGlobal
