@@ -5,17 +5,20 @@
   "scripts": {
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "pack": "electron-packager . --out=../bin --asar --overwrite"
+    "pack-lin": "electron-packager . --out=../bin --asar --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png",
+    "pack-win": "electron-packager . --out=../bin --asar --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico",
+    "pack-osx": "electron-packager . --out=../bin --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns",
+    "install-win": "npm install windows-build-tools",
+    "icon": "electron-icon-maker --input=assets/nlgm_logo.png --output=assets/"
   },
   "dependencies": {
-    "font-awesome": "^4.7.0",
     "serialport": "^7.0.2",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {
     "electron": "^2.0.10",
+    "electron-icon-maker": "0.0.4",
     "electron-packager": "^12.2.0",
-    "electron-rebuild": "^1.8.2",
-    "windows-build-tools": "^5.0.0"
+    "electron-rebuild": "^1.8.2"
   }
 }

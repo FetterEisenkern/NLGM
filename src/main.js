@@ -1,13 +1,20 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const Processor = require('./processor');
+const path = require('path');
 
 var window = undefined;
 
 const processor = Processor.default().init();
 
 const createWindow = () => {
-    window = new BrowserWindow({ width: 1080, height: 720 });
-    window.loadFile(__dirname + '/app/index.html');
+    window = new BrowserWindow({
+        width: 1080,
+        height: 720,
+        icon: path.join(__dirname, '/assets/icons/png/64x64.png')
+    });
+
+    window.setMenu(null);
+    window.loadFile(path.join(__dirname, '/app/index.html'));
 
     //window.webContents.openDevTools({ mode: 'bottom' });
 
