@@ -82,7 +82,7 @@ var plotLayout = {
 };
 
 var addToresultPlot = (index) => {
-    selectTab(tabs[0], [tabs[1], tabs[2]]);
+    selectTab(0);
     clearPlot();
     if (list.length > 0 && index <= list.length) {
         let data = list[index].data;

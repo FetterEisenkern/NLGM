@@ -20,10 +20,12 @@ class Processor {
         this.controller
             .init()
             .then(() => {
-                this.controller.port.on('open', () => {
-                    this.controller.listenOn('data', this.handleData);
-                    this.controller.listenOn('close', this.handleClose);
-                });
+                if (this.controller.port) {
+                    this.controller.port.on('open', () => {
+                        this.controller.listenOn('data', this.handleData);
+                        this.controller.listenOn('close', this.handleClose);
+                    });
+                }
             });
         return this;
     }
