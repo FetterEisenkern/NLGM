@@ -13,7 +13,7 @@ const createWindow = () => {
         icon: path.join(__dirname, '/assets/icons/png/64x64.png')
     });
 
-    window.setMenu(null);
+    //window.setMenu(null);
     window.loadFile(path.join(__dirname, '/app/index.html'));
 
     //window.webContents.openDevTools({ mode: 'bottom' });

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="lib/css/bulma.min.css">
+    <style>@import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';</style>
     <link rel="stylesheet" href="lib/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -15,55 +16,103 @@
     <!-- Tabs -->
     <div class="tabs is-centered">
         <ul>
-            <li id="view-tab" class="is-active"><a>View</a></li>
+            <li id="new-tab" class="is-active"><a>New</a></li>
+            <li id="result-tab"><a>Result</a></li>
             <li id="database-tab"><a>Database</a></li>
             <li id="connection-tab"><a>Connection</a></li>
         </ul>
     </div>
-    <!-- View Tab -->
-    <div id="view">
+    <!-- New Tab -->
+    <div id="new">
         <div class="columns">
-            <!-- Left Side -->
             <div class="column is-1"></div>
-            <div class="column is-8">
-                <!-- Plot -->
-                <div id="view-plot"></div>
-                <!-- Latest Data -->
-                <div class="columns">
-                    <div class="column is-1"></div>
-                    <div id="data-queue-1" class="column is-one-quarter">
-                        <!-- <div class="card">
-                            <div class="card-content">
-                                <div class="content">trace 0</div>
-                            </div>
-                            <footer class="card-footer">
-                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
-                            </footer>
-                        </div> -->
+            <div class="column is-10">
+                <div class="steps" id="new-steps">
+                    <div class="step-item is-active is-success">
+                        <div class="step-marker">1</div>
+                        <div class="step-details">
+                            <p class="step-title">New Patient</p>
+                        </div>
                     </div>
-                    <div id="data-queue-2" class="column is-one-quarter">
+                    <div class="step-item">
+                        <div class="step-marker">2</div>
+                        <div class="step-details">
+                            <p class="step-title">1. Measurement</p>
+                        </div>
                     </div>
-                    <div id="data-queue-3" class="column is-one-quarter">
+                    <div class="step-item">
+                        <div class="step-marker">3</div>
+                        <div class="step-details">
+                            <p class="step-title">2. Measurement</p>
+                        </div>
                     </div>
-                    <div id="data-queue-4" class="column is-one-quarter">
+                    <div class="step-item">
+                        <div class="step-marker">4</div>
+                        <div class="step-details">
+                            <p class="step-title">Finish</p>
+                        </div>
                     </div>
-                    <!-- Result -->
-                    <div class="column is-2">
-                        <nav class="level">
-                            <div class="level-item has-text-centered">
-                                <div>
-                                    <p class="heading">Result</p>
-                                    <p class="title">0 m/s</p>
+                    <div class="steps-content">
+                        <div class="step-content has-text-centered is-active">
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Name</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" id="patient-name" type="text" value="Hans"
+                                                placeholder="Name of patient" autofocus data-validate="require">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </nav>
+                        </div>
+                        <div class="step-content has-text-centered">
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Length</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" id="length-one-input" type="text" value="100"
+                                                placeholder="First length" autofocus data-validate="require">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-content has-text-centered">
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Length</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" id="length-two-input" type="text" value="110"
+                                                placeholder="Second length" autofocus data-validate="require">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-content has-text-centered">
+
+                        </div>
+                    </div>
+                    <div class="steps-actions">
+                        <div class="steps-action">
+                            <a href="#" data-nav="previous" class="button is-light">Back</a>
+                        </div>
+                        <div class="steps-action">
+                            <a href="#" data-nav="next" class="button is-light">Next</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Right Side -->
-            <div class="column is-2">
                 <!-- Data -->
-                <div class="field">
+                <!-- <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
                         <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="Hans">
@@ -97,7 +146,7 @@
                     <span>New</span>
                 </a>
                 <!-- Warning Modal -->
-                <div id="warning-modal" class="modal">
+                <!--<div id="warning-modal" class="modal">
                     <div id="modal-bg" class="modal-background"></div>
                     <div class="modal-card">
                         <section class="modal-card-body">
@@ -108,7 +157,61 @@
                             <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
                         </footer>
                     </div>
+                </div> -->
+            </div>
+            <!-- <div class="column is-8">
+                <!-- Latest Data -->
+            <!--<div class="columns">
+                    <div class="column is-1"></div>
+                    <div id="data-queue-1" class="column is-one-quarter">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="content">trace 0</div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
+                            </footer>
+                        </div>
+                    </div>
+                    <div id="data-queue-1" class="column is-one-quarter">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="content">trace 0</div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
+                            </footer>
+                        </div>
+                    </div>
+                    <div id="data-queue-2" class="column is-one-quarter">
+                    </div>
+                    <div id="data-queue-3" class="column is-one-quarter">
+                    </div>
+                    <div id="data-queue-4" class="column is-one-quarter">
+                    </div>
                 </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- Result Tab -->
+    <div id="result" class="hidden">
+        <div class="columns">
+            <!-- Left Side -->
+            <div class="column is-1"></div>
+            <div class="column is-8">
+                <!-- Plot -->
+                <div id="view-plot"></div>
+            </div>
+            <!-- Right Side -->
+            <div class="column is-2">
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Result</p>
+                            <p class="title">0 m/s</p>
+                        </div>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
@@ -134,40 +237,40 @@
             </div>
             <!-- Right Side -->
             <div class="column is-2">
-                    <!-- Search -->
-                    <h3 class="subtitle is-3">Search</h3>
-                    <div class="field">
-                        <label class="label">Patient</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Result</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input id="length-1-input" class="input is-success" type="text" placeholder="in m/s" value="">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-ruler-horizontal"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Warning Modal -->
-                    <div id="warning-modal" class="modal">
-                        <div id="modal-bg" class="modal-background"></div>
-                        <div class="modal-card">
-                            <section class="modal-card-body">
-                                <p>Create new?</p>
-                            </section>
-                            <footer class="modal-card-foot">
-                                <button id="modal-new-btn" class="button">Create New</button>
-                                <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
-                            </footer>
-                        </div>
+                <!-- Search -->
+                <h3 class="subtitle is-3">Search</h3>
+                <div class="field">
+                    <label class="label">Patient</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
                     </div>
                 </div>
+                <div class="field">
+                    <label class="label">Result</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input id="length-1-input" class="input is-success" type="text" placeholder="in m/s" value="">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-ruler-horizontal"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- Warning Modal -->
+                <div id="warning-modal" class="modal">
+                    <div id="modal-bg" class="modal-background"></div>
+                    <div class="modal-card">
+                        <section class="modal-card-body">
+                            <p>Create new?</p>
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button id="modal-new-btn" class="button">Create New</button>
+                            <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
+                        </footer>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Connection Tab -->

@@ -1,4 +1,7 @@
 const SerialPort = require('serialport');
+/* const SerialPort = require('serialport/test');
+const MockBinding = SerialPort.Binding;
+MockBinding.createPort('/dev/fake', { echo: true, record: true }) */
 const Readline = require('@serialport/parser-readline');
 
 class Controller {
@@ -26,18 +29,20 @@ class Controller {
             }
         }).then(() => {
             if (this.io != undefined) {
-                this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => console.error(err));
-                this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
+                console.log(`${this.baudRate}, ${this.io.name}`)
+                this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => {
+                    if (!err) {
+                        console.log(`Opened port to: ${this.io.name}`);
+                    } else {
+                        console.error(`Failed to open port to: ${this.io.name}`);
+                    }
+                });
 
-                if (this.isConnected()) {
-                    console.log(`Opened port to: ${this.io.name}`);
-                } else {
-                    console.error(`Failed to open port to: ${this.io.name}`);
-                }
+                this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
             } else {
                 console.error("Failed to find port!");
             }
-        });
+        })
     }
     shutdown() {
         if (this.isConnected()) {

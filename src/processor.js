@@ -15,14 +15,15 @@ class Processor {
         return new Processor();
     }
     init() {
-        this.db.init()//.testInsert();
+        this.db.init()
+            //.testInsert();
         this.controller
             .init()
             .then(() => {
-                if (this.controller.isConnected()) {
+                this.controller.port.on('open', () => {
                     this.controller.listenOn('data', this.handleData);
                     this.controller.listenOn('close', this.handleClose);
-                }
+                });
             });
         return this;
     }
@@ -38,14 +39,14 @@ class Processor {
     handleData(data) {
         console.log(data);
 
-        this.cache.add(data);
+        /* this.cache.add(data);
         this.cache.process();
 
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             this.cache.done();
             this.renderCallback(this.cache.objects);
-        }, 1000);
+        }, 1000); */
     }
     handleClose() {
         this.portCloseCallaback();

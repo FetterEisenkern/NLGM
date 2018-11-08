@@ -8,10 +8,11 @@
     "pack-lin": "electron-packager . --out=../bin --asar --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png",
     "pack-win": "electron-packager . --out=../bin --asar --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico",
     "pack-osx": "electron-packager . --out=../bin --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns",
-    "install-win": "npm install windows-build-tools",
+    "install-win": "npm install -g windows-build-tools",
     "icon": "electron-icon-maker --input=assets/nlgm_logo.png --output=assets/"
   },
   "dependencies": {
+    "bulma-steps": "^2.2.1",
     "serialport": "^7.0.2",
     "sqlite3": "^4.0.2"
   },

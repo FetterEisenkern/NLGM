@@ -1,16 +1,24 @@
 const { ipcRenderer } = require('electron');
+const bulmaSteps = require('bulma-steps');
 
 // Tabs
-const viewTab = document.querySelector('#view-tab');
+const newTab = document.querySelector('#new-tab');
+const resultTab = document.querySelector('#result-tab');
 const databaseTab = document.querySelector('#database-tab');
 const connectionTab = document.querySelector('#connection-tab');
 
-const view = document.querySelector('#view');
-const database = document.querySelector('#database');
-const connection = document.querySelector('#connection');
+const newView = document.querySelector('#new');
+const resultView = document.querySelector('#result');
+const databaseView = document.querySelector('#database');
+const connectionView = document.querySelector('#connection');
 
-// View
-const viewPlot = document.querySelector('#view-plot');
+// New
+new bulmaSteps(document.querySelector('#new-steps'), {
+    onShow: (id) => console.log(id)
+});
+
+// Result
+const resultPlot = document.querySelector('#view-plot');
 
 const patientInput = document.querySelector('#patient-input');
 const lengthOneInput = document.querySelector('#length-1-input');
@@ -34,24 +42,30 @@ const connectButton = document.querySelector('#connect-btn');
 
 // Handle tabs
 const tabs = [
-    { tab: viewTab, div: view },
-    { tab: databaseTab, div: database },
-    { tab: connectionTab, div: connection }
+    { tab: newTab, div: newView },
+    { tab: resultTab, div: resultView },
+    { tab: databaseTab, div: databaseView },
+    { tab: connectionTab, div: connectionView }
 ];
-let selectTab = ({ tab, div }, others) => {
+let selectTab = (index) => {
     // Select tab & show div
-    tab.setAttribute('class', 'is-active');
-    div.removeAttribute('class');
+    let selected = tabs[index];
+    selected.tab.setAttribute('class', 'is-active');
+    selected.div.removeAttribute('class');
     // Unselect and hide others
-    for (let { tab, div } of others) {
-        tab.removeAttribute('class');
-        div.setAttribute('class', 'hidden');
+    for (let unselected of tabs) {
+        if (unselected == selected) {
+            continue;
+        }
+        unselected.tab.removeAttribute('class');
+        unselected.div.setAttribute('class', 'hidden');
     }
 };
 
-viewTab.addEventListener('click', () => selectTab(tabs[0], [tabs[1], tabs[2]]));
-databaseTab.addEventListener('click', () => selectTab(tabs[1], [tabs[0], tabs[2]]));
-connectionTab.addEventListener('click', () => selectTab(tabs[2], [tabs[0], tabs[1]]));
+newTab.addEventListener('click', () => selectTab(0));
+resultTab.addEventListener('click', () => selectTab(1));
+databaseTab.addEventListener('click', () => selectTab(2));
+connectionTab.addEventListener('click', () => selectTab(3));
 
 // Plot stuff
 var lines = undefined;
@@ -67,7 +81,7 @@ var plotLayout = {
     }
 };
 
-var addToViewPlot = (index) => {
+var addToresultPlot = (index) => {
     selectTab(tabs[0], [tabs[1], tabs[2]]);
     clearPlot();
     if (list.length > 0 && index <= list.length) {
@@ -91,7 +105,7 @@ var clearPlot = () => {
     lines = [];
 };
 var renderPlot = () => {
-    Plotly.newPlot(viewPlot, lines, plotLayout, { responsive: true, displayModeBar: false });
+    Plotly.newPlot(resultPlot, lines, plotLayout, { responsive: true, displayModeBar: false });
 };
 
 clearPlot();
@@ -105,7 +119,7 @@ let hideModal = () => {
     warningModal.setAttribute('class', 'modal');
 };
 
-newButton.addEventListener('click', showModal);
+//newButton.addEventListener('click', showModal);
 modalCancelButton.addEventListener('click', hideModal);
 modalBackground.addEventListener('click', hideModal);
 
@@ -128,7 +142,7 @@ var renderTable = () => {
         patient.innerHTML = item.patient;
         result.innerHTML = '0 m/s';
         button.innerHTML = `<a class="button is-primary">View</a>`;
-        button.setAttribute('onclick', `addToViewPlot(${index})`);
+        button.setAttribute('onclick', `addToresultPlot(${index})`);
 
         let row = document.createElement('tr');
         row.appendChild(id);
