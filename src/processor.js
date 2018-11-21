@@ -15,22 +15,11 @@ class Processor {
         return new Processor();
     }
     init() {
-        this.db.init()
-            //.testInsert();
-        this.controller
-            .init()
-            .then(() => {
-                if (this.controller.port) {
-                    this.controller.port.on('open', () => {
-                        this.controller.listenOn('data', this.handleData);
-                        this.controller.listenOn('close', this.handleClose);
-                    });
-                }
-            });
+        this.db.init()//.testInsert();
         return this;
     }
-    checkPort() {
-        this.controller.reInit();
+    async checkPort() {
+        await this.controller.reInit(this);
         return this;
     }
     shutdown() {
@@ -51,7 +40,9 @@ class Processor {
         }, 1000); */
     }
     handleClose() {
-        this.portCloseCallaback();
+        if (this.portCloseCallaback) {
+            this.portCloseCallaback();
+        }
     }
     canSave() {
         return this.cache.objects.length == 2;
@@ -65,6 +56,11 @@ class Processor {
         this.cache.clear();
         this.renderCallback(this.cache.objects);
         return this;
+    }
+    setWindowCallbacks(window) {
+        this.renderCallback = (cache) => window.webContents.send('cache-view', cache);
+        this.portCloseCallaback = () => window.webContents.send('port-closed');
+        this.sendPortInfoCallback = (controller) => window.send('port-info-request', controller.getInfo());
     }
 }
 

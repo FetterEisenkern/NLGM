@@ -14,7 +14,7 @@ const connectionView = document.querySelector('#connection');
 
 // New
 new bulmaSteps(document.querySelector('#new-steps'), {
-    onShow: (id) => console.log(id)
+    onShow: (id) => console.log(`step: ${id}`)
 });
 
 // Result
@@ -81,8 +81,8 @@ var plotLayout = {
     }
 };
 
-var addToresultPlot = (index) => {
-    selectTab(0);
+var addToResultPlot = (index) => {
+    selectTab(1);
     clearPlot();
     if (list.length > 0 && index <= list.length) {
         let data = list[index].data;
@@ -141,8 +141,8 @@ var renderTable = () => {
         date.innerHTML = item.date;
         patient.innerHTML = item.patient;
         result.innerHTML = '0 m/s';
-        button.innerHTML = `<a class="button is-primary">View</a>`;
-        button.setAttribute('onclick', `addToresultPlot(${index})`);
+        button.innerHTML = `<a class='button is-primary'>View</a>`;
+        button.setAttribute('onclick', `addToResultPlot(${index})`);
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -161,17 +161,18 @@ let renderConnected = (info) => {
     portId.innerHTML = info.id;
     portManufacturer.innerHTML = info.mf;
     connectButton.setAttribute('class', 'button is-success');
-    connectButton.setAttribute('disabled');
+    connectButton.setAttribute('disabled', '');
     connectButton.innerHTML = 'Connected';
 };
 let renderNotConnected = () => {
     portName.innerHTML = portId.innerHTML = portManufacturer.innerHTML = 'Not connected';
     connectButton.setAttribute('class', 'button is-danger');
+    connectButton.removeAttribute('disabled');
     connectButton.innerHTML = 'Connect';
 };
-let renderPortInfo = (port) => {
-    if (port.isConnected) {
-        renderConnected(port.info);
+let renderPortInfo = (info) => {
+    if (info) {
+        renderConnected(info);
     } else {
         renderNotConnected();
     }
@@ -191,11 +192,15 @@ ipcRenderer.on('data-row-request', (_, data) => {
 });
 
 ipcRenderer.on('port-info-request', (_, port) => {
-    setTimeout(() => renderPortInfo(port), 1000);
+    setTimeout(() => renderPortInfo(port.info), 1000);
 });
 
 // Handle connection
-connectButton.addEventListener('click', () => {
+connectButton.addEventListener('click', (ev) => {
+    if (connectButton.hasAttribute('disabled')) {
+        return;
+    }
+
     connectButton.classList.add('is-loading');
     ipcRenderer.send('port-info');
 });
@@ -203,3 +208,13 @@ connectButton.addEventListener('click', () => {
 ipcRenderer.on('port-closed', () => {
     renderNotConnected();
 });
+
+// Test
+
+const testButton = document.querySelector('#test-btn');
+testButton.addEventListener('click', (ev) => {
+    console.log('test')
+    ipcRenderer.send('send-command');
+});
+
+ipcRenderer.send('port-info');

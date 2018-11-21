@@ -6,12 +6,14 @@ var window = undefined;
 
 const processor = Processor.default().init();
 
-const createWindow = () => {
+const createWindow = async () => {
     window = new BrowserWindow({
         width: 1080,
         height: 720,
         icon: path.join(__dirname, '/assets/icons/png/64x64.png')
     });
+
+    processor.setWindowCallbacks(window);
 
     //window.setMenu(null);
     window.loadFile(path.join(__dirname, '/app/index.html'));
@@ -39,16 +41,15 @@ const createWindow = () => {
         });
     });
     // Connection
-    ipcMain.on('port-info', (ev) => {
-        processor.checkPort();
-        ev.sender.send('port-info-request', processor.controller.getInfo());
+    ipcMain.on('port-info', async (ev) => {
+        await processor.checkPort();
+    });
+    ipcMain.on('send-command', (ev) => {
+        processor.controller.send('s');
     });
 };
 
-processor.renderCallback = (cache) => window.webContents.send('cache-view', cache);
-processor.portCloseCallaback = () => window.webContents.send('port-closed');
-
-app.on('ready', () => {
+app.on('ready', async () => {
     createWindow();
 });
 app.on('window-all-closed', () => {

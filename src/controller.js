@@ -10,14 +10,16 @@ class Controller {
         this.port = undefined;
         this.parser = undefined;
         this.io = undefined;
+        this.portOpened = false;
     }
-    init() {
-        return SerialPort.list((err, ports) => {
+    async init(processor) {
+        this.io = undefined;
+        await SerialPort.list((err, ports) => {
             if (err) {
                 console.error(err);
             } else {
                 for (let port of ports) {
-                    if (port.manufacturer && port.manufacturer.startsWith("Arduino")) {
+                    if (port.manufacturer && port.manufacturer.startsWith('Arduino')) {
                         this.io = {
                             name: port.comName,
                             id: port.pnpId,
@@ -27,50 +29,57 @@ class Controller {
                     }
                 }
             }
-        }).then(() => {
-            if (this.io != undefined) {
-                console.log(`${this.baudRate}, ${this.io.name}`)
-                this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => {
-                    if (!err) {
-                        console.log(`Opened port to: ${this.io.name}`);
-                    } else {
-                        console.error(`Failed to open port to: ${this.io.name}`);
-                    }
-                });
+        });
 
-                this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
-            } else {
-                console.error("Failed to find port!");
-            }
-        })
+        if (this.io != undefined) {
+            this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => {
+                if (err) {
+                    console.error(`SerialPort: ${err.message}`);
+                }
+            });
+
+            this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
+            this.parser.on('data', processor.handleData.bind(processor));
+
+            this.port.on('open', () => {
+                this.portOpened = true;
+                processor.sendPortInfoCallback(this);
+            });
+
+            this.port.on('close', processor.handleClose.bind(processor));
+        } else {
+            console.error('Failed to find port!');
+            processor.sendPortInfoCallback(this);
+        }
     }
     shutdown() {
         if (this.isConnected()) {
-            this.parser.destroy();
-            this.port.close();
+            this.portOpened = false;
         }
         this.io = undefined;
         return this;
     }
-    reInit() {
+    async reInit(processor) {
         this.shutdown();
-        this.init();
+        await this.init(processor);
         return this;
     }
     isConnected() {
-        return this.port && this.port.isOpen;
-    }
-    listenOn(event, callback) {
-        if (this.parser != undefined) {
-            this.parser.on(event, callback);
-        }
-        return this;
+        return this.portOpened;
     }
     getInfo() {
         return {
-            info: this.io,
-            isConnected: this.isConnected()
+            info: this.io
         };
+    }
+    send(command) {
+        if (this.portOpened) {
+            this.port.write(command, (err) => {
+                if (err) {
+                    console.error(`Failed to send command: ${err.message}`);
+                }
+            });
+        }
     }
 }
 
