@@ -24,28 +24,15 @@ const createWindow = async () => {
         win = null;
     });
 
-    // View
-    ipcMain.on('can-save', (ev) => {
-        ev.sender.send('can-save-request', processor.canSave());
-    });
-    ipcMain.on('save-data', () => {
-        processor.saveData();
-    });
-    ipcMain.on('clear-data', () => {
-        processor.clearData();
-    });
     // Database
-    ipcMain.on('request-data', (ev) => {
+    ipcMain.on('get-db-rows', (ev) => {
         processor.db.selectAll((_, row) => {
-            ev.sender.send('data-row-request', row);
+            ev.sender.send('db-row', row);
         });
     });
     // Connection
-    ipcMain.on('port-info', async (ev) => {
+    ipcMain.on('get-port-info', async (ev) => {
         await processor.checkPort();
-    });
-    ipcMain.on('send-command', (ev) => {
-        processor.controller.send('s');
     });
 };
 

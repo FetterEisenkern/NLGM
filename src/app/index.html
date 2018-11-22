@@ -61,14 +61,15 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" id="patient-name" type="text" value="Hans"
-                                                placeholder="Name of patient" autofocus data-validate="require">
+                                            <input class="input" id="new-patient-name" type="text" value="Hans" placeholder="Name of patient"
+                                                autofocus data-validate="require">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="step-content has-text-centered">
+                            <div id="new-m1-plot"></div>
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
                                     <label class="label">Length</label>
@@ -76,14 +77,18 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" id="length-one-input" type="text" value="100"
+                                            <input class="input" id="new-m1-length" type="text" value="100"
                                                 placeholder="First length" autofocus data-validate="require">
                                         </div>
                                     </div>
+                                    <a id="start-m1-btn" class="button is-success">
+                                        <span>Start</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="step-content has-text-centered">
+                            <div id="new-m2-plot"></div>
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
                                     <label class="label">Length</label>
@@ -91,14 +96,36 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" id="length-two-input" type="text" value="110"
+                                            <input class="input" id="new-m2-length" type="text" value="110"
                                                 placeholder="Second length" autofocus data-validate="require">
                                         </div>
                                     </div>
+                                    <a id="start-m2-btn" class="button is-success">
+                                        <span>Start</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="step-content has-text-centered">
+                            <div class="columns">
+                                <div class="column is-4"></div>
+                                <div class="column is-4">
+                                    <h3 class="subtitle is-3">Result</h3>
+                                    <table class="table is-hoverable">
+                                        <tbody>
+                                            <tr>
+                                                <th>Name</th>
+                                                <td id="new-result-name">Hans</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Measurements</th>
+                                                <td id="new-result-m">0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a id="new-get-result-btn" class="button is-danger" disabled>View Result</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="steps-actions">
@@ -110,86 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Data -->
-                <!-- <div class="field">
-                    <label class="label">Patient</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="Hans">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Length 1</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input id="length-1-input" class="input is-success" type="text" placeholder="in cm" value="">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-ruler-horizontal"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Length 2</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input id="length-2-input" class="input is-success" type="text" placeholder="in cm" value="">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-ruler-horizontal"></i>
-                        </span>
-                    </div>
-                </div>
-                <a id="save-btn" class="button is-success" disabled>
-                    <span>Save</span>
-                </a>
-                <a id="new-btn" class="button is-primary">
-                    <span>New</span>
-                </a>
-                <!-- Warning Modal -->
-                <!--<div id="warning-modal" class="modal">
-                    <div id="modal-bg" class="modal-background"></div>
-                    <div class="modal-card">
-                        <section class="modal-card-body">
-                            <p>Create new?</p>
-                        </section>
-                        <footer class="modal-card-foot">
-                            <button id="modal-new-btn" class="button">Create New</button>
-                            <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
-                        </footer>
-                    </div>
-                </div> -->
             </div>
-            <!-- <div class="column is-8">
-                <!-- Latest Data -->
-            <!--<div class="columns">
-                    <div class="column is-1"></div>
-                    <div id="data-queue-1" class="column is-one-quarter">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="content">trace 0</div>
-                            </div>
-                            <footer class="card-footer">
-                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
-                            </footer>
-                        </div>
-                    </div>
-                    <div id="data-queue-1" class="column is-one-quarter">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="content">trace 0</div>
-                            </div>
-                            <footer class="card-footer">
-                                <a href="#" class="card-footer-item is-link is-inverted">Select</a>
-                            </footer>
-                        </div>
-                    </div>
-                    <div id="data-queue-2" class="column is-one-quarter">
-                    </div>
-                    <div id="data-queue-3" class="column is-one-quarter">
-                    </div>
-                    <div id="data-queue-4" class="column is-one-quarter">
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- Result Tab -->
@@ -199,7 +147,7 @@
             <div class="column is-1"></div>
             <div class="column is-8">
                 <!-- Plot -->
-                <div id="view-plot"></div>
+                <div id="result-plot"></div>
             </div>
             <!-- Right Side -->
             <div class="column is-2">
@@ -207,7 +155,7 @@
                     <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Result</p>
-                            <p class="title">0 m/s</p>
+                            <p id="result-result" class="title">0 m/s</p>
                         </div>
                     </div>
                 </nav>
@@ -241,7 +189,7 @@
                 <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="patient-input" class="input is-success" type="text" placeholder="Name" value="A">
+                        <input id="database-patient-input" class="input is-success" type="text" placeholder="Name" value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -250,23 +198,10 @@
                 <div class="field">
                     <label class="label">Result</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="length-1-input" class="input is-success" type="text" placeholder="in m/s" value="">
+                        <input id="database-result-input" class="input is-success" type="text" placeholder="in m/s" value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
-                    </div>
-                </div>
-                <!-- Warning Modal -->
-                <div id="warning-modal" class="modal">
-                    <div id="modal-bg" class="modal-background"></div>
-                    <div class="modal-card">
-                        <section class="modal-card-body">
-                            <p>Create new?</p>
-                        </section>
-                        <footer class="modal-card-foot">
-                            <button id="modal-new-btn" class="button">Create New</button>
-                            <button id="modal-cancel-btn" class="button is-danger">Cancel</button>
-                        </footer>
                     </div>
                 </div>
             </div>
@@ -283,27 +218,31 @@
                     <tbody>
                         <tr>
                             <th>Name</th>
-                            <td id="port-name"></td>
+                            <td id="connection-port-name"></td>
                         </tr>
                         <tr>
                             <th>Id</th>
-                            <td id="port-id"></td>
+                            <td id="connection-port-id"></td>
                         </tr>
                         <tr>
                             <th>Manufacturer</th>
-                            <td id="port-manufacturer"></td>
+                            <td id="connection-port-manufacturer"></td>
                         </tr>
                     </tbody>
                 </table>
-                <a id="connect-btn" class="button is-danger">Connect</a>
-                <a id="test-btn" class="button">
-                    <span>test</span>
-                </a>
+                <a id="connection-connect-btn" class="button is-danger">Connect</a>
             </div>
         </div>
     </div>
     <script src="lib/js/plotly-latest.min.js"></script>
-    <script src="js/nlgm.js"></script>
+    <script src="js/elements.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/tabs/connectionTab.js"></script>
+    <script src="js/tabs/databaseTab.js"></script>
+    <script src="js/tabs/newTab.js"></script>
+    <script src="js/tabs/resultTab.js"></script>
+    <script src="js/listeners.js"></script>
+    <script src="js/renderer.js"></script>
 </body>
 
 </html>

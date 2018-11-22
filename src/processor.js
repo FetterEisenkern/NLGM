@@ -60,7 +60,7 @@ class Processor {
     setWindowCallbacks(window) {
         this.renderCallback = (cache) => window.webContents.send('cache-view', cache);
         this.portCloseCallaback = () => window.webContents.send('port-closed');
-        this.sendPortInfoCallback = (controller) => window.send('port-info-request', controller.getInfo());
+        this.sendPortInfoCallback = (controller) => window.send('port-info', controller.getInfo());
     }
 }
 
