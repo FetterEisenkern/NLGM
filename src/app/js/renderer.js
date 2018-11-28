@@ -1,9 +1,13 @@
 const { ipcRenderer } = require('electron');
 
+// New
+ipcRenderer.on('measurement', (_, data) => {
+    renderMeasurement(data);
+});
 // Database
 ipcRenderer.on('db-row', (_, data) => {
     data.data = JSON.parse(data.data);
-    list.push(data);
+    databaseList.push(data);
     renderTable();
 });
 

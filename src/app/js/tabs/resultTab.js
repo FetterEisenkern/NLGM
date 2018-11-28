@@ -12,15 +12,9 @@ var resultPlotLayout = {
     }
 };
 
-var addToResultPlot = (index) => {
-    selectTab(1);
-    clearResultPlot();
-    if (list.length > 0 && index <= list.length) {
-        let data = list[index].data;
-        addLinesToResultPlot(data.m1, 100, 'm1');
-        addLinesToResultPlot(data.m2, 100, 'm2');
-    }
-    renderResultPlot();
+var addDataToResultPlot = (data) => {
+    addLinesToResultPlot(data.m1, 100, 'm1');
+    addLinesToResultPlot(data.m2, 100, 'm2');
 };
 
 var addLinesToResultPlot = (data, length, legend) => {

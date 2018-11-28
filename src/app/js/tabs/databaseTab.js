@@ -29,3 +29,15 @@ var renderTable = () => {
         databaseTable.appendChild(row);
     }
 };
+
+var addToResultPlot = (index) => {
+    selectTab(1);
+    clearResultPlot();
+    if (databaseList.length > 0 && index <= databaseList.length) {
+        let data = databaseList[index].data;
+        addDataToResultPlot(data);
+    }
+    renderResultPlot();
+};
+
+renderTable();

@@ -24,6 +24,17 @@ const createWindow = async () => {
         win = null;
     });
 
+    // New
+    ipcMain.on('start-measurement', (ev) => {
+        var measurement = {
+            m1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 345, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0],
+            m2: [0, 0, 0, 0, 0, 0, 10, 333, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0]
+        };
+        ev.sender.send('measurement', measurement);
+    });
+    ipcMain.on('save-data', (_, data) => {
+        processor.db.insert(data.patient, data.data);
+    });
     // Database
     ipcMain.on('get-db-rows', (ev) => {
         processor.db.selectAll((_, row) => {
@@ -31,7 +42,7 @@ const createWindow = async () => {
         });
     });
     // Connection
-    ipcMain.on('get-port-info', async (ev) => {
+    ipcMain.on('get-port-info', async (_) => {
         await processor.checkPort();
     });
 };
