@@ -13,17 +13,8 @@
 </head>
 
 <body>
-    <!-- Tabs -->
-    <div class="tabs is-centered">
-        <ul>
-            <li id="new-tab" class="is-active"><a>New</a></li>
-            <li id="result-tab"><a>Result</a></li>
-            <li id="database-tab"><a>Database</a></li>
-            <li id="connection-tab"><a>Connection</a></li>
-        </ul>
-    </div>
     <!-- New Tab -->
-    <div id="new">
+    <div id="new" class="tab">
         <div class="columns">
             <div class="column is-1"></div>
             <div class="column is-10">
@@ -76,7 +67,7 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
-                                        <div class="control">
+                                        <div class="control" style="width:25%">
                                             <input class="input" id="new-m1-length" type="text" value="100"
                                                 placeholder="First length" autofocus data-validate="require">
                                         </div>
@@ -141,7 +132,7 @@
         </div>
     </div>
     <!-- Result Tab -->
-    <div id="result" class="hidden">
+    <div id="result" class="hidden tab">
         <div class="columns">
             <!-- Left Side -->
             <div class="column is-1"></div>
@@ -163,7 +154,7 @@
         </div>
     </div>
     <!-- Database Tab -->
-    <div id="database" class="hidden">
+    <div id="database" class="hidden tab">
         <!-- Database Table -->
         <div class="columns">
             <div class="column is-1"></div>
@@ -183,7 +174,7 @@
                 </table>
             </div>
             <!-- Right Side -->
-            <div class="column is-2">
+            <div class="column is-2 stuck">
                 <!-- Search -->
                 <h3 class="subtitle is-3">Search</h3>
                 <div class="field">
@@ -208,7 +199,7 @@
         </div>
     </div>
     <!-- Connection Tab -->
-    <div id="connection" class="hidden">
+    <div id="connection" class="hidden tab">
         <div class="columns">
             <!-- Port Control & Status -->
             <div class="column is-4"></div>
@@ -234,6 +225,16 @@
             </div>
         </div>
     </div>
+    <!-- Tabs -->
+    <div class="tabs is-centered bottom-tab" style="margin:0px">
+        <ul>
+            <li id="new-tab" class="is-active"><a>New</a></li>
+            <li id="result-tab"><a>Result</a></li>
+            <li id="database-tab"><a>Database</a></li>
+            <li id="connection-tab"><a>Connection</a></li>
+        </ul>
+    </div>
+    <!-- Scripts -->
     <script src="lib/js/plotly-latest.min.js"></script>
     <script src="js/elements.js"></script>
     <script src="js/tabs.js"></script>

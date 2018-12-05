@@ -1,10 +1,21 @@
+class Point {
+    constructor(volt, ms)
+    {
+        this.volt = volt;
+        this.ms = ms;
+    }
+};
+
 class Cache {
     constructor() {
         this.objects = [];
         this.curObject = Cache.createNew();
     }
     add(data) {
-        this.curObject.values[this.curObject.index].push(data);
+        // 2.000 [mV], 1 [ms]
+        var m = data.split(',');
+        var point = new Point(parseFloat(m[0]), parseFloat(m[1]));
+        this.curObject.values[this.curObject.index].push(point);
         return this;
     }
     process() {

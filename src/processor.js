@@ -10,6 +10,7 @@ class Processor {
         this.timeout = undefined;
         this.renderCallback = undefined;
         this.portCloseCallaback = undefined;
+        this.isSaving = false;
     }
     static default() {
         return new Processor();
@@ -30,11 +31,20 @@ class Processor {
     handleData(data) {
         console.log(data);
 
-        /* this.cache.add(data);
-        this.cache.process();
+        if (data == 'a') {
+            isSaving = true;
+        } else if (data == 'f') {
+            isSaving = false;
+        } else if (isSaving) {
+            this.cache.add(data);
+            this.cache.process();
+        } else {
+            console.error('Unhandled data!');
+        }
 
-        clearTimeout(timeout);
+        /* clearTimeout(timeout);
         timeout = setTimeout(() => {
+            this.isSaving = false;
             this.cache.done();
             this.renderCallback(this.cache.objects);
         }, 1000); */
@@ -58,7 +68,7 @@ class Processor {
         return this;
     }
     setWindowCallbacks(window) {
-        this.renderCallback = (cache) => window.webContents.send('cache-view', cache);
+        this.renderCallback = (cache) => window.webContents.send('measurement', cache);
         this.portCloseCallaback = () => window.webContents.send('port-closed');
         this.sendPortInfoCallback = (controller) => window.send('port-info', controller.getInfo());
     }
