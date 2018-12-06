@@ -1,9 +1,9 @@
 # NLGM
 
-## Requirements
+## Req.
 - [Node.Js 8.12.0](https://nodejs.org/en/download)
 
-## Ref
+## Ref.
 - [Electron](https://electronjs.org/docs)
 - [serialport](https://www.npmjs.com/package/serialport)
 - [sqlite3](https://www.npmjs.com/package/sqlite3)

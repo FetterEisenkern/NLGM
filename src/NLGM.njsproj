@@ -25,7 +25,7 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="algorithms.js" />
-    <Content Include="cache.js" />
+    <Content Include="measurement.js" />
     <Content Include="controller.js" />
     <Content Include="database.js" />
     <Content Include="main.js" />

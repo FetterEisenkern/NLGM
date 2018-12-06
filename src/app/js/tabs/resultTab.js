@@ -5,7 +5,7 @@ var resultPlotLayout = {
         title: 'Time [ms]',
     },
     yaxis: {
-        title: 'Volt [V]',
+        title: 'Volt [mV]',
     },
     margin: {
         t: 0
@@ -18,9 +18,17 @@ var addDataToResultPlot = (data) => {
 };
 
 var addLinesToResultPlot = (data, length, legend) => {
+    // Mapping
+    let voltage = [];
+    let time = [];
+    for (let point of data) {
+        voltage.push(point.volt);
+        time.push(point.ms);
+    }
+
     resultLines.push({
-        y: data,
-        x: Array.from({ length: length }, (_, i) => i),
+        y: voltage,
+        x: time,
         line: {
             shape: 'spline'
         },

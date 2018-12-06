@@ -15,7 +15,7 @@
 <body>
     <!-- New Tab -->
     <div id="new" class="tab">
-        <div class="columns">
+        <div class="columns" style="padding-top: 5%">
             <div class="column is-1"></div>
             <div class="column is-10">
                 <div class="steps" id="new-steps">
@@ -44,16 +44,22 @@
                         </div>
                     </div>
                     <div class="steps-content">
-                        <div class="step-content has-text-centered is-active">
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Name</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <input class="input" id="new-patient-name" type="text" value="Hans" placeholder="Name of patient"
-                                                autofocus data-validate="require">
+                        <div class="columns">
+                            <div class="column is-4"></div>
+                            <div class="column is-4">
+                                <div class="step-content has-text-centered is-active">
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Name</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input class="input input-name" id="new-patient-name" type="text"
+                                                        value="Hans" placeholder="Name of patient" autofocus
+                                                        data-validate="require">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +73,8 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
-                                        <div class="control" style="width:25%">
-                                            <input class="input" id="new-m1-length" type="text" value="100"
+                                        <div class="control">
+                                            <input class="input input-length" id="new-m1-length" type="text" value="20cm"
                                                 placeholder="First length" autofocus data-validate="require">
                                         </div>
                                     </div>
@@ -87,7 +93,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" id="new-m2-length" type="text" value="110"
+                                            <input class="input input-length" id="new-m2-length" type="text" value="18cm"
                                                 placeholder="Second length" autofocus data-validate="require">
                                         </div>
                                     </div>
@@ -133,7 +139,7 @@
     </div>
     <!-- Result Tab -->
     <div id="result" class="hidden tab">
-        <div class="columns">
+        <div class="columns center-columns">
             <!-- Left Side -->
             <div class="column is-1"></div>
             <div class="column is-8">
@@ -144,9 +150,25 @@
             <div class="column is-2">
                 <nav class="level">
                     <div class="level-item has-text-centered">
-                        <div>
+                        <div title="v = ΔL / Δtmax">
                             <p class="heading">Result</p>
                             <p id="result-result" class="title">0 m/s</p>
+                        </div>
+                    </div>
+                </nav>
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Patient</p>
+                            <p id="result-name" class="subtitle is-6">Hans</p>
+                        </div>
+                    </div>
+                </nav>
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Date</p>
+                            <p id="result-date" class="subtitle is-6">2018-01-01 12:00</p>
                         </div>
                     </div>
                 </nav>
@@ -180,7 +202,8 @@
                 <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-patient-input" class="input is-success" type="text" placeholder="Name" value="">
+                        <input id="database-patient-input" class="input is-success" type="text" placeholder="Name"
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -189,7 +212,8 @@
                 <div class="field">
                     <label class="label">Result</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-result-input" class="input is-success" type="text" placeholder="in m/s" value="">
+                        <input id="database-result-input" class="input is-success" type="text" placeholder="in m/s"
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
@@ -200,7 +224,7 @@
     </div>
     <!-- Connection Tab -->
     <div id="connection" class="hidden tab">
-        <div class="columns">
+        <div class="columns center-columns">
             <!-- Port Control & Status -->
             <div class="column is-4"></div>
             <div class="column is-4">

@@ -1,6 +1,7 @@
 var databaseList = [];
+var refreshList = false;
 
-var renderTable = () => {
+var renderList = () => {
     databaseTable.innerHTML = '';
 
     for (let index = 0; index < databaseList.length; ++index) {
@@ -40,4 +41,4 @@ var addToResultPlot = (index) => {
     renderResultPlot();
 };
 
-renderTable();
+renderList();

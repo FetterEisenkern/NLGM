@@ -29,3 +29,16 @@ body {
     position: fixed;
     left: 75%;
 }
+
+.input-name {
+    width: 75%;
+}
+
+.input-length {
+    width: 75px;
+    text-align: right;
+}
+
+.center-columns {
+    padding-top: 10%
+}

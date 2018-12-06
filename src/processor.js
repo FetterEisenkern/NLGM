@@ -1,76 +1,77 @@
 const Database = require('./database');
 const Controller = require('./controller');
-const Cache = require('./cache');
+const Measurement = require('./measurement');
 
 class Processor {
     constructor() {
         this.db = new Database('nlgm.db');
         this.controller = new Controller(115200);
-        this.cache = new Cache();
+        this.measurement = new Measurement();
         this.timeout = undefined;
-        this.renderCallback = undefined;
-        this.portCloseCallaback = undefined;
-        this.isSaving = false;
+        this.sendMeasurementSuccess = undefined;
+        this.sendMeasurementError = undefined;
+        this.sendDatabaseRow = undefined;
+        this.sendPortClose = undefined;
+        this.sendPortInfo = undefined;
     }
     static default() {
         return new Processor();
     }
     init() {
-        this.db.init()//.testInsert();
-        return this;
+        this.db.init();
+        //this.db.testInsert();
     }
     async checkPort() {
         await this.controller.reInit(this);
-        return this;
     }
     shutdown() {
         this.db.shutdown();
         this.controller.shutdown();
-        return this;
     }
     handleData(data) {
         console.log(data);
 
         if (data == 'a') {
-            isSaving = true;
+            this.measurement.start();
         } else if (data == 'f') {
-            isSaving = false;
-        } else if (isSaving) {
-            this.cache.add(data);
-            this.cache.process();
+            this.measurement.finish();
+            this.sendMeasurementSuccess(this.measurement);
+        } else if (this.measurement.isRunning) {
+            this.measurement.process(data);
         } else {
             console.error('Unhandled data!');
+            this.measurement.finish();
         }
 
-        /* clearTimeout(timeout);
+        clearTimeout(timeout);
         timeout = setTimeout(() => {
-            this.isSaving = false;
-            this.cache.done();
-            this.renderCallback(this.cache.objects);
-        }, 1000); */
+            if (this.measurement.isRunning) {
+                this.measurement.finish();
+                this.sendMeasurementError();
+            }
+        }, 1000);
     }
     handleClose() {
-        if (this.portCloseCallaback) {
-            this.portCloseCallaback();
+        if (this.sendPortClose) {
+            this.sendPortClose();
         }
     }
-    canSave() {
-        return this.cache.objects.length == 2;
+    startMeasurement() {
+        this.controller.send('s');
+        this.sendMeasurementSuccess(this.measurement);
     }
-    saveData(patient, l1, l2) {
-        this.db.insert(patient, { l1, l2, m1: this.cache.get(0), m2: this.cache.get(1) });
-        this.clearCache();
-        return this;
+    saveData(data) {
+        this.db.insert(data);
     }
-    clearCache() {
-        this.cache.clear();
-        this.renderCallback(this.cache.objects);
-        return this;
+    getRows() {
+        this.db.selectAll((_, row) => this.sendDatabaseRow(row));
     }
     setWindowCallbacks(window) {
-        this.renderCallback = (cache) => window.webContents.send('measurement', cache);
-        this.portCloseCallaback = () => window.webContents.send('port-closed');
-        this.sendPortInfoCallback = (controller) => window.send('port-info', controller.getInfo());
+        this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getTestData());
+        this.sendMeasurementError = () => window.webContents.send('measurement-error');
+        this.sendDatabaseRow = (row) => window.webContents.send('db-row', row);
+        this.sendPortClose = () => window.webContents.send('port-close');
+        this.sendPortInfo = (controller) => window.send('port-info', controller.getInfo());
     }
 }
 

@@ -4,7 +4,7 @@ const path = require('path');
 
 var window = undefined;
 
-const processor = Processor.default().init();
+const processor = Processor.default();
 
 const createWindow = async () => {
     window = new BrowserWindow({
@@ -20,31 +20,15 @@ const createWindow = async () => {
 
     //window.webContents.openDevTools({ mode: 'bottom' });
 
-    window.on('closed', () => {
-        win = null;
-    });
+    window.on('closed', () => win = null);
 
     // New
-    ipcMain.on('start-measurement', (ev) => {
-        var measurement = {
-            m1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 345, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0],
-            m2: [0, 0, 0, 0, 0, 0, 10, 333, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0]
-        };
-        ev.sender.send('measurement', measurement);
-    });
-    ipcMain.on('save-data', (_, data) => {
-        processor.db.insert(data.patient, data.data);
-    });
+    ipcMain.on('start-measurement', () => processor.startMeasurement());
+    ipcMain.on('save-data', (_, data) => processor.saveData(data));
     // Database
-    ipcMain.on('get-db-rows', (ev) => {
-        processor.db.selectAll((_, row) => {
-            ev.sender.send('db-row', row);
-        });
-    });
+    ipcMain.on('get-db-rows', () => processor.getRows());
     // Connection
-    ipcMain.on('get-port-info', async (_) => {
-        await processor.checkPort();
-    });
+    ipcMain.on('get-port-info', async () => await processor.checkPort());
 };
 
 app.on('ready', async () => {
@@ -63,3 +47,5 @@ app.on('activate', () => {
 app.on('quit', () => {
     processor.shutdown();
 });
+
+processor.init();

@@ -1,21 +1,25 @@
 const { ipcRenderer } = require('electron');
 
 // New
-ipcRenderer.on('measurement', (_, data) => {
+ipcRenderer.on('measurement-success', (_, data) => {
     renderMeasurement(data);
 });
+ipcRenderer.on('measurement-error', () => {
+    // TODO
+});
+
 // Database
-ipcRenderer.on('db-row', (_, data) => {
-    data.data = JSON.parse(data.data);
-    databaseList.push(data);
-    renderTable();
+ipcRenderer.on('db-row', (_, row) => {
+    row.data = JSON.parse(row.data);
+    databaseList.push(row);
+    renderList();
 });
 
 // Connection
 ipcRenderer.on('port-info', (_, port) => {
     setTimeout(() => renderPortInfo(port.info), 1000);
 });
-ipcRenderer.on('port-closed', () => {
+ipcRenderer.on('port-close', () => {
     renderNotConnected();
 });
 

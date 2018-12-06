@@ -1,7 +1,13 @@
 // Tabs
 newTab.addEventListener('click', () => selectTab(0));
 resultTab.addEventListener('click', () => selectTab(1));
-databaseTab.addEventListener('click', () => selectTab(2));
+databaseTab.addEventListener('click', () => {
+    selectTab(2)
+    if (refreshList) {
+        ipcRenderer.send('get-db-rows');
+        refreshList = false;
+    }
+});
 connectionTab.addEventListener('click', () => selectTab(3));
 
 // New
@@ -17,8 +23,9 @@ newViewResultButton.addEventListener('click', () => {
         ipcRenderer.send('save-data', data);
         selectTab(1);
         clearResultPlot();
-        addDataToResultPlot(data.data);
+        addDataToResultPlot(data);
         renderResultPlot();
+        refreshList = true;
     }
 });
 

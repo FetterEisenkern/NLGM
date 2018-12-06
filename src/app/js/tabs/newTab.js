@@ -5,37 +5,43 @@ var steps = undefined;
 
 var renderSteps = () => {
     currentStep = 0;
-    steps = new bulmaSteps(newSteps, {
-        onShow: (id) => {
-            switch (currentStep = id) {
-                case 1:
-                    renderNewPlot1();
-                    break;
-                case 2:
-                    renderNewPlot2();
-                    break;
-                case 3:
-                    if (validateData()) {
-                        newViewResultButton.setAttribute('class', 'button is-success');
-                        newViewResultButton.removeAttribute('disabled');
-                        newViewResultButton.removeAttribute('title');
-                    } else {
-                        newViewResultButton.setAttribute('class', 'button is-danger');
-                        newViewResultButton.setAttribute('disabled', '');
-                        newViewResultButton.setAttribute('title', 'Data not complete!');
-                    }
-                    newResultName.innerHTML = newPatientNameInput.value;
-                    newResultMeasurements.innerHTML = (m1Data) ? (m2Data) ? 2 : 1 : 0;
-                    break;
-                default:
-                    break;
-            }
-        }
-    });
+    steps = new bulmaSteps(newSteps, { onShow: (id) => renderStep(id) });
 };
 
-var m1Data = undefined;
-var m2Data = undefined;
+var renderStep = (id) => {
+    switch (currentStep = id) {
+        case 1:
+            renderNewPlot1();
+            break;
+        case 2:
+            renderNewPlot2();
+            break;
+        case 3:
+            if (validateData()) {
+                newViewResultButton.setAttribute('class', 'button is-success');
+                newViewResultButton.removeAttribute('disabled');
+                newViewResultButton.removeAttribute('title');
+            } else {
+                newViewResultButton.setAttribute('class', 'button is-danger');
+                newViewResultButton.setAttribute('disabled', '');
+                newViewResultButton.setAttribute('title', 'Data not complete!');
+            }
+            newResultName.innerHTML = newPatientNameInput.value;
+            newResultMeasurements.innerHTML = (m1Data)
+                ? (m2Data)
+                    ? 2
+                    : 1
+                : (m2Data)
+                    ? 1
+                    : 0;
+            break;
+        default:
+            break;
+    }
+};
+
+var m1Data = [];
+var m2Data = [];
 
 var m1Lines = [];
 var m2Lines = [];
@@ -45,7 +51,7 @@ var newPlotLayout = {
         title: 'Time [ms]',
     },
     yaxis: {
-        title: 'Volt [V]',
+        title: 'Volt [mV]',
     },
     margin: {
         t: 0
@@ -53,9 +59,17 @@ var newPlotLayout = {
 };
 
 var addToNewPlot = (lines, data, length, legend) => {
+    // Mapping
+    let voltage = [];
+    let time = [];
+    for (let point of data) {
+        voltage.push(point.volt);
+        time.push(point.ms);
+    }
+
     lines.push({
-        y: data,
-        x: Array.from({ length: length }, (_, i) => i),
+        y: voltage,
+        x: time,
         line: {
             shape: 'spline'
         },
@@ -79,13 +93,40 @@ var validateData = () => {
 };
 
 var getMeasurementData = () => {
-    return {
+    let measurement = {
         patient: newPatientNameInput.value,
-        data: {
-            m1: m1Data,
-            m2: m2Data
-        }
+        l1: parseInt(newLength1Input.value),
+        l2: parseInt(newLength2Input.value),
+        m1: m1Data,
+        m2: m2Data,
+        result: undefined
     };
+    measurement.result = calculateResult(measurement);
+    return measurement;
+};
+
+var calculateResult = (data) => {
+    let findMaximum = (points) => {
+        let max = points[0];
+        for (let point of points) {
+            if (point.volt > max.volt) {
+                max = point;
+            }
+        }
+        return max;
+    }
+
+    /*
+               | l1 - l2 |
+        v = -----------------
+            | tmax1 - tmax2 |
+    */
+
+    let tmax1 = findMaximum(data.m1);
+    let tmax2 = findMaximum(data.m2);
+    let deltaLength = Math.abs(data.l1 - data.l2);
+    let deltaTime = Math.abs(tmax1.ms - tmax2.ms);
+    return deltaLength / deltaTime;
 };
 
 var renderMeasurement = (data) => {

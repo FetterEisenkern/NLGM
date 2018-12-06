@@ -43,13 +43,13 @@ class Controller {
 
             this.port.on('open', () => {
                 this.portOpened = true;
-                processor.sendPortInfoCallback(this);
+                processor.sendPortInfo(this);
             });
 
             this.port.on('close', processor.handleClose.bind(processor));
         } else {
             console.error('Failed to find port!');
-            processor.sendPortInfoCallback(this);
+            processor.sendPortInfo(this);
         }
     }
     shutdown() {
@@ -57,12 +57,10 @@ class Controller {
             this.portOpened = false;
         }
         this.io = undefined;
-        return this;
     }
     async reInit(processor) {
         this.shutdown();
         await this.init(processor);
-        return this;
     }
     isConnected() {
         return this.portOpened;
@@ -78,6 +76,7 @@ class Controller {
                 if (err) {
                     console.error(`Failed to send command: ${err.message}`);
                 }
+                console.log(`Command '${command}' sent!`);
             });
         }
     }
