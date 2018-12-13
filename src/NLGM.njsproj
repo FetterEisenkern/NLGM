@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3422cb92-ff8d-453f-9fa6-e07b63dea5d0}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>main.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -22,9 +22,20 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="assets\icons\mac\icon.icns" />
+    <Content Include="assets\icons\png\1024x1024.png" />
+    <Content Include="assets\icons\png\128x128.png" />
+    <Content Include="assets\icons\png\16x16.png" />
+    <Content Include="assets\icons\png\24x24.png" />
+    <Content Include="assets\icons\png\256x256.png" />
+    <Content Include="assets\icons\png\32x32.png" />
+    <Content Include="assets\icons\png\48x48.png" />
+    <Content Include="assets\icons\png\512x512.png" />
+    <Content Include="assets\icons\png\64x64.png" />
+    <Content Include="assets\icons\win\icon.ico" />
+    <Content Include="assets\nlgm_logo.png" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
-    <Content Include="algorithms.js" />
     <Content Include="measurement.js" />
     <Content Include="controller.js" />
     <Content Include="database.js" />
@@ -32,7 +43,6 @@
     <Content Include="processor.js" />
     <Content Include="app\index.html" />
     <Content Include="app\css\style.css" />
-    <Content Include="app\js\nlgm.js" />
     <Content Include="app\lib\css\all.css" />
     <Content Include="app\lib\css\all.min.css" />
     <Content Include="app\lib\css\brands.css" />
@@ -58,10 +68,27 @@
     <Folder Include="app" />
     <Folder Include="app\css" />
     <Folder Include="app\js" />
+    <Folder Include="app\js\tabs\" />
     <Folder Include="app\lib" />
     <Folder Include="app\lib\css" />
     <Folder Include="app\lib\js" />
     <Folder Include="app\lib\webfonts" />
+    <Folder Include="assets\" />
+    <Folder Include="assets\icons\" />
+    <Folder Include="assets\icons\mac\" />
+    <Folder Include="assets\icons\png\" />
+    <Folder Include="assets\icons\win\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="app\js\elements.js" />
+    <Compile Include="app\js\listeners.js" />
+    <Compile Include="app\js\renderer.js" />
+    <Compile Include="app\js\tabs.js" />
+    <Compile Include="app\js\tabs\connectionTab.js" />
+    <Compile Include="app\js\tabs\databaseTab.js" />
+    <Compile Include="app\js\tabs\newTab.js" />
+    <Compile Include="app\js\tabs\resultTab.js" />
+    <Compile Include="point.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->

@@ -55,7 +55,8 @@ var newPlotLayout = {
     },
     margin: {
         t: 0
-    }
+    },
+    height: 350
 };
 
 var addToNewPlot = (lines, data, length, legend) => {

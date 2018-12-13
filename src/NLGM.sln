@@ -20,6 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "serial-test", "serial-test"
 		..\arduino\serial-test\serial-test.ino = ..\arduino\serial-test\serial-test.ino
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleSignalV2", "SampleSignalV2", "{55092DCA-E615-4651-ABD3-589FDF6AD57E}"
+	ProjectSection(SolutionItems) = preProject
+		..\arduino\SampleSignalV2\SampleSignalV2.ino = ..\arduino\SampleSignalV2\SampleSignalV2.ino
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9} = {D84EAFFE-0CD1-437B-97C3-07862E1948F4}
 		{9C8006F5-AF4F-463B-B4F5-C95C20A720E2} = {5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9}
+		{55092DCA-E615-4651-ABD3-589FDF6AD57E} = {5C35CA3F-0A71-4FFC-B54C-4BE480FBFEE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DC56133-28C3-4C19-A227-6CBE06C24922}

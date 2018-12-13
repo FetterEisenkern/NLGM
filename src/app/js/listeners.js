@@ -22,10 +22,9 @@ newViewResultButton.addEventListener('click', () => {
         let data = getMeasurementData();
         ipcRenderer.send('save-data', data);
         selectTab(1);
-        clearResultPlot();
-        addDataToResultPlot(data);
-        renderResultPlot();
+        renderResult(data);
         refreshList = true;
+        resetMeasurement();
     }
 });
 

@@ -24,6 +24,8 @@ const newViewResultButton = document.querySelector('#new-get-result-btn');
 // Result
 const resultPlot = document.querySelector('#result-plot');
 const resultResult = document.querySelector('#result-result');
+const resultName = document.querySelector('#result-name');
+const resultDate = document.querySelector('#result-date');
 
 // Database
 const databaseTable = document.querySelector('#database-table');

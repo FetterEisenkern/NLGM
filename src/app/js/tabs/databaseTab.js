@@ -16,7 +16,7 @@ var renderList = () => {
         id.innerHTML = item.id;
         date.innerHTML = item.date;
         patient.innerHTML = item.patient;
-        result.innerHTML = '0 m/s';
+        result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         button.innerHTML = `<a class='button is-primary'>View</a>`;
         button.setAttribute('onclick', `addToResultPlot(${index})`);
 
@@ -33,12 +33,9 @@ var renderList = () => {
 
 var addToResultPlot = (index) => {
     selectTab(1);
-    clearResultPlot();
     if (databaseList.length > 0 && index <= databaseList.length) {
-        let data = databaseList[index].data;
-        addDataToResultPlot(data);
+        renderResult(databaseList[index]);
     }
-    renderResultPlot();
 };
 
 renderList();

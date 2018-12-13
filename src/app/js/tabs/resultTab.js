@@ -12,7 +12,10 @@ var resultPlotLayout = {
     }
 };
 
-var addDataToResultPlot = (data) => {
+var addDataResult = (data) => {
+    resultResult.textContent = ((data.result) ? data.result.toFixed(2) : '0.00') + ' m/s';
+    resultName.textContent = (data.patient) ? data.patient : '-';
+    resultDate.textContent = (data.date) ? data.date : 'Recently';
     addLinesToResultPlot(data.m1, 100, 'm1');
     addLinesToResultPlot(data.m2, 100, 'm2');
 };
@@ -36,7 +39,10 @@ var addLinesToResultPlot = (data, length, legend) => {
     });
 };
 
-var clearResultPlot = () => {
+var clearResult = () => {
+    resultResult.textContent = '0.00 m/s';
+    resultName.textContent = '-';
+    resultDate.textContent = '-';
     resultLines = [];
 };
 
@@ -44,5 +50,12 @@ var renderResultPlot = () => {
     Plotly.newPlot(resultPlot, resultLines, resultPlotLayout, { responsive: true, displayModeBar: false });
 };
 
-clearResultPlot();
-renderResultPlot();
+var renderResult = (data = undefined) => {
+    clearResult();
+    if (data) {
+        addDataResult(data);
+    }
+    renderResultPlot();
+};
+
+renderResult();
