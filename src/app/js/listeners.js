@@ -7,6 +7,7 @@ databaseTab.addEventListener('click', () => {
         ipcRenderer.send('get-db-rows');
         refreshList = false;
     }
+    databasePatientInput.focus();
 });
 connectionTab.addEventListener('click', () => selectTab(3));
 
@@ -34,4 +35,9 @@ conConnectButton.addEventListener('click', (ev) => {
         conConnectButton.classList.add('is-loading');
         ipcRenderer.send('get-port-info');
     }
+});
+
+databasePatientInput.addEventListener('input', (ev) => {
+    searchForPerson(databasePatientInput.value);
+    renderList();
 });

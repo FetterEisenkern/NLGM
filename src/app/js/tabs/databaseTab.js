@@ -1,15 +1,16 @@
 var databaseList = [];
+var filteredList = [];
 var refreshList = false;
 
 var renderList = () => {
     databaseTable.innerHTML = '';
 
-    for (let index = 0; index < databaseList.length; ++index) {
-        let item = databaseList[index];
+    for (let index = 0; index < filteredList.length; ++index) {
+        let item = filteredList[index];
 
         let id = document.createElement('td');
         let date = document.createElement('td');
-        let patient = document.createElement('td');
+        let patient = document.createElement('td'); 
         let result = document.createElement('td');
         let button = document.createElement('td');
 
@@ -38,4 +39,17 @@ var addToResultPlot = (index) => {
     }
 };
 
+var searchForPerson = (name) => { name = name.toLowerCase(); filteredList = databaseList.filter(val => val.patient.toLowerCase().match(name)); }
+//{
+//    for (let index = 0; index < databaseList.length; ++index) {
+//        if (databaseList[index].patient == name) {
+//            filteredList[index]
+//        }
+
+
+
+//    }
+//};
+filteredList = databaseList;
 renderList();
+databasePatientInput.focus();
