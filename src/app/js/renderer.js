@@ -12,7 +12,6 @@ ipcRenderer.on('measurement-error', () => {
 ipcRenderer.on('db-row', (_, row) => {
     row.data = JSON.parse(row.data);
     databaseList.push(row);
-    filteredList.push(row);
     renderList();
 });
 

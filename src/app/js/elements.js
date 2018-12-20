@@ -10,6 +10,8 @@ const connectionView = document.querySelector('#connection');
 
 // New
 const newSteps = document.querySelector('#new-steps');
+const newBackButton = document.querySelector('#new-back-btn');
+const newNextButton = document.querySelector('#new-next-btn');
 const newPatientNameInput = document.querySelector('#new-patient-name');
 const newLength1Input = document.querySelector('#new-m1-length');
 const newLength2Input = document.querySelector('#new-m2-length');

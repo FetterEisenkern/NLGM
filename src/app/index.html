@@ -15,8 +15,12 @@
 <body>
     <!-- New Tab -->
     <div id="new" class="tab">
-        <div class="columns" style="padding-top: 5%">
-            <div class="column is-1"></div>
+        <div class="columns">
+            <div class="column is-1">
+                <div id="new-back-btn" class="step-button" style="left: 5%">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+            </div>
             <div class="column is-10">
                 <div class="steps" id="new-steps">
                     <div class="step-item is-active is-success">
@@ -125,14 +129,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="steps-actions">
-                        <div class="steps-action">
-                            <a href="#" data-nav="previous" class="button is-light">Back</a>
-                        </div>
-                        <div class="steps-action">
-                            <a href="#" data-nav="next" class="button is-light">Next</a>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="column is-1">
+                <div id="new-next-btn" class="step-button" style="left: 95%">
+                    <i class="fas fa-arrow-right"></i>
                 </div>
             </div>
         </div>

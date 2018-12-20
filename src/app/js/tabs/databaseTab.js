@@ -1,9 +1,28 @@
 var databaseList = [];
 var filteredList = [];
-var filteredResults = [];
 var refreshList = false;
 
+var filter = {
+    shouldApply() {
+        return this.result || this.id || this.date || this.name;
+    }
+};
+
 var renderList = () => {
+    if (filter.shouldApply()) {
+        filteredList = [];
+        for (let item of databaseList) {
+            if (filter.result && item.data.result.toFixed(2).toString().startsWith(filter.result)
+                || (filter.id && item.id.toString().startsWith(filter.id))
+                || (filter.date && item.date.startsWith(filter.date))
+                || (filter.name && item.patient.startsWith(filter.name))) {
+                filteredList.push(item);
+            }
+        }
+    } else {
+        filteredList = databaseList;
+    }
+
     databaseTable.innerHTML = '';
 
     for (let index = 0; index < filteredList.length; ++index) {
@@ -11,11 +30,10 @@ var renderList = () => {
 
         let id = document.createElement('td');
         let date = document.createElement('td');
-        let patient = document.createElement('td'); 
+        let patient = document.createElement('td');
         let result = document.createElement('td');
         let button = document.createElement('td');
-        let deletebutton = document.createElement('td');
-
+        let deleteButton = document.createElement('td');
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
@@ -23,8 +41,8 @@ var renderList = () => {
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         button.innerHTML = `<a class='button is-primary'>View</a>`;
         button.setAttribute('onclick', `addToResultPlot(${index})`);
-        deletebutton.innerHTML = `<a class='button is-danger'>Delete</a>`;
-        deletebutton.setAttribute(`onclick`, `deleteItem(${index})`);
+        deleteButton.innerHTML = `<a class='button is-danger'>Delete</a>`;
+        deleteButton.setAttribute(`onclick`, `deleteItem(${index})`);
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -32,7 +50,7 @@ var renderList = () => {
         row.appendChild(patient);
         row.appendChild(result);
         row.appendChild(button);
-        row.appendChild(deletebutton);
+        row.appendChild(deleteButton);
 
         databaseTable.appendChild(row);
     }
@@ -40,51 +58,15 @@ var renderList = () => {
 
 var addToResultPlot = (index) => {
     selectTab(1);
-    if (databaseList.length > 0 && index <= databaseList.length) {
-        renderResult(databaseList[index]);
+    if (filteredList.length > 0 && index <= filteredList.length) {
+        renderResult(filteredList[index]);
     }
 };
 
 var deleteItem = (index) => {
     ipcRenderer.send('delete-db-row', filteredList[index].id);
-    databaseList.splice(index, 1);
-    filteredList = databaseList;
+    databaseList.splice(databaseList.indexOf(filteredList[index]), 1);
     renderList();
-    console.log(2)
-    
-    
 }
 
-var searchForResult = (res) => {
-    filteredList = [];
-    for (let item of databaseList) {
-        if (item.data.result.toFixed(2).toString().startsWith(res)) {
-            filteredList.push(item)
-        }
-    }
-};
-
-var searchForId = (id) => {
-    filteredList = [];
-    for (let item of databaseList) {
-        if (item.id.toString().startsWith(id)) {
-            filteredList.push(item)
-        }
-    }
-};
-
-var searchForDate = (date) => {
-   
-    filteredList = databaseList.filter(val => val.date.match(date));
-};
-
-
-var searchForPerson = (name) => {
-    name = name.toLowerCase();
-    filteredList = databaseList.filter(val => val.patient.toLowerCase().match(name));
-};
-
-filteredList = databaseList;
 renderList();
-databasePatientInput.focus();
-

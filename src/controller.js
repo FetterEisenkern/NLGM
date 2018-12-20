@@ -1,7 +1,4 @@
 const SerialPort = require('serialport');
-/* const SerialPort = require('serialport/test');
-const MockBinding = SerialPort.Binding;
-MockBinding.createPort('/dev/fake', { echo: true, record: true }) */
 const Readline = require('@serialport/parser-readline');
 
 class Controller {

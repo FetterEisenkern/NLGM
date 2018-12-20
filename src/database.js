@@ -50,23 +50,13 @@ class Database {
         };
         return this.insert(data);
     }
-
     delete(id) {
-
-
         this.db.serialize(() => {
             this.db.prepare('DELETE FROM nlgm WHERE id == ?')
                 .run(id)
-                   
-              
                 .finalize();
         });
-
-
     }
-
-    
-
 }
 
 module.exports = Database;

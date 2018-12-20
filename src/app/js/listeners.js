@@ -2,7 +2,7 @@
 newTab.addEventListener('click', () => selectTab(0));
 resultTab.addEventListener('click', () => selectTab(1));
 databaseTab.addEventListener('click', () => {
-    selectTab(2)
+    selectTab(2);
     if (refreshList) {
         ipcRenderer.send('get-db-rows');
         refreshList = false;
@@ -12,6 +12,12 @@ databaseTab.addEventListener('click', () => {
 connectionTab.addEventListener('click', () => selectTab(3));
 
 // New
+newBackButton.addEventListener('click', () => {
+    gotoPreviousStep();
+});
+newNextButton.addEventListener('click', () => {
+    gotoNextStep();
+});
 newStart1Button.addEventListener('click', () => {
     ipcRenderer.send('start-measurement');
 });
@@ -37,24 +43,20 @@ conConnectButton.addEventListener('click', (ev) => {
     }
 });
 
-databasePatientInput.addEventListener('input', (ev) => {
-    searchForPerson(databasePatientInput.value);
+databasePatientInput.addEventListener('input', () => {
+    filter.name = (databasePatientInput.value.length != 0) ? databasePatientInput.value : undefined;
     renderList();
 });
-
-databaseResultInput.addEventListener('input', (ev) => {
-    searchForResult(databaseResultInput.value);
+databaseResultInput.addEventListener('input', () => {
+    filter.result = (databaseResultInput.value.length != 0) ? databaseResultInput.value : undefined;
     renderList();
 });
-
-databaseIdInput.addEventListener('input', (ev) => {
-    searchForId(databaseIdInput.value);
+databaseIdInput.addEventListener('input', () => {
+    filter.id = (databaseIdInput.value.length != 0) ? databaseIdInput.value : undefined;
     renderList();
 
 });
-
-databaseDateInput.addEventListener('input', (ev) => {
-    searchForDate(databaseDateInput.value);
+databaseDateInput.addEventListener('input', () => {
+    filter.date = (databaseDateInput.value.length != 0) ? databaseDateInput.value : undefined;
     renderList();
-
 });

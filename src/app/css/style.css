@@ -42,3 +42,9 @@ body {
 .center-columns {
     padding-top: 10%
 }
+
+.step-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
