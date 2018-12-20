@@ -41,3 +41,8 @@ databasePatientInput.addEventListener('input', (ev) => {
     searchForPerson(databasePatientInput.value);
     renderList();
 });
+
+databaseResultInput.addEventListener('input', (ev) => {
+    searchForResult(databaseResultInput.value);
+    renderList();
+});

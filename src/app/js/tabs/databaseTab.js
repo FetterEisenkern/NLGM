@@ -1,5 +1,6 @@
 var databaseList = [];
 var filteredList = [];
+var filteredResults = [];
 var refreshList = false;
 
 var renderList = () => {
@@ -39,17 +40,21 @@ var addToResultPlot = (index) => {
     }
 };
 
-var searchForPerson = (name) => { name = name.toLowerCase(); filteredList = databaseList.filter(val => val.patient.toLowerCase().match(name)); }
-//{
-//    for (let index = 0; index < databaseList.length; ++index) {
-//        if (databaseList[index].patient == name) {
-//            filteredList[index]
-//        }
+var searchForResult = (res) => {
+    filteredList = [];
+    for (let item of databaseList) {
+        if (item.data.result.toFixed(2).toString().startsWith(res)) {
+            filteredList.push(item)
+        }
+    }
+};
 
+var searchForPerson = (name) => {
+    name = name.toLowerCase();
+    filteredList = databaseList.filter(val => val.patient.toLowerCase().match(name));
+};
 
-
-//    }
-//};
 filteredList = databaseList;
 renderList();
 databasePatientInput.focus();
+
