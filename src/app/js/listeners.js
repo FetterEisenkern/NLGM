@@ -1,11 +1,11 @@
 // Tabs
 newTab.addEventListener('click', () => selectTab(0));
 resultTab.addEventListener('click', () => selectTab(1));
+
 databaseTab.addEventListener('click', () => {
     selectTab(2);
-    if (refreshList) {
+    if (databaseList.length == 0) {
         ipcRenderer.send('get-db-rows');
-        refreshList = false;
     }
     databasePatientInput.focus();
 });
@@ -13,10 +13,14 @@ connectionTab.addEventListener('click', () => selectTab(3));
 
 // New
 newBackButton.addEventListener('click', () => {
-    gotoPreviousStep();
+    if (currentStep != 0) {
+        steps.previous_step();
+    }
 });
 newNextButton.addEventListener('click', () => {
-    gotoNextStep();
+    if (currentStep != 3) {
+        steps.next_step();
+    }
 });
 newStart1Button.addEventListener('click', () => {
     ipcRenderer.send('start-measurement');
@@ -27,10 +31,10 @@ newStart2Button.addEventListener('click', () => {
 newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {
         let data = getMeasurementData();
+        databaseList = [];
         ipcRenderer.send('save-data', data);
         selectTab(1);
         renderResult(data);
-        refreshList = true;
         resetMeasurement();
     }
 });

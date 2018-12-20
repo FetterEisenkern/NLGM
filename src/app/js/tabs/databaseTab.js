@@ -1,6 +1,5 @@
 var databaseList = [];
 var filteredList = [];
-var refreshList = false;
 
 var filter = {
     shouldApply() {
@@ -59,7 +58,7 @@ var renderList = () => {
 var addToResultPlot = (index) => {
     selectTab(1);
     if (filteredList.length > 0 && index <= filteredList.length) {
-        renderResult(filteredList[index]);
+        renderResult(filteredList[index].data);
     }
 };
 

@@ -40,17 +40,6 @@ var renderStep = (id) => {
     }
 };
 
-var gotoPreviousStep = () => {
-    if (currentStep != 0) {
-        steps.previous_step();
-    }
-};
-var gotoNextStep = () => {
-    if (currentStep != 3) {
-        steps.next_step();
-    }
-};
-
 var m1Data = [];
 var m2Data = [];
 

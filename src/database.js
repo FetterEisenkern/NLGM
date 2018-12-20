@@ -16,7 +16,7 @@ class Database {
     shutdown() {
         this.db.close();
     }
-    insert(data) {
+    insert(data, callback = undefined) {
         this.db.serialize(() => {
             this.db.prepare('INSERT INTO nlgm (patient, date, data) VALUES (?, date(\'now\'), ?)')
                 .run(data.patient, Buffer.from(JSON.stringify({
@@ -26,7 +26,7 @@ class Database {
                     m2: data.m2,
                     result: data.result
                 })))
-                .finalize();
+                .finalize(callback);
         });
     }
     select(id, callback) {

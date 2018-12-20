@@ -24,7 +24,7 @@ const createWindow = async () => {
 
     // New
     ipcMain.on('start-measurement', () => processor.startMeasurement());
-    ipcMain.on('save-data', (_, data) => processor.saveData(data));
+    ipcMain.on('save-data', (_, data) => processor.saveData(data, () => processor.getRows()));
     // Database
     ipcMain.on('get-db-rows', () => processor.getRows());
     // Connection
