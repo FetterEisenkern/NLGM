@@ -12,6 +12,7 @@ ipcRenderer.on('measurement-error', () => {
 ipcRenderer.on('db-row', (_, row) => {
     row.data = JSON.parse(row.data);
     databaseList.push(row);
+    filteredList.push(row);
     renderList();
 });
 
@@ -24,5 +25,6 @@ ipcRenderer.on('port-close', () => {
 });
 
 // Request data
+
 ipcRenderer.send('get-db-rows');
 ipcRenderer.send('get-port-info');

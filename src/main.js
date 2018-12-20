@@ -29,6 +29,7 @@ const createWindow = async () => {
     ipcMain.on('get-db-rows', () => processor.getRows());
     // Connection
     ipcMain.on('get-port-info', async () => await processor.checkPort());
+    ipcMain.on('delete-db-row', (_, id) => processor.db.delete(id));
 };
 
 app.on('ready', async () => {

@@ -46,3 +46,15 @@ databaseResultInput.addEventListener('input', (ev) => {
     searchForResult(databaseResultInput.value);
     renderList();
 });
+
+databaseIdInput.addEventListener('input', (ev) => {
+    searchForId(databaseIdInput.value);
+    renderList();
+
+});
+
+databaseDateInput.addEventListener('input', (ev) => {
+    searchForDate(databaseDateInput.value);
+    renderList();
+
+});

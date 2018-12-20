@@ -31,6 +31,8 @@ const resultDate = document.querySelector('#result-date');
 const databaseTable = document.querySelector('#database-table');
 const databasePatientInput = document.querySelector('#database-patient-input');
 const databaseResultInput = document.querySelector('#database-result-input');
+const databaseIdInput = document.querySelector('#database-id-input');
+const databaseDateInput = document.querySelector('#database-date-input');
 
 // Connection
 const conPortName = document.querySelector('#connection-port-name');
