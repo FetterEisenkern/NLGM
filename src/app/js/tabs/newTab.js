@@ -10,13 +10,20 @@ var renderSteps = () => {
 
 var renderStep = (id) => {
     switch (currentStep = id) {
+        case 0:
+            newBackButton.firstElementChild.setAttribute('class', 'step-button hidden');
+            break;
         case 1:
+            newBackButton.firstElementChild.setAttribute('class', 'step-button');
             renderNewPlot1();
             break;
         case 2:
+            newNextButton.firstElementChild.setAttribute('class', 'step-button');
             renderNewPlot2();
             break;
         case 3:
+            newNextButton.firstElementChild.setAttribute('class', 'step-button hidden');
+
             if (validateData()) {
                 newViewResultButton.setAttribute('class', 'button is-success');
                 newViewResultButton.removeAttribute('disabled');
@@ -26,6 +33,9 @@ var renderStep = (id) => {
                 newViewResultButton.setAttribute('disabled', '');
                 newViewResultButton.setAttribute('title', 'Data not complete!');
             }
+
+            newResultLength1.innerHTML = newLength1Input.value;
+            newResultLength2.innerHTML = newLength2Input.value;
             newResultName.innerHTML = newPatientNameInput.value;
             newResultMeasurements.innerHTML = (m1Data)
                 ? (m2Data)
@@ -56,10 +66,11 @@ var newPlotLayout = {
     margin: {
         t: 0
     },
+    width: 720,
     height: 350
 };
 
-var addToNewPlot = (lines, data, length, legend) => {
+var addToNewPlot = (lines, data, legend) => {
     // Mapping
     let voltage = [];
     let time = [];
@@ -79,10 +90,10 @@ var addToNewPlot = (lines, data, length, legend) => {
 };
 
 var renderNewPlot1 = () => {
-    Plotly.newPlot(newPlot1, m1Lines, newPlotLayout, { responsive: true, displayModeBar: false });
+    Plotly.newPlot(newPlot1, m1Lines, newPlotLayout, { responsive: false, displayModeBar: false });
 };
 var renderNewPlot2 = () => {
-    Plotly.newPlot(newPlot2, m2Lines, newPlotLayout, { responsive: true, displayModeBar: false });
+    Plotly.newPlot(newPlot2, m2Lines, newPlotLayout, { responsive: false, displayModeBar: false });
 };
 
 var validateData = () => {
@@ -95,14 +106,18 @@ var validateData = () => {
 
 var getMeasurementData = () => {
     let measurement = {
+        id: -1,
+        date: undefined,
         patient: newPatientNameInput.value,
-        l1: parseInt(newLength1Input.value),
-        l2: parseInt(newLength2Input.value),
-        m1: m1Data,
-        m2: m2Data,
-        result: undefined
+        data: {
+            l1: parseInt(newLength1Input.value),
+            l2: parseInt(newLength2Input.value),
+            m1: m1Data,
+            m2: m2Data,
+            result: undefined
+        }
     };
-    measurement.result = calculateResult(measurement);
+    measurement.data.result = calculateResult(measurement.data);
     return measurement;
 };
 
@@ -123,21 +138,23 @@ var calculateResult = (data) => {
             | tmax1 - tmax2 |
     */
 
-    let tmax1 = findMaximum(data.m1);
-    let tmax2 = findMaximum(data.m2);
-    let deltaLength = Math.abs(data.l1 - data.l2);
-    let deltaTime = Math.abs(tmax1.ms - tmax2.ms);
+    let tmax1 = findMaximum(data.m1).ms / 1000; // ms -> s
+    let tmax2 = findMaximum(data.m2).ms / 1000; // ms -> s
+    let l1 = data.l1 / 100; // cm -> m
+    let l2 = data.l2 / 100; // cm -> m
+    let deltaLength = Math.abs(l1 - l2);
+    let deltaTime = Math.abs(tmax1 - tmax2);
     return deltaLength / deltaTime;
 };
 
 var renderMeasurement = (data) => {
     if (currentStep == 1) {
         m1Lines = [];
-        addToNewPlot(m1Lines, m1Data = data.m1, 100, 'm1');
+        addToNewPlot(m1Lines, m1Data = data.m1, 'm1');
         renderNewPlot1();
     } else if (currentStep == 2) {
         m2Lines = [];
-        addToNewPlot(m2Lines, m2Data = data.m2, 100, 'm2');
+        addToNewPlot(m2Lines, m2Data = data.m2, 'm2');
         renderNewPlot2();
     } else {
         console.error('Unable to render measurement!');

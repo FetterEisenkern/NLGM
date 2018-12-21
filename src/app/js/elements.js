@@ -20,6 +20,8 @@ const newPlot2 = document.querySelector('#new-m2-plot');
 const newStart1Button = document.querySelector('#start-m1-btn');
 const newStart2Button = document.querySelector('#start-m2-btn');
 const newResultName = document.querySelector('#new-result-name');
+const newResultLength1 = document.querySelector('#new-result-l1');
+const newResultLength2 = document.querySelector('#new-result-l2');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
 

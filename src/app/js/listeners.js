@@ -23,10 +23,54 @@ newNextButton.addEventListener('click', () => {
     }
 });
 newStart1Button.addEventListener('click', () => {
-    ipcRenderer.send('start-measurement');
+    if (currentStep == 1) {
+        if (m1Lines.length == 0) {
+            ipcRenderer.send('start-measurement');
+            newStart1Button.innerHTML = '<span>Reset</span>';
+            newStart1Button.setAttribute('class', 'button is-danger');
+        } else {
+            m1Lines = [];
+            renderNewPlot1();
+            newStart1Button.innerHTML = '<span>Start</span>';
+            newStart1Button.setAttribute('class', 'button is-success');
+        }
+    } else if (currentStep == 2) {
+        if (m2Lines.length == 0) {
+            ipcRenderer.send('start-measurement');
+            newStart1Button.innerHTML = '<span>Reset</span>';
+            newStart1Button.setAttribute('class', 'button is-danger');
+        } else {
+            m2Lines = [];
+            renderNewPlot2();
+            newStart1Button.innerHTML = '<span>Start</span>';
+            newStart1Button.setAttribute('class', 'button is-success');
+        }
+    }
 });
 newStart2Button.addEventListener('click', () => {
-    ipcRenderer.send('start-measurement');
+    if (currentStep == 1) {
+        if (m1Lines.length == 0) {
+            ipcRenderer.send('start-measurement');
+            newStart2Button.innerHTML = '<span>Reset</span>';
+            newStart2Button.setAttribute('class', 'button is-danger');
+        } else {
+            m1Lines = [];
+            renderNewPlot1();
+            newStart2Button.innerHTML = '<span>Start</span>';
+            newStart2Button.setAttribute('class', 'button is-success');
+        }
+    } else if (currentStep == 2) {
+        if (m2Lines.length == 0) {
+            ipcRenderer.send('start-measurement');
+            newStart2Button.innerHTML = '<span>Reset</span>';
+            newStart2Button.setAttribute('class', 'button is-danger');
+        } else {
+            m2Lines = [];
+            renderNewPlot2();
+            newStart2Button.innerHTML = '<span>Start</span>';
+            newStart2Button.setAttribute('class', 'button is-success');
+        }
+    }
 });
 newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {
@@ -39,14 +83,7 @@ newViewResultButton.addEventListener('click', () => {
     }
 });
 
-// Connection
-conConnectButton.addEventListener('click', (ev) => {
-    if (!conConnectButton.hasAttribute('disabled')) {
-        conConnectButton.classList.add('is-loading');
-        ipcRenderer.send('get-port-info');
-    }
-});
-
+// Database
 databasePatientInput.addEventListener('input', () => {
     filter.name = (databasePatientInput.value.length != 0) ? databasePatientInput.value : undefined;
     renderList();
@@ -63,4 +100,21 @@ databaseIdInput.addEventListener('input', () => {
 databaseDateInput.addEventListener('input', () => {
     filter.date = (databaseDateInput.value.length != 0) ? databaseDateInput.value : undefined;
     renderList();
+});
+
+// Connection
+conConnectButton.addEventListener('click', () => {
+    if (!conConnectButton.hasAttribute('disabled')) {
+        conConnectButton.classList.add('is-loading');
+        ipcRenderer.send('get-port-info');
+    }
+});
+
+// Global
+document.addEventListener('keyup', (ev) => {
+    if (ev.ctrlKey && ev.keyCode == 37) {
+        selectTab(currentTab - 1);
+    } else if (ev.ctrlKey && ev.keyCode == 39) {
+        selectTab(currentTab + 1);
+    }
 });

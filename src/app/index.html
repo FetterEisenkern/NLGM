@@ -16,13 +16,16 @@
     <!-- New Tab -->
     <div id="new" class="tab">
         <div class="columns">
-            <div class="column is-1">
-                <div id="new-back-btn" class="step-button" style="left: 5%">
-                    <i class="fas fa-arrow-left"></i>
+            <!-- Back Button -->
+            <div id="new-back-btn" class="column is-1">
+                <div class="step-button hidden">
+                    <i class="step-button-image fas fa-arrow-left"></i>
                 </div>
             </div>
+            <!-- Steps -->
             <div class="column is-10">
                 <div class="steps" id="new-steps">
+                    <!-- Step Items -->
                     <div class="step-item is-active is-success">
                         <div class="step-marker">1</div>
                         <div class="step-details">
@@ -47,7 +50,9 @@
                             <p class="step-title">Finish</p>
                         </div>
                     </div>
+                    <!-- Steps Content -->
                     <div class="steps-content">
+                        <!-- New Patient -->
                         <div class="columns">
                             <div class="column is-4"></div>
                             <div class="column is-4">
@@ -69,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 1. Measurement -->
                         <div class="step-content has-text-centered">
                             <div id="new-m1-plot"></div>
                             <div class="field is-horizontal">
@@ -82,12 +88,13 @@
                                                 placeholder="First length" autofocus data-validate="require">
                                         </div>
                                     </div>
-                                    <a id="start-m1-btn" class="button is-success">
+                                    <a id="start-m1-btn" class="button is-success" style="right: 75%">
                                         <span>Start</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!-- 2. Measurement -->
                         <div class="step-content has-text-centered">
                             <div id="new-m2-plot"></div>
                             <div class="field is-horizontal">
@@ -101,12 +108,13 @@
                                                 placeholder="Second length" autofocus data-validate="require">
                                         </div>
                                     </div>
-                                    <a id="start-m2-btn" class="button is-success">
+                                    <a id="start-m2-btn" class="button is-success" style="right: 75%">
                                         <span>Start</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!-- Finish -->
                         <div class="step-content has-text-centered">
                             <div class="columns">
                                 <div class="column is-4"></div>
@@ -117,6 +125,14 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <td id="new-result-name">Hans</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Length 1</th>
+                                                <td id="new-result-l1">0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Length 2</th>
+                                                <td id="new-result-l2">0</td>
                                             </tr>
                                             <tr>
                                                 <th>Measurements</th>
@@ -131,9 +147,10 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-1">
-                <div id="new-next-btn" class="step-button" style="left: 95%">
-                    <i class="fas fa-arrow-right"></i>
+            <!-- Next Button -->
+            <div id="new-next-btn" class="column is-1">
+                <div class="step-button">
+                    <i class="step-button-image fas fa-arrow-right"></i>
                 </div>
             </div>
         </div>
@@ -178,11 +195,10 @@
     </div>
     <!-- Database Tab -->
     <div id="database" class="hidden tab">
-        <!-- Database Table -->
         <div class="columns">
             <div class="column is-1"></div>
-            <!-- Left Side -->
             <div class="column is-8">
+                <!-- Table -->
                 <table class="table is-hoverable is-fullwidth is-striped">
                     <thead>
                         <tr>
@@ -196,16 +212,21 @@
                     </thead>
                     <tbody id="database-table"></tbody>
                 </table>
+                <!-- Table Paginator -->
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                    <ul class="pagination-list">
+                        <li><a class="pagination-link is-current" aria-label="Goto page 1">1</a></li>
+                    </ul>
+                </nav>
             </div>
-            <!-- Right Side -->
             <div class="column is-2 stuck">
                 <!-- Search -->
                 <h3 class="subtitle is-3">Search</h3>
                 <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-patient-input" class="input is-success" type="text" placeholder="Name"
-                               value="">
+                        <input id="database-patient-input" class="input is-success" type="text" placeholder="name"
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -215,58 +236,31 @@
                     <label class="label">Result</label>
                     <div class="control has-icons-left has-icons-right">
                         <input id="database-result-input" class="input is-success" type="text" placeholder="in m/s"
-                               value="">
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
                     </div>
                 </div>
-
-
                 <div class="field">
-                    <label class="label">ID</label>
+                    <label class="label">Id</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-id-input" class="input is-success" type="text" placeholder="ID"
-                               value="">
+                        <input id="database-id-input" class="input is-success" type="text" placeholder="0-99+" value="">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-list-ol"></i>
                         </span>
                     </div>
                 </div>
-
-
                 <div class="field">
                     <label class="label">Date</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-date-input" class="input is-success" type="text" placeholder="Date"
-                               value="">
+                        <input id="database-date-input" class="input is-success" type="text" placeholder="yyyy-mm-dd"
+                            value="">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-calendar"></i>
                         </span>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>

@@ -8,6 +8,11 @@ div.plotly-notifier {
 
 body {
     padding-top: 30px;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 .tab {
@@ -35,7 +40,7 @@ body {
 }
 
 .input-length {
-    width: 75px;
+    width: 90px;
     text-align: right;
 }
 
@@ -45,6 +50,17 @@ body {
 
 .step-button {
     position: absolute;
+    height: 90%;
+    width: 8%
+}
+
+.step-button:hover {
+    background: #fafafa;
+}
+
+.step-button-image {
+    position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

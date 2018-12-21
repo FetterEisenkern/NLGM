@@ -24,6 +24,5 @@ ipcRenderer.on('port-close', () => {
 });
 
 // Request data
-
 ipcRenderer.send('get-db-rows');
 ipcRenderer.send('get-port-info');

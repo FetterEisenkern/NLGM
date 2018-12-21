@@ -13,11 +13,11 @@ var resultPlotLayout = {
 };
 
 var addDataResult = (data) => {
-    resultResult.textContent = ((data.result) ? data.result.toFixed(2) : '0.00') + ' m/s';
+    resultResult.textContent = ((data.data.result) ? data.data.result.toFixed(2) : '0.00') + ' m/s';
     resultName.textContent = (data.patient) ? data.patient : '-';
     resultDate.textContent = (data.date) ? data.date : 'Recently';
-    addLinesToResultPlot(data.m1, 'm1');
-    addLinesToResultPlot(data.m2, 'm2');
+    addLinesToResultPlot(data.data.m1, 'm1');
+    addLinesToResultPlot(data.data.m2, 'm2');
 };
 
 var addLinesToResultPlot = (data, legend) => {

@@ -20,11 +20,11 @@ class Database {
         this.db.serialize(() => {
             this.db.prepare('INSERT INTO nlgm (patient, date, data) VALUES (?, date(\'now\'), ?)')
                 .run(data.patient, Buffer.from(JSON.stringify({
-                    l1: data.l1,
-                    l2: data.l2,
-                    m1: data.m1,
-                    m2: data.m2,
-                    result: data.result
+                    l1: data.data.l1,
+                    l2: data.data.l2,
+                    m1: data.data.m1,
+                    m2: data.data.m2,
+                    result: data.data.result
                 })))
                 .finalize(callback);
         });
@@ -33,7 +33,7 @@ class Database {
         this.db.each('SELECT id, patient, date, data FROM nlgm WHERE id == ?', id, callback);
     }
     selectAll(callback) {
-        this.db.each('SELECT id, patient, date, data FROM nlgm', callback);
+        this.db.each('SELECT id, patient, date, data FROM nlgm ORDER BY id DESC', callback);
     }
     testSelectAll() {
         return this.selectAll((_, row) => console.log(`${row.id} | ${row.patient} | ${row.date} | ${row.data}`));

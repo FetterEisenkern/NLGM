@@ -58,7 +58,7 @@ var renderList = () => {
 var addToResultPlot = (index) => {
     selectTab(1);
     if (filteredList.length > 0 && index <= filteredList.length) {
-        renderResult(filteredList[index].data);
+        renderResult(filteredList[index]);
     }
 };
 
