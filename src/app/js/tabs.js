@@ -3,7 +3,8 @@ const tabs = [
     { tab: newTab, div: newView },
     { tab: resultTab, div: resultView },
     { tab: databaseTab, div: databaseView },
-    { tab: connectionTab, div: connectionView }
+    { tab: connectionTab, div: connectionView },
+      { tab: correlationTab, div: correlationView }
 ];
 
 let selectTab = (index) => {

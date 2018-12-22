@@ -88,6 +88,9 @@
     <Compile Include="app\js\tabs\databaseTab.js" />
     <Compile Include="app\js\tabs\newTab.js" />
     <Compile Include="app\js\tabs\resultTab.js" />
+    <Compile Include="app\js\tabs\correlationTab.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="point.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

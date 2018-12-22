@@ -3,11 +3,12 @@ const newTab = document.querySelector('#new-tab');
 const resultTab = document.querySelector('#result-tab');
 const databaseTab = document.querySelector('#database-tab');
 const connectionTab = document.querySelector('#connection-tab');
+const correlationTab = document.querySelector('#correlation-tab');
 const newView = document.querySelector('#new');
 const resultView = document.querySelector('#result');
 const databaseView = document.querySelector('#database');
 const connectionView = document.querySelector('#connection');
-
+const correlationView = document.querySelector('#correlation');
 // New
 const newSteps = document.querySelector('#new-steps');
 const newBackButton = document.querySelector('#new-back-btn');
@@ -22,6 +23,8 @@ const newStart2Button = document.querySelector('#start-m2-btn');
 const newResultName = document.querySelector('#new-result-name');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
+const newCorrelationButton = document.querySelector('#new-correlation-btn');
+
 
 // Result
 const resultPlot = document.querySelector('#result-plot');
@@ -41,3 +44,4 @@ const conPortName = document.querySelector('#connection-port-name');
 const conPortId = document.querySelector('#connection-port-id');
 const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
 const conConnectButton = document.querySelector('#connection-connect-btn');
+

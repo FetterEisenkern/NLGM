@@ -1,5 +1,7 @@
 var databaseList = [];
 var filteredList = [];
+var compareList = [];
+var count = 0;
 
 var filter = {
     shouldApply() {
@@ -33,15 +35,18 @@ var renderList = () => {
         let result = document.createElement('td');
         let button = document.createElement('td');
         let deleteButton = document.createElement('td');
+        let compare = document.createElement('td');
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
-        patient.innerHTML = item.patient;
+        patient.innerHTML = item.patient
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         button.innerHTML = `<a class='button is-primary'>View</a>`;
         button.setAttribute('onclick', `addToResultPlot(${index})`);
         deleteButton.innerHTML = `<a class='button is-danger'>Delete</a>`;
         deleteButton.setAttribute(`onclick`, `deleteItem(${index})`);
+        compare.innerHTML = `<a class='button is-success'>Compare</a>`;
+        compare.setAttribute(`onclick`, `compareItem(${index})`);
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -50,6 +55,7 @@ var renderList = () => {
         row.appendChild(result);
         row.appendChild(button);
         row.appendChild(deleteButton);
+        row.appendChild(compare);
 
         databaseTable.appendChild(row);
     }
@@ -66,6 +72,17 @@ var deleteItem = (index) => {
     ipcRenderer.send('delete-db-row', filteredList[index].id);
     databaseList.splice(databaseList.indexOf(filteredList[index]), 1);
     renderList();
+}
+
+var compareItem = (index) => {
+    
+    compareList[count] = index;
+    count++;
+    if (count >= 2) {
+        clickCorrelationButton(compareList[0], compareList[1]);
+        count = 0;
+    }
+   
 }
 
 renderList();

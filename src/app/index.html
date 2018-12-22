@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="lib/css/bulma.min.css">
-    <style>@import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';</style>
+    <style>
+        @import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';
+    </style>
     <link rel="stylesheet" href="lib/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -60,8 +62,8 @@
                                             <div class="field">
                                                 <div class="control">
                                                     <input class="input input-name" id="new-patient-name" type="text"
-                                                        value="Hans" placeholder="Name of patient" autofocus
-                                                        data-validate="require">
+                                                           value="Hans" placeholder="Name of patient" autofocus
+                                                           data-validate="require">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +81,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m1-length" type="text" value="20cm"
-                                                placeholder="First length" autofocus data-validate="require">
+                                                   placeholder="First length" autofocus data-validate="require">
                                         </div>
                                     </div>
                                     <a id="start-m1-btn" class="button is-success">
@@ -98,7 +100,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m2-length" type="text" value="18cm"
-                                                placeholder="Second length" autofocus data-validate="require">
+                                                   placeholder="Second length" autofocus data-validate="require">
                                         </div>
                                     </div>
                                     <a id="start-m2-btn" class="button is-success">
@@ -192,6 +194,7 @@
                             <th>Result</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="database-table"></tbody>
@@ -246,30 +249,53 @@
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
+
+
+
+    <!-- Correlation Tab -->
+    <div id="correlation" class="hidden tab">
+        <h1 class="subtitle is-3" align="center">Correlation</h1>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #cssTable td, tr, th {
+                text-align: center;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+            }
+
+            #box1 {
+                position: fixed;
+                top: 500px;
+                left: 445px;
+            }
+        </style>
+        <table id="cssTable">
+
+            <tr>
+                <th style="text-align:center">Patient 1</th>
+                <th style="text-align:center">Patient 2</th>
+            </tr>
+
+        </table>
+        <div id="box1">
+            <a id="new-correlation-btn" class="button is-hoverable">Compare Patients</a>
+        </div>
+    </div>
+
+
+
     <!-- Connection Tab -->
     <div id="connection" class="hidden tab">
         <div class="columns center-columns">
@@ -304,6 +330,7 @@
             <li id="result-tab"><a>Result</a></li>
             <li id="database-tab"><a>Database</a></li>
             <li id="connection-tab"><a>Connection</a></li>
+            <li id="correlation-tab"><a>Correlation</a></li>
         </ul>
     </div>
     <!-- Scripts -->
@@ -316,6 +343,7 @@
     <script src="js/tabs/resultTab.js"></script>
     <script src="js/listeners.js"></script>
     <script src="js/renderer.js"></script>
+    <script src="js/tabs/correlationTab.js"></script>
 </body>
 
 </html>

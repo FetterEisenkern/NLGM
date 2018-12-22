@@ -23,6 +23,8 @@ ipcRenderer.on('port-close', () => {
     renderNotConnected();
 });
 
+
+
 // Request data
 
 ipcRenderer.send('get-db-rows');
