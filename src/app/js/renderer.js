@@ -5,7 +5,7 @@ ipcRenderer.on('measurement-success', (_, data) => {
     renderMeasurement(data);
 });
 ipcRenderer.on('measurement-error', () => {
-    // TODO
+    // TODO: error modal
 });
 
 // Database

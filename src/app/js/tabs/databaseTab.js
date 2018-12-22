@@ -42,25 +42,30 @@ var renderList = (currentPage = 1) => {
         let date = document.createElement('td');
         let patient = document.createElement('td');
         let result = document.createElement('td');
-        let button = document.createElement('td');
-        let deleteButton = document.createElement('td');
+        let actions = document.createElement('td');
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
         patient.innerHTML = item.patient;
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
-        button.innerHTML = `<a class='button is-primary'>View</a>`;
-        button.setAttribute('onclick', `addToResultPlot(${index})`);
-        deleteButton.innerHTML = `<a class='button is-danger'>Delete</a>`;
-        deleteButton.setAttribute(`onclick`, `deleteItem(${index})`);
+        actions.innerHTML = `<div class="field is-grouped">
+            <p class="control">
+                <a class="button is-small is-primary is-outlined" onclick="addToResultPlot(${index})">
+                    View
+                </a>
+            </p>
+            <p class="control" onclick="deleteItem(${index})">
+                <a class="button is-small is-danger is-outlined">
+                    Delete
+                </a>
+            </p>`;
 
         let row = document.createElement('tr');
         row.appendChild(id);
         row.appendChild(date);
         row.appendChild(patient);
         row.appendChild(result);
-        row.appendChild(button);
-        row.appendChild(deleteButton);
+        row.appendChild(actions);
 
         databaseTable.appendChild(row);
     }

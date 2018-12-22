@@ -22,6 +22,22 @@ newNextButton.addEventListener('click', () => {
         steps.next_step();
     }
 });
+newPatientLookUpButton.addEventListener('click', () => {
+    if (currentPatient == undefined) {
+        renderPatientDatabase();
+        newPatientLookUpModal.setAttribute('class', 'modal is-active');
+    } else {
+        currentPatient = undefined;
+        newPatientFirstNameInput.removeAttribute('disabled');
+        newPatientLastNameInput.removeAttribute('disabled');
+        newPatientDateOfBirthInput.removeAttribute('disabled');
+        newPatientLookUpButton.innerHTML = `
+            <span class="icon is-small">
+                <i class="fas fa-search"></i>
+            </span>
+            <span>Search Patient</span>`;
+    }
+});
 newStart1Button.addEventListener('click', () => {
     if (m1Lines.length == 0) {
         newStart1Button.innerHTML = '<span>Reset</span>';

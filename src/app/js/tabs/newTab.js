@@ -49,7 +49,104 @@ const steps = new bulmaSteps(newSteps, {
     }
 });
 
-const calendar = new bulmaCalendar(newPatientDateOfBirthInput);
+const calendar = new bulmaCalendar(newPatientDateOfBirthInput, { dateFormat: 'YYYY-MM-DD' });
+
+var patientList = [];
+var filteredPatientList = [];
+var currentPatient = undefined;
+
+patientList.push({ id: 0, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
+patientList.push({ id: 1, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
+patientList.push({ id: 2, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
+
+var renderPatientDatabase = (currentPage = 1) => {
+    if (newPatientFirstNameInput.value != '' || newPatientLastNameInput.value != '' || newPatientDateOfBirthInput.value != '') {
+        filteredPatientList = [];
+        for (let item of patientList) {
+            if (newPatientFirstNameInput.value != '' && item.firstName.startsWith(newPatientFirstNameInput.value)
+                || (newPatientLastNameInput.value != '' && item.lastName.startsWith(newPatientLastNameInput.value))
+                || (newPatientDateOfBirthInput.value != '' && item.dateOfBirth.startsWith(newPatientDateOfBirthInput.value))) {
+                filteredPatientList.push(item);
+            }
+        }
+    } else {
+        filteredPatientList = patientList;
+    }
+
+    newPatientTable.innerHTML = '';
+
+    let paginatorPages = 0;
+    let rowsPerPage = 10;
+
+    for (let index = 0; index < filteredPatientList.length; ++index) {
+        if (index % rowsPerPage == 0) {
+            ++paginatorPages;
+        }
+
+        if (paginatorPages != currentPage) {
+            continue;
+        }
+
+        let item = filteredPatientList[index];
+
+        let id = document.createElement('td');
+        let first = document.createElement('td');
+        let last = document.createElement('td');
+        let birth = document.createElement('td');
+        let actions = document.createElement('td');
+
+        id.innerHTML = item.id;
+        first.innerHTML = item.firstName;
+        last.innerHTML = item.lastName;
+        birth.innerHTML = item.dateOfBirth;
+        actions.innerHTML = `<div class="field is-grouped">
+            <p class="control">
+                <a class="button is-small is-primary is-outlined" onclick="selectPatient(${index})">
+                    Select
+                </a>
+            </p>`;
+
+        let row = document.createElement('tr');
+        row.appendChild(id);
+        row.appendChild(first);
+        row.appendChild(last);
+        row.appendChild(birth);
+        row.appendChild(actions);
+
+        newPatientTable.appendChild(row);
+    }
+
+    newPatientPaginator.innerHTML = '';
+
+    for (let i = 1; i <= paginatorPages; ++i) {
+        let link = document.createElement('a');
+        link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
+        link.setAttribute('onclick', `renderList(${i});`);
+        link.innerHTML = i;
+
+        let item = document.createElement('li');
+        item.appendChild(link);
+        newPatientPaginator.appendChild(item);
+    }
+};
+var selectPatient = (index) => {
+    currentPatient = filteredPatientList[index];
+    newPatientFirstNameInput.value = currentPatient.firstName;
+    newPatientLastNameInput.value = currentPatient.lastName;
+    newPatientDateOfBirthInput.value = currentPatient.dateOfBirth;
+    newPatientFirstNameInput.setAttribute('disabled', '');
+    newPatientLastNameInput.setAttribute('disabled', '');
+    newPatientDateOfBirthInput.setAttribute('disabled', '');
+    newPatientLookUpButton.innerHTML = `
+        <span class="icon is-small">
+            <i class="fas fa-pen"></i>
+        </span>
+        <span>Edit</span>`;
+    closePatientDatabase();
+};
+var closePatientDatabase = () => {
+    newPatientLookUpModal.setAttribute('class', 'modal');
+};
 
 var m1Data = [];
 var m2Data = [];
@@ -102,6 +199,7 @@ var validateData = () => {
         && newPatientLastNameInput.value.length != 0
         && newLength1Input.value.length != 0
         && newLength2Input.value.length != 0
+        && parseInt(newLength1Input.value) != parseInt(newLength2Input.value)
         && m1Lines.length != 0
         && m2Lines.length != 0;
 };
@@ -146,7 +244,7 @@ var calculateResult = (data) => {
     let l2 = data.l2 / 100; // cm -> m
     let deltaLength = Math.abs(l1 - l2);
     let deltaTime = Math.abs(tmax1 - tmax2);
-    return deltaLength / deltaTime;
+    return (deltaTime != 0) ? deltaLength / deltaTime : 0;
 };
 
 var renderMeasurement = (data) => {
@@ -187,4 +285,4 @@ var resetMeasurement = () => {
     renderNewPlot2();
 };
 
-resetMeasurement();
+//resetMeasurement();

@@ -92,9 +92,47 @@
                                             <div class="field">
                                                 <div class="control">
                                                     <input id="new-patient-date-of-birth" class="input input-name" type="date"
-                                                        value="mm/dd/yyyy" data-validate="require">
+                                                        placeholder="YYYY-MM-DD" data-validate="require">
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <a id="new-patient-look-up-btn" class="button">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <span>Search Patient</span>
+                                    </a>
+                                    <!-- Search Modal-->
+                                    <div id="new-patient-look-up-modal" class="modal">
+                                        <div class="modal-background" onclick="closePatientDatabase()"></div>
+                                        <div class="modal-card">
+                                            <header class="modal-card-head">
+                                                <p class="modal-card-title">Patient Database</p>
+                                                <button class="delete" aria-label="close" onclick="closePatientDatabase()"></button>
+                                            </header>
+                                            <section class="modal-card-body">
+                                                <!-- Table -->
+                                                <table class="table is-hoverable is-fullwidth is-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Date of Birth</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="new-patient-table"></tbody>
+                                                </table>
+                                                <!-- Table Paginator -->
+                                                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                                                    <ul id="new-patient-paginator" class="pagination-list"></ul>
+                                                </nav>
+                                            </section>
+                                            <footer class="modal-card-foot">
+                                                <button class="button" onclick="closePatientDatabase()">Cancel</button>
+                                            </footer>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +266,6 @@
                             <th>Date</th>
                             <th>Patient</th>
                             <th>Result</th>
-                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
