@@ -19,7 +19,7 @@ class Processor {
     }
     init() {
         this.db.init();
-        //this.db.testInsert();
+        //for (let i = 0; i < 10; ++i) { this.db.testInsert(); };
     }
     async checkPort() {
         await this.controller.reInit(this);

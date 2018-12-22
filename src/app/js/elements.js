@@ -33,6 +33,7 @@ const resultDate = document.querySelector('#result-date');
 
 // Database
 const databaseTable = document.querySelector('#database-table');
+const databasePaginator = document.querySelector('#database-paginator');
 const databasePatientInput = document.querySelector('#database-patient-input');
 const databaseResultInput = document.querySelector('#database-result-input');
 const databaseIdInput = document.querySelector('#database-id-input');

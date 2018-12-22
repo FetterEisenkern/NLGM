@@ -1,5 +1,6 @@
 var databaseList = [];
 var filteredList = [];
+var rowsPerPage = 10;
 
 var filter = {
     shouldApply() {
@@ -7,7 +8,7 @@ var filter = {
     }
 };
 
-var renderList = () => {
+var renderList = (currentPage = 1) => {
     if (filter.shouldApply()) {
         filteredList = [];
         for (let item of databaseList) {
@@ -24,7 +25,17 @@ var renderList = () => {
 
     databaseTable.innerHTML = '';
 
+    let paginatorPages = 0;
+
     for (let index = 0; index < filteredList.length; ++index) {
+        if (index % rowsPerPage == 0) {
+            ++paginatorPages;
+        }
+
+        if (paginatorPages != currentPage) {
+            continue;
+        }
+
         let item = filteredList[index];
 
         let id = document.createElement('td');
@@ -52,6 +63,19 @@ var renderList = () => {
         row.appendChild(deleteButton);
 
         databaseTable.appendChild(row);
+    }
+
+    databasePaginator.innerHTML = '';
+
+    for (let i = 1; i <= paginatorPages; ++i) {
+        let link = document.createElement('a');
+        link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
+        link.setAttribute('onclick', `renderList(${i});`);
+        link.innerHTML = i;
+
+        let item = document.createElement('li');
+        item.appendChild(link);
+        databasePaginator.appendChild(item);
     }
 };
 
