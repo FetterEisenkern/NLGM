@@ -13,6 +13,7 @@
     "icon": "electron-icon-maker --input=assets/nlgm_logo.png --output=assets/"
   },
   "dependencies": {
+    "bulma-calendar": "^5.0.3",
     "bulma-steps": "^2.2.1",
     "serialport": "^7.0.2",
     "sqlite3": "^4.0.2"

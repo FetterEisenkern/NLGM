@@ -23,53 +23,27 @@ newNextButton.addEventListener('click', () => {
     }
 });
 newStart1Button.addEventListener('click', () => {
-    if (currentStep == 1) {
-        if (m1Lines.length == 0) {
-            ipcRenderer.send('start-measurement');
-            newStart1Button.innerHTML = '<span>Reset</span>';
-            newStart1Button.setAttribute('class', 'button is-danger');
-        } else {
-            m1Lines = [];
-            renderNewPlot1();
-            newStart1Button.innerHTML = '<span>Start</span>';
-            newStart1Button.setAttribute('class', 'button is-success');
-        }
-    } else if (currentStep == 2) {
-        if (m2Lines.length == 0) {
-            ipcRenderer.send('start-measurement');
-            newStart1Button.innerHTML = '<span>Reset</span>';
-            newStart1Button.setAttribute('class', 'button is-danger');
-        } else {
-            m2Lines = [];
-            renderNewPlot2();
-            newStart1Button.innerHTML = '<span>Start</span>';
-            newStart1Button.setAttribute('class', 'button is-success');
-        }
+    if (m1Lines.length == 0) {
+        newStart1Button.innerHTML = '<span>Reset</span>';
+        newStart1Button.setAttribute('class', 'button is-danger');
+        ipcRenderer.send('start-measurement');
+    } else {
+        m1Lines = [];
+        renderNewPlot1();
+        newStart1Button.innerHTML = '<span>Start</span>';
+        newStart1Button.setAttribute('class', 'button is-success');
     }
 });
 newStart2Button.addEventListener('click', () => {
-    if (currentStep == 1) {
-        if (m1Lines.length == 0) {
-            ipcRenderer.send('start-measurement');
-            newStart2Button.innerHTML = '<span>Reset</span>';
-            newStart2Button.setAttribute('class', 'button is-danger');
-        } else {
-            m1Lines = [];
-            renderNewPlot1();
-            newStart2Button.innerHTML = '<span>Start</span>';
-            newStart2Button.setAttribute('class', 'button is-success');
-        }
-    } else if (currentStep == 2) {
-        if (m2Lines.length == 0) {
-            ipcRenderer.send('start-measurement');
-            newStart2Button.innerHTML = '<span>Reset</span>';
-            newStart2Button.setAttribute('class', 'button is-danger');
-        } else {
-            m2Lines = [];
-            renderNewPlot2();
-            newStart2Button.innerHTML = '<span>Start</span>';
-            newStart2Button.setAttribute('class', 'button is-success');
-        }
+    if (m2Lines.length == 0) {
+        newStart2Button.innerHTML = '<span>Reset</span>';
+        newStart2Button.setAttribute('class', 'button is-danger');
+        ipcRenderer.send('start-measurement');
+    } else {
+        m2Lines = [];
+        renderNewPlot2();
+        newStart2Button.innerHTML = '<span>Start</span>';
+        newStart2Button.setAttribute('class', 'button is-success');
     }
 });
 newViewResultButton.addEventListener('click', () => {
@@ -95,7 +69,6 @@ databaseResultInput.addEventListener('input', () => {
 databaseIdInput.addEventListener('input', () => {
     filter.id = (databaseIdInput.value.length != 0) ? databaseIdInput.value : undefined;
     renderList();
-
 });
 databaseDateInput.addEventListener('input', () => {
     filter.date = (databaseDateInput.value.length != 0) ? databaseDateInput.value : undefined;

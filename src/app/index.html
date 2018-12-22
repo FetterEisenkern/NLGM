@@ -8,6 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="lib/css/bulma.min.css">
     <style>@import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';</style>
+    <style>@import '../node_modules/bulma-calendar/dist/css/bulma-calendar.min.css';</style>
     <link rel="stylesheet" href="lib/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -54,19 +55,44 @@
                     <div class="steps-content">
                         <!-- New Patient -->
                         <div class="columns">
-                            <div class="column is-4"></div>
-                            <div class="column is-4">
+                            <div class="column is-1"></div>
+                            <div class="column is-10">
                                 <div class="step-content has-text-centered is-active">
                                     <div class="field is-horizontal">
                                         <div class="field-label is-normal">
-                                            <label class="label">Name</label>
+                                            <label class="label">First Name</label>
                                         </div>
                                         <div class="field-body">
                                             <div class="field">
                                                 <div class="control">
-                                                    <input class="input input-name" id="new-patient-name" type="text"
-                                                        value="Hans" placeholder="Name of patient" autofocus
-                                                        data-validate="require">
+                                                    <input id="new-patient-first-name" class="input input-name" type="text"
+                                                        value="Hansi" autofocus data-validate="require">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Last Name</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input id="new-patient-last-name" class="input input-name" type="text"
+                                                        value="Hansen" data-validate="require">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Date of Birth</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input id="new-patient-date-of-birth" class="input input-name" type="date"
+                                                        value="mm/dd/yyyy" data-validate="require">
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +111,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m1-length" type="text" value="20cm"
-                                                placeholder="First length" autofocus data-validate="require">
+                                                placeholder="in cm" data-validate="require">
                                         </div>
                                     </div>
                                     <a id="start-m1-btn" class="button is-success" style="right: 75%">
@@ -105,7 +131,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m2-length" type="text" value="18cm"
-                                                placeholder="Second length" autofocus data-validate="require">
+                                                placeholder="in cm" data-validate="require">
                                         </div>
                                     </div>
                                     <a id="start-m2-btn" class="button is-success" style="right: 75%">
@@ -119,20 +145,16 @@
                             <div class="columns">
                                 <div class="column is-4"></div>
                                 <div class="column is-4">
-                                    <h3 class="subtitle is-3">Result</h3>
+                                    <h3 class="subtitle is-3">Summary</h3>
                                     <table class="table is-hoverable">
                                         <tbody>
                                             <tr>
-                                                <th>Name</th>
-                                                <td id="new-result-name">Hans</td>
+                                                <th>Patient</th>
+                                                <td id="new-result-patient">-</td>
                                             </tr>
                                             <tr>
-                                                <th>Length 1</th>
-                                                <td id="new-result-l1">0</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Length 2</th>
-                                                <td id="new-result-l2">0</td>
+                                                <th style="vertical-align: middle;display: table-cell;">Lengths</th>
+                                                <td id="new-result-lengths">0cm<br>0cm</td>
                                             </tr>
                                             <tr>
                                                 <th>Measurements</th>
@@ -178,7 +200,7 @@
                     <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Patient</p>
-                            <p id="result-name" class="subtitle is-6">Hans</p>
+                            <p id="result-name" class="subtitle is-6">-</p>
                         </div>
                     </div>
                 </nav>
@@ -186,7 +208,7 @@
                     <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Date</p>
-                            <p id="result-date" class="subtitle is-6">2018-01-01 12:00</p>
+                            <p id="result-date" class="subtitle is-6">-</p>
                         </div>
                     </div>
                 </nav>

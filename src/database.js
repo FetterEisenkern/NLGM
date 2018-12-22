@@ -41,7 +41,7 @@ class Database {
     testInsert() {
         let p = (volt, ms) => new Point(volt, ms);
         var data = {
-            patient: 'Hans',
+            patient: 'Hansi Hansen',
             data: {
                 l1: 20,
                 l2: 18,

@@ -1,54 +1,55 @@
 const bulmaSteps = require('bulma-steps');
+const bulmaCalendar = require('bulma-calendar');
 
 var currentStep = 0;
-var steps = undefined;
+const steps = new bulmaSteps(newSteps, {
+    onShow: (id) => {
+        switch (currentStep = id) {
+            case 0:
+                newBackButton.firstElementChild.setAttribute('class', 'step-button hidden');
+                break;
+            case 1:
+                newBackButton.firstElementChild.setAttribute('class', 'step-button');
+                renderNewPlot1();
+                break;
+            case 2:
+                newNextButton.firstElementChild.setAttribute('class', 'step-button');
+                renderNewPlot2();
+                break;
+            case 3:
+                newNextButton.firstElementChild.setAttribute('class', 'step-button hidden');
 
-var renderSteps = () => {
-    currentStep = 0;
-    steps = new bulmaSteps(newSteps, { onShow: (id) => renderStep(id) });
-};
+                if (validateData()) {
+                    newViewResultButton.setAttribute('class', 'button is-success');
+                    newViewResultButton.removeAttribute('disabled');
+                    newViewResultButton.removeAttribute('title');
+                } else {
+                    newViewResultButton.setAttribute('class', 'button is-danger');
+                    newViewResultButton.setAttribute('disabled', '');
+                    newViewResultButton.setAttribute('title', 'Data not complete!');
+                }
 
-var renderStep = (id) => {
-    switch (currentStep = id) {
-        case 0:
-            newBackButton.firstElementChild.setAttribute('class', 'step-button hidden');
-            break;
-        case 1:
-            newBackButton.firstElementChild.setAttribute('class', 'step-button');
-            renderNewPlot1();
-            break;
-        case 2:
-            newNextButton.firstElementChild.setAttribute('class', 'step-button');
-            renderNewPlot2();
-            break;
-        case 3:
-            newNextButton.firstElementChild.setAttribute('class', 'step-button hidden');
+                newResultPatient.innerHTML = (newPatientFirstNameInput.value != '')
+                    ? `${newPatientFirstNameInput.value} ${newPatientLastNameInput.value}`
+                    : '-';
+                newResultLengths.innerHTML = `${(newLength1Input.value != '') ? parseInt(newLength1Input.value) : '0'}cm<br>`
+                    + `${(newLength2Input.value != '') ? parseInt(newLength2Input.value) : '0'}cm`;
 
-            if (validateData()) {
-                newViewResultButton.setAttribute('class', 'button is-success');
-                newViewResultButton.removeAttribute('disabled');
-                newViewResultButton.removeAttribute('title');
-            } else {
-                newViewResultButton.setAttribute('class', 'button is-danger');
-                newViewResultButton.setAttribute('disabled', '');
-                newViewResultButton.setAttribute('title', 'Data not complete!');
-            }
-
-            newResultLength1.innerHTML = newLength1Input.value;
-            newResultLength2.innerHTML = newLength2Input.value;
-            newResultName.innerHTML = newPatientNameInput.value;
-            newResultMeasurements.innerHTML = (m1Data)
-                ? (m2Data)
-                    ? 2
-                    : 1
-                : (m2Data)
-                    ? 1
-                    : 0;
-            break;
-        default:
-            break;
+                newResultMeasurements.innerHTML = (m1Data)
+                    ? (m2Data)
+                        ? 2
+                        : 1
+                    : (m2Data)
+                        ? 1
+                        : 0;
+                break;
+            default:
+                break;
+        }
     }
-};
+});
+
+const calendar = new bulmaCalendar(newPatientDateOfBirthInput);
 
 var m1Data = [];
 var m2Data = [];
@@ -97,7 +98,8 @@ var renderNewPlot2 = () => {
 };
 
 var validateData = () => {
-    return newPatientNameInput.value.length != 0
+    return newPatientFirstNameInput.value.length != 0
+        && newPatientLastNameInput.value.length != 0
         && newLength1Input.value.length != 0
         && newLength2Input.value.length != 0
         && m1Lines.length != 0
@@ -108,7 +110,7 @@ var getMeasurementData = () => {
     let measurement = {
         id: -1,
         date: undefined,
-        patient: newPatientNameInput.value,
+        patient: `${newPatientFirstNameInput.value} ${newPatientLastNameInput.value}`,
         data: {
             l1: parseInt(newLength1Input.value),
             l2: parseInt(newLength2Input.value),
@@ -162,11 +164,25 @@ var renderMeasurement = (data) => {
 };
 
 var resetMeasurement = () => {
+    if (currentStep == 3) {
+        steps.previous_step();
+        steps.previous_step();
+        steps.previous_step();
+    }
+
+    newPatientFirstNameInput.value = '';
+    newPatientLastNameInput.value = '';
+    newPatientDateOfBirthInput.value = '';
+    newLength1Input.value = '';
+    newLength2Input.value = '';
     m1Data = undefined;
     m2Data = undefined;
     m1Lines = [];
     m2Lines = [];
-    renderSteps();
+    newStart1Button.innerHTML = '<span>Start</span>';
+    newStart1Button.setAttribute('class', 'button is-success');
+    newStart2Button.innerHTML = '<span>Start</span>';
+    newStart2Button.setAttribute('class', 'button is-success');
     renderNewPlot1();
     renderNewPlot2();
 };
