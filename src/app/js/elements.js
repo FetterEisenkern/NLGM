@@ -50,3 +50,7 @@ const conPortName = document.querySelector('#connection-port-name');
 const conPortId = document.querySelector('#connection-port-id');
 const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
 const conConnectButton = document.querySelector('#connection-connect-btn');
+
+// Error
+const errorModal = document.querySelector('#error-modal');
+const errorModalContent = document.querySelector('#error-modal-content');

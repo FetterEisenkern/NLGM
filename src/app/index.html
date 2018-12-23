@@ -365,6 +365,20 @@
             </div>
         </div>
     </div>
+    <!-- Error Modal-->
+    <div id="error-modal" class="modal">
+        <div class="modal-background" onclick="closeErrorModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Error</p>
+            </header>
+            <section id="error-modal-content" class="modal-card-body">
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" onclick="closeErrorModal()">OK</button>
+            </footer>
+        </div>
+    </div>
     <!-- Tabs -->
     <div class="tabs is-centered bottom-tab" style="margin:0px">
         <ul>
@@ -377,6 +391,7 @@
     <!-- Scripts -->
     <script src="lib/js/plotly-latest.min.js"></script>
     <script src="js/elements.js"></script>
+    <script src="js/error.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/tabs/connectionTab.js"></script>
     <script src="js/tabs/databaseTab.js"></script>
