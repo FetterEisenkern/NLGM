@@ -46,7 +46,12 @@ var renderList = (currentPage = 1) => {
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
-        name.innerHTML = item.getName();
+
+        let link = document.createElement('a');
+        link.innerHTML = item.getName();
+        link.setAttribute('onclick', `renderPatientModal(filteredList[${index}])`);
+        name.appendChild(link);
+
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
             <p class="control">
@@ -86,9 +91,7 @@ var renderList = (currentPage = 1) => {
 
 var addToResultPlot = (index) => {
     selectTab(1);
-    if (filteredList.length > 0 && index <= filteredList.length) {
-        renderResult(filteredList[index]);
-    }
+    renderResult(filteredList[index]);
 };
 
 var deleteItem = (index) => {

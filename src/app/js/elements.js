@@ -51,6 +51,14 @@ const conPortId = document.querySelector('#connection-port-id');
 const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
 const conConnectButton = document.querySelector('#connection-connect-btn');
 
-// Error
+// Others
 const errorModal = document.querySelector('#error-modal');
 const errorModalContent = document.querySelector('#error-modal-content');
+const patientModal = document.querySelector('#patient-modal');
+const patientModalTitle = document.querySelector('#patient-modal-title');
+const patientModalStatsTotal = document.querySelector('#patient-modal-total');
+const patientModalStatsBest = document.querySelector('#patient-modal-best');
+const patientModalStatsWorst = document.querySelector('#patient-modal-worst');
+const patientModalStatsMostRecent = document.querySelector('#patient-modal-most-recent');
+const patientModalTable = document.querySelector('#patient-modal-table');
+const patientModalPaginator = document.querySelector('#patient-modal-paginator');

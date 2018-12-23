@@ -57,7 +57,7 @@
                         <div class="columns">
                             <div class="column is-1"></div>
                             <div class="column is-10">
-                                <div class="step-content has-text-centered is-active">
+                                <div class="step-content  is-active">
                                     <div class="field is-horizontal">
                                         <div class="field-label is-normal">
                                             <label class="label">First Name</label>
@@ -97,12 +97,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a id="new-patient-look-up-btn" class="button">
-                                        <span class="icon is-small">
-                                            <i class="fas fa-search"></i>
-                                        </span>
-                                        <span>Search Patient</span>
-                                    </a>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label"></label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <a id="new-patient-look-up-btn" class="button" style="left: 0%">
+                                                    <span class="icon is-small">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                    <span>Search Patient</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Search Modal-->
                                     <div id="new-patient-look-up-modal" class="modal">
                                         <div class="modal-background" onclick="closePatientDatabase()"></div>
@@ -379,6 +388,63 @@
             </footer>
         </div>
     </div>
+    <!-- Patient Modal-->
+    <div id="patient-modal" class="modal">
+        <div class="modal-background" onclick="closePatientModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p id="patient-modal-title" class="modal-card-title">Hansi Hansen</p>
+                <button class="delete" aria-label="close" onclick="closePatientModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Stats -->
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div title="Total amount of measurements">
+                            <p class="heading">Total</p>
+                            <p id="patient-modal-total" class="title">6</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Best result in m/s">
+                            <p class="heading">Best</p>
+                            <p id="patient-modal-best" class="title">1.03</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Worst result in m/s">
+                            <p class="heading">Worst</p>
+                            <p id="patient-modal-worst" class="title">1.00</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Most recent result in m/s">
+                            <p class="heading">Most Recent</p>
+                            <p id="patient-modal-most-recent" class="title">1.03</p>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Table -->
+                <table class="table is-hoverable is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Result</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-modal-table"></tbody>
+                </table>
+                <!-- Table Paginator -->
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                    <ul id="patient-modal-paginator" class="pagination-list"></ul>
+                </nav>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" onclick="closePatientModal()">Close</button>
+            </footer>
+        </div>
+    </div>
     <!-- Tabs -->
     <div class="tabs is-centered bottom-tab" style="margin:0px">
         <ul>
@@ -392,6 +458,7 @@
     <script src="lib/js/plotly-latest.min.js"></script>
     <script src="js/elements.js"></script>
     <script src="js/error.js"></script>
+    <script src="js/patient.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/tabs/connectionTab.js"></script>
     <script src="js/tabs/databaseTab.js"></script>

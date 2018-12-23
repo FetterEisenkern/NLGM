@@ -117,7 +117,7 @@ var renderPatientDatabase = (currentPage = 1) => {
     for (let i = 1; i <= paginatorPages; ++i) {
         let link = document.createElement('a');
         link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
-        link.setAttribute('onclick', `renderList(${i});`);
+        link.setAttribute('onclick', `renderPatientDatabase(${i});`);
         link.innerHTML = i;
 
         let item = document.createElement('li');
