@@ -18,8 +18,11 @@ class Processor {
         return new Processor();
     }
     init() {
-        this.db.init();
-        //for (let i = 0; i < 10; ++i) { this.db.testInsert(); };
+        this.db.init(() => {
+            //for (let i = 0; i < 3; ++i) { this.db.testInsert(); };
+            //this.db.testSelectAll();
+            //this.db.testSelectAllPatients();
+        });
     }
     async checkPort() {
         await this.controller.reInit(this);

@@ -46,7 +46,7 @@ var renderList = (currentPage = 1) => {
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
-        patient.innerHTML = item.patient;
+        patient.innerHTML = item.firstName + ' ' + item.lastName;
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
             <p class="control">

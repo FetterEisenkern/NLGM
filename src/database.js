@@ -6,42 +6,98 @@ class Database {
         this.file = file;
         this.db = new sqlite3.Database(this.file);
     }
-    init() {
-        this.db.run(`CREATE TABLE IF NOT EXISTS nlgm(
-            id      INTEGER PRIMARY KEY AUTOINCREMENT,
-            patient VARCHAR(32),
-            date    DATE,
-            data    BLOB)`);
+    init(callback) {
+        this.db.run(`CREATE TABLE IF NOT EXISTS patients(
+            patientId   INTEGER PRIMARY KEY AUTOINCREMENT,
+            firstName   VARCHAR(32),
+            lastName    VARCHAR(32),
+            dateOfBirth DATE,
+            createdAt   DATE)`, () => {
+                this.db.run(`CREATE TABLE IF NOT EXISTS nlgm(
+                    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+                    patient INTEGER,
+                    date    DATE,
+                    data    BLOB,
+                    FOREIGN KEY(patient) REFERENCES patients(id))`, callback);
+            });
     }
     shutdown() {
         this.db.close();
     }
     insert(data, callback = undefined) {
-        this.db.serialize(() => {
-            this.db.prepare('INSERT INTO nlgm (patient, date, data) VALUES (?, date(\'now\'), ?)')
-                .run(data.patient, Buffer.from(JSON.stringify({
-                    l1: data.data.l1,
-                    l2: data.data.l2,
-                    m1: data.data.m1,
-                    m2: data.data.m2,
-                    result: data.data.result
-                })))
-                .finalize(callback);
-        });
+        if (data.patient.id == undefined) {
+            let stmt = this.insertPatient(data.patient, () => {
+                this.insertData(stmt.lastID, data.data, callback);
+            });
+        } else {
+            this.insertData(data.patient.id, data.data, callback);
+        }
+    }
+    insertData(id, data, callback = undefined) {
+        let buffer = Buffer.from(JSON.stringify({
+            l1: data.l1,
+            l2: data.l2,
+            m1: data.m1,
+            m2: data.m2,
+            result: data.result
+        }));
+
+        return this.db.prepare('INSERT INTO nlgm (patient, date, data) VALUES (?, date(\'now\'), ?)')
+            .run([id, buffer], callback);
+    }
+    insertPatient(data, callback = undefined) {
+        return this.db.prepare('INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt) VALUES (?, ?, date(?), date(\'now\'))')
+            .run([data.firstName, data.lastName, data.dateOfBirth], callback);
     }
     select(id, callback) {
         this.db.each('SELECT id, patient, date, data FROM nlgm WHERE id == ?', id, callback);
     }
+    selectPatient(id, callback) {
+        this.db.each('SELECT id, firstName, lastName, dateOfBirth, createdAt FROM patients WHERE id == ?', id, callback);
+    }
     selectAll(callback) {
-        this.db.each('SELECT id, patient, date, data FROM nlgm ORDER BY id DESC', callback);
+        this.db.each(`SELECT id,
+            patient,
+            patients.firstName,
+            patients.lastName,
+            patients.dateOfBirth,
+            patients.createdAt,
+            date,
+            data
+            FROM nlgm
+            INNER JOIN patients ON patients.patientId == patient
+            ORDER BY id DESC`, callback);
+    }
+    selectAllPatients(callback) {
+        this.db.each('SELECT patientId, firstName, lastName, dateOfBirth, createdAt FROM patients ORDER BY patientId DESC', callback);
     }
     testSelectAll() {
-        return this.selectAll((_, row) => console.log(`${row.id} | ${row.patient} | ${row.date} | ${row.data}`));
+        this.selectAll((err, row) => {
+            if (row) {
+                console.log(`${row.id} | ${row.firstName} | ${row.lastName} | ${row.dateOfBirth} | ${row.date}`);
+            } else {
+                console.error(err);
+            }
+        });
+    }
+    testSelectAllPatients() {
+        this.selectAllPatients((err, row) => {
+            if (row) {
+                console.log(`${row.patientId} | ${row.firstName} | ${row.lastName} | ${row.dateOfBirth} | ${row.createdAt}`);
+            } else {
+                console.error(err);
+            }
+        });
     }
     testInsert() {
         let p = (volt, ms) => new Point(volt, ms);
         var data = {
-            patient: 'Hansi Hansen',
+            patient: {
+                id: undefined,
+                firstName: 'Hansi',
+                lastName: 'Hansen',
+                dateOfBirth: '1998-10-10'
+            },
             data: {
                 l1: 20,
                 l2: 18,
@@ -50,14 +106,15 @@ class Database {
                 result: 1
             }
         };
-        return this.insert(data);
+        this.insert(data);
     }
-    delete(id) {
-        this.db.serialize(() => {
-            this.db.prepare('DELETE FROM nlgm WHERE id == ?')
-                .run(id)
-                .finalize();
-        });
+    delete(id, callback = undefined) {
+        this.db.prepare('DELETE FROM nlgm WHERE id == ?')
+            .run([id], callback);
+    }
+    deletePatient(id, callback = undefined) {
+        this.db.prepare('DELETE FROM patients WHERE id == ?')
+            .run([id], callback);
     }
 }
 

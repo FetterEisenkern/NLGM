@@ -5,6 +5,7 @@
 !.vscode/extensions.json
 *.db
 doc/
+nlgm.db-journal
 
 # Logs
 logs
