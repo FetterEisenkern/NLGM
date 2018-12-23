@@ -43,6 +43,7 @@ const databasePatientInput = document.querySelector('#database-patient-input');
 const databaseResultInput = document.querySelector('#database-result-input');
 const databaseIdInput = document.querySelector('#database-id-input');
 const databaseDateInput = document.querySelector('#database-date-input');
+const databaseSorter = document.querySelector('#database-sorter');
 
 // Connection
 const conPortName = document.querySelector('#connection-port-name');

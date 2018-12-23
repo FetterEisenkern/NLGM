@@ -97,4 +97,22 @@ var deleteItem = (index) => {
     renderList();
 }
 
+var sortList = (type) => {
+    switch (type) {
+        case 0:
+            databaseList.sort((a, b) => a.id < b.id);
+            break;
+        case 1:
+            databaseList.sort((a, b) => a.id > b.id);
+            break;
+        case 2:
+            databaseList.sort((a, b) => a.data.result < b.data.result);
+            break;
+        case 3:
+            databaseList.sort((a, b) => a.data.result > b.data.result);
+            break;
+    }
+    renderList();
+};
+
 renderList();

@@ -91,6 +91,9 @@ databaseDateInput.addEventListener('input', () => {
     filter.date = (databaseDateInput.value.length != 0) ? databaseDateInput.value : undefined;
     renderList();
 });
+databaseSorter.addEventListener('change', () => {
+    sortList(databaseSorter.selectedIndex);
+});
 
 // Connection
 conConnectButton.addEventListener('click', () => {
