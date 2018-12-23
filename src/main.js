@@ -23,10 +23,31 @@ const createWindow = async () => {
     window.on('closed', () => win = null);
 
     // New
-    ipcMain.on('start-measurement', () => processor.startMeasurement());
-    ipcMain.on('save-data', (_, data) => processor.saveData(data, () => processor.getRows()));
+    ipcMain.on('start-measurement', () => {
+        processor.controller.send('s');
+        processor.sendMeasurementSuccess(processor.measurement);
+    });
+    ipcMain.on('save-data', (_, data) => {
+        processor.db.insert(data, () => {
+            processor.db.selectAll((_, row) => {
+                processor.sendDatabaseDataRow(row);
+            });
+            processor.db.selectAllPatients((_, row) => {
+                processor.sendDatabasePatientRow(row);
+            });
+        });
+    });
     // Database
-    ipcMain.on('get-db-rows', () => processor.getRows());
+    ipcMain.on('get-data-rows', () => {
+        processor.db.selectAll((_, row) => {
+            processor.sendDatabaseDataRow(row);
+        });
+    });
+    ipcMain.on('get-patient-rows', () => {
+        processor.db.selectAllPatients((_, row) => {
+            processor.sendDatabasePatientRow(row);
+        });
+    });
     // Connection
     ipcMain.on('get-port-info', async () => await processor.checkPort());
     ipcMain.on('delete-db-row', (_, id) => processor.db.delete(id));

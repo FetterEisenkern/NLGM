@@ -14,7 +14,7 @@ var resultPlotLayout = {
 
 var addDataResult = (data) => {
     resultResult.textContent = ((data.data.result) ? data.data.result.toFixed(2) : '0.00') + ' m/s';
-    resultName.textContent = (data.patient) ? data.patient : '-';
+    resultName.textContent = data.getName();
     resultDate.textContent = (data.date) ? data.date : 'Recently';
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
@@ -33,7 +33,12 @@ var addLinesToResultPlot = (data, legend) => {
         y: voltage,
         x: time,
         line: {
-            shape: 'spline'
+            shape: 'linear', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
+            //smoothing: 0
+        },
+        mode: 'lines+markers',
+        marker: {
+            symbol: 'circle'
         },
         name: legend
     });

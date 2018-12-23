@@ -15,7 +15,7 @@ var renderList = (currentPage = 1) => {
             if (filter.result && item.data.result.toFixed(2).toString().startsWith(filter.result)
                 || (filter.id && item.id.toString().startsWith(filter.id))
                 || (filter.date && item.date.startsWith(filter.date))
-                || (filter.name && item.patient.startsWith(filter.name))) {
+                || (filter.name && item.getName().startsWith(filter.name))) {
                 filteredList.push(item);
             }
         }
@@ -40,13 +40,13 @@ var renderList = (currentPage = 1) => {
 
         let id = document.createElement('td');
         let date = document.createElement('td');
-        let patient = document.createElement('td');
+        let name = document.createElement('td');
         let result = document.createElement('td');
         let actions = document.createElement('td');
 
         id.innerHTML = item.id;
         date.innerHTML = item.date;
-        patient.innerHTML = item.firstName + ' ' + item.lastName;
+        name.innerHTML = item.getName();
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
             <p class="control">
@@ -63,7 +63,7 @@ var renderList = (currentPage = 1) => {
         let row = document.createElement('tr');
         row.appendChild(id);
         row.appendChild(date);
-        row.appendChild(patient);
+        row.appendChild(name);
         row.appendChild(result);
         row.appendChild(actions);
 

@@ -10,7 +10,8 @@ class Processor {
         this.timeout = undefined;
         this.sendMeasurementSuccess = undefined;
         this.sendMeasurementError = undefined;
-        this.sendDatabaseRow = undefined;
+        this.sendDatabaseDataRow = undefined;
+        this.sendDatabasePatientRow = undefined;
         this.sendPortClose = undefined;
         this.sendPortInfo = undefined;
     }
@@ -59,20 +60,11 @@ class Processor {
             this.sendPortClose();
         }
     }
-    startMeasurement() {
-        this.controller.send('s');
-        this.sendMeasurementSuccess(this.measurement);
-    }
-    saveData(data) {
-        this.db.insert(data);
-    }
-    getRows() {
-        this.db.selectAll((_, row) => this.sendDatabaseRow(row));
-    }
     setWindowCallbacks(window) {
         this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getTestData());
         this.sendMeasurementError = () => window.webContents.send('measurement-error');
-        this.sendDatabaseRow = (row) => window.webContents.send('db-row', row);
+        this.sendDatabaseDataRow = (row) => window.webContents.send('db-data-row', row);
+        this.sendDatabasePatientRow = (row) => window.webContents.send('db-patient-row', row);
         this.sendPortClose = () => window.webContents.send('port-close');
         this.sendPortInfo = (controller) => window.send('port-info', controller.getInfo());
     }

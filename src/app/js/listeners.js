@@ -66,6 +66,7 @@ newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {
         let data = getMeasurementData();
         databaseList = [];
+        patientList = [];
         ipcRenderer.send('save-data', data);
         selectTab(1);
         renderResult(data);

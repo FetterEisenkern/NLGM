@@ -9,9 +9,15 @@ ipcRenderer.on('measurement-error', () => {
 });
 
 // Database
-ipcRenderer.on('db-row', (_, row) => {
+ipcRenderer.on('db-data-row', (_, row) => {
     row.data = JSON.parse(row.data);
+    row.getName = function () { return this.firstName + ' ' + this.lastName };
     databaseList.push(row);
+    renderList();
+});
+ipcRenderer.on('db-patient-row', (_, row) => {
+    row.getName = function () { return this.firstName + ' ' + this.lastName };
+    patientList.push(row);
     renderList();
 });
 
@@ -24,5 +30,6 @@ ipcRenderer.on('port-close', () => {
 });
 
 // Request data
-ipcRenderer.send('get-db-rows');
+ipcRenderer.send('get-data-rows');
+ipcRenderer.send('get-patient-rows');
 ipcRenderer.send('get-port-info');

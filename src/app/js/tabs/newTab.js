@@ -55,10 +55,6 @@ var patientList = [];
 var filteredPatientList = [];
 var currentPatient = undefined;
 
-patientList.push({ id: 0, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
-patientList.push({ id: 1, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
-patientList.push({ id: 2, firstName: 'Hansi', lastName: 'Hansen', dateOfBirth: '1998-10-10' });
-
 var renderPatientDatabase = (currentPage = 1) => {
     if (newPatientFirstNameInput.value != '' || newPatientLastNameInput.value != '' || newPatientDateOfBirthInput.value != '') {
         filteredPatientList = [];
@@ -95,7 +91,7 @@ var renderPatientDatabase = (currentPage = 1) => {
         let birth = document.createElement('td');
         let actions = document.createElement('td');
 
-        id.innerHTML = item.id;
+        id.innerHTML = item.patientId;
         first.innerHTML = item.firstName;
         last.innerHTML = item.lastName;
         birth.innerHTML = item.dateOfBirth;
@@ -181,7 +177,12 @@ var addToNewPlot = (lines, data, legend) => {
         y: voltage,
         x: time,
         line: {
-            shape: 'spline'
+            shape: 'linear', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
+            //smoothing: 0
+        },
+        mode: 'lines+markers',
+        marker: {
+            symbol: 'circle'
         },
         name: legend
     });
@@ -197,6 +198,7 @@ var renderNewPlot2 = () => {
 var validateData = () => {
     return newPatientFirstNameInput.value.length != 0
         && newPatientLastNameInput.value.length != 0
+        && newPatientDateOfBirthInput.value.length != 0
         && newLength1Input.value.length != 0
         && newLength2Input.value.length != 0
         && parseInt(newLength1Input.value) != parseInt(newLength2Input.value)
@@ -208,13 +210,21 @@ var getMeasurementData = () => {
     let measurement = {
         id: -1,
         date: undefined,
-        patient: `${newPatientFirstNameInput.value} ${newPatientLastNameInput.value}`,
+        patient: {
+            id: (currentPatient) ? currentPatient.patientId : undefined,
+            firstName: newPatientFirstNameInput.value,
+            lastName: newPatientLastNameInput.value,
+            dateOfBirth: newPatientDateOfBirthInput.value
+        },
         data: {
             l1: parseInt(newLength1Input.value),
             l2: parseInt(newLength2Input.value),
             m1: m1Data,
             m2: m2Data,
             result: undefined
+        },
+        getName() {
+            return this.patient.firstName + ' ' + this.patient.lastName;
         }
     };
     measurement.data.result = calculateResult(measurement.data);
@@ -267,10 +277,18 @@ var resetMeasurement = () => {
         steps.previous_step();
         steps.previous_step();
     }
-
     newPatientFirstNameInput.value = '';
     newPatientLastNameInput.value = '';
     newPatientDateOfBirthInput.value = '';
+    currentPatient = undefined;
+    newPatientFirstNameInput.removeAttribute('disabled');
+    newPatientLastNameInput.removeAttribute('disabled');
+    newPatientDateOfBirthInput.removeAttribute('disabled');
+    newPatientLookUpButton.innerHTML = `
+            <span class="icon is-small">
+                <i class="fas fa-search"></i>
+            </span>
+            <span>Search Patient</span>`;
     newLength1Input.value = '';
     newLength2Input.value = '';
     m1Data = undefined;
