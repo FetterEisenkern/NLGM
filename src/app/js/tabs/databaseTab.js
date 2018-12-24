@@ -2,6 +2,8 @@ var databaseList = [];
 var filteredList = [];
 var compareList = [];
 var count = 0;
+var ind1;
+var ind2;
 
 var filter = {
     shouldApply() {
@@ -75,12 +77,22 @@ var deleteItem = (index) => {
 }
 
 var compareItem = (index) => {
+    if (count == 0) {
+        init();
+    }
+
     
-    compareList[count] = index;
     count++;
-    if (count >= 2) {
-        clickCorrelationButton(compareList[0], compareList[1]);
-        count = 0;
+    if (count % 2 > 0) {
+        ind1 = index
+    }
+  
+
+    if (count % 2 == 0) {
+        ind2 = index
+        compare(ind1, ind2);
+        selectTab(4);
+        
     }
    
 }

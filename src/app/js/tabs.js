@@ -4,7 +4,7 @@ const tabs = [
     { tab: resultTab, div: resultView },
     { tab: databaseTab, div: databaseView },
     { tab: connectionTab, div: connectionView },
-      { tab: correlationTab, div: correlationView }
+      { tab: comparisonTab, div: comparisonView }
 ];
 
 let selectTab = (index) => {

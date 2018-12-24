@@ -10,7 +10,7 @@ databaseTab.addEventListener('click', () => {
     databasePatientInput.focus();
 });
 connectionTab.addEventListener('click', () => selectTab(3));
-correlationTab.addEventListener('click', () => selectTab(4));
+comparisonTab.addEventListener('click', () => selectTab(4));
 
 // New
 newBackButton.addEventListener('click', () => {
@@ -30,13 +30,6 @@ newStart2Button.addEventListener('click', () => {
     ipcRenderer.send('start-measurement');
 });
 
-correlationView.addEventListener('click', () => {
-    console.log("Correlation Tab was opened");
-});
-
-newCorrelationButton.addEventListener('click', () => {
-    clickCorrelationButton();
-});
 
 newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {

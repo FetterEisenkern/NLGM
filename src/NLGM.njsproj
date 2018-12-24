@@ -88,7 +88,7 @@
     <Compile Include="app\js\tabs\databaseTab.js" />
     <Compile Include="app\js\tabs\newTab.js" />
     <Compile Include="app\js\tabs\resultTab.js" />
-    <Compile Include="app\js\tabs\correlationTab.js">
+    <Compile Include="app\js\tabs\comparisonTab.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="point.js" />
