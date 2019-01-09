@@ -16,8 +16,32 @@ var addDataResult = (data) => {
     resultResult.textContent = ((data.data.result) ? data.data.result.toFixed(2) : '0.00') + ' m/s';
     resultName.textContent = data.getName();
     resultDate.textContent = (data.date) ? data.date : 'Recently';
+    selectResult(data.data.result);
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
+    
+};
+
+var selectResult = (result) => {
+    if (result != undefined) {
+        for (let tr of resultTable.children) {
+            tr.removeAttribute('class');
+        }
+
+        if (result >= 60 && result <= 120) {
+            resultTable.children[0].setAttribute('class', 'is-selected');
+        } else if (result >= 40 && result <= 90) {
+            resultTable.children[1].setAttribute('class', 'is-selected');
+        } else if (result >= 20 && result <= 50) {
+            resultTable.children[2].setAttribute('class', 'is-selected');
+        } else if (result >= 10 && result <= 30) {
+            resultTable.children[3].setAttribute('class', 'is-selected');
+        } else if (result >= 5 && result <= 20) {
+            resultTable.children[4].setAttribute('class', 'is-selected');
+        } else if (result >= 0.5 && result <= 2) {
+            resultTable.children[5].setAttribute('class', 'is-selected');
+        }
+    }
 };
 
 var addLinesToResultPlot = (data, legend) => {
@@ -33,7 +57,7 @@ var addLinesToResultPlot = (data, legend) => {
         y: voltage,
         x: time,
         line: {
-            shape: 'linear', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
+            shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
             //smoothing: 0
         },
         mode: 'lines+markers',
