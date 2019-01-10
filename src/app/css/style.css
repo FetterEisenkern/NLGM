@@ -64,3 +64,17 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#comparison-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#comparison-table td, th {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}

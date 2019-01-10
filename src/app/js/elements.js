@@ -9,6 +9,7 @@ const resultView = document.querySelector('#result');
 const databaseView = document.querySelector('#database');
 const connectionView = document.querySelector('#connection');
 const comparisonView = document.querySelector('#comparison');
+
 // New
 const newSteps = document.querySelector('#new-steps');
 const newBackButton = document.querySelector('#new-back-btn');

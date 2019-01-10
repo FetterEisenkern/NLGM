@@ -3,8 +3,7 @@ const Point = require('./point');
 
 class Database {
     constructor(file) {
-        this.file = file;
-        this.db = new sqlite3.Database(this.file);
+        this.db = new sqlite3.Database(file);
     }
     init(callback) {
         this.db.run(`CREATE TABLE IF NOT EXISTS patients(

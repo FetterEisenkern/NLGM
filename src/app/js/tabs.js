@@ -4,12 +4,12 @@ const tabs = [
     { tab: resultTab, div: resultView },
     { tab: databaseTab, div: databaseView },
     { tab: connectionTab, div: connectionView },
-      { tab: comparisonTab, div: comparisonView }
+    { tab: comparisonTab, div: comparisonView }
 ];
 var currentTab = 0;
 
 var selectTab = (index) => {
-    if (index >= 0 && index <= 3) {
+    if (index >= 0 && index <= 4) {
         // Select tab & show div
         let selected = tabs[currentTab = index];
         selected.tab.setAttribute('class', 'is-active');

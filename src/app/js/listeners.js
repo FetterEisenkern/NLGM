@@ -64,12 +64,11 @@ newStart2Button.addEventListener('click', () => {
     }
 });
 
-comparisonTab.addEventListener('click', () => {
-    if (count % 2 > 0 ||count == 0) {
+/* comparisonTab.addEventListener('click', () => {
+    if (count % 2 > 0 || count == 0) {
         alert("You did not select two measurements for a comparison");
-        
     }
-});
+}); */
 
 newReturnButton.addEventListener('click', () => {
     selectTab(2);

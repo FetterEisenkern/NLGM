@@ -61,14 +61,14 @@ var renderList = (currentPage = 1) => {
                     View
                 </a>
             </p>
-            <p class="control" onclick="deleteItem(${index})">
-                <a class="button is-small is-danger is-outlined">
-                    Delete
-                </a>
-            </p>
             <p class="control" onclick="compareItem(this, ${index})">
                 <a class="button is-small is-success is-outlined">
                     Compare
+                </a>
+            </p>
+            <p class="control" onclick="deleteItem(${index})">
+                <a class="button is-small is-danger is-outlined">
+                    Delete
                 </a>
             </p>`;
 
@@ -108,38 +108,28 @@ var deleteItem = (index) => {
 };
 
 var compareItem = (element, index) => {
-    
-    element.firstElementChild.setAttribute('class', 'button is-warning');
-
+    element.firstElementChild.setAttribute('class', 'button is-small is-success');
 
     if (count == 0) {
-        alert("Please do not forget that you always need two measurements for a comparison");
+        //alert("Please do not forget that you always need two measurements for a comparison");
     }
-
-    else if (count == 1) {
-        init();
-    }
-
-
     count++;
 
     if (count % 2 > 0) {
         compareList[0] = filteredList[index];
     }
 
-
     if (count % 2 == 0) {
-        setTimeout(prepareTab, 750);
-        setTimeout(render, 1000);
-        compareList[1] = filteredList[index];
-        compare(compareList[0], compareList[1]);
-        
+        let item = filteredList[index];
+        if (compareList[0] != item) {
+            setTimeout(() => selectTab(4), 750);
+            setTimeout(() => renderList(), 1000);
+            compareList[1] = item;
+            compare(compareList[0], compareList[1]);
+        } else {
+            count--;
+        }
     }
-
-};
-
-function prepareTab() {
-    selectTab(4);
 };
 
 var sortList = (type) => {
@@ -161,7 +151,3 @@ var sortList = (type) => {
 };
 
 renderList();
-
-function render() {
-    renderList();
-};
