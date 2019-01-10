@@ -23,7 +23,7 @@ const newStart2Button = document.querySelector('#start-m2-btn');
 const newResultName = document.querySelector('#new-result-name');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
-
+const newReturnButton = document.querySelector('#new-return-btn')
 
 // Result
 const resultPlot = document.querySelector('#result-plot');

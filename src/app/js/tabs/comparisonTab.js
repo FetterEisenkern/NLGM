@@ -19,18 +19,18 @@ let compare = (index1, index2) => {
 
 
     // add values to the cells
-    name1.innerHTML = databaseList[index1].patient;
-    id1.innerHTML = databaseList[index1].id;
-    result1.innerHTML = databaseList[index1].data.result.toFixed(2) + " m/s";
-    date1.innerHTML = databaseList[index1].date;
+    name1.innerHTML = index1.patient;
+    id1.innerHTML =   index1.id;
+    result1.innerHTML = index1.data.result.toFixed(2) + " m/s";
+    date1.innerHTML = index1.date;
 
 
 
 
-    name2.innerHTML = databaseList[index2].patient;
-    id2.innerHTML = databaseList[index2].id;
-    result2.innerHTML = databaseList[index2].data.result.toFixed(2) + " m/s";
-    date2.innerHTML = databaseList[index2].date;
+    name2.innerHTML = index2.patient;
+    id2.innerHTML = index2.id;
+    result2.innerHTML = index2.data.result.toFixed(2) + " m/s";
+    date2.innerHTML = index2.date;
 
 
 

@@ -2,8 +2,7 @@ var databaseList = [];
 var filteredList = [];
 var compareList = [];
 var count = 0;
-var ind1;
-var ind2;
+
 
 var filter = {
     shouldApply() {
@@ -48,7 +47,7 @@ var renderList = () => {
         deleteButton.innerHTML = `<a class='button is-danger'>Delete</a>`;
         deleteButton.setAttribute(`onclick`, `deleteItem(${index})`);
         compare.innerHTML = `<a class='button is-success'>Compare</a>`;
-        compare.setAttribute(`onclick`, `compareItem(${index})`);
+        compare.setAttribute(`onclick`, `compareItem(this, ${index})`);
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -76,25 +75,43 @@ var deleteItem = (index) => {
     renderList();
 }
 
-var compareItem = (index) => {
+var compareItem = (element, index) => {
+    
+    element.firstElementChild.setAttribute('class', 'button is-warning');
+
+
     if (count == 0) {
+        alert("Please do not forget that you always need two measurements for a comparison");
+    }
+
+    else if (count == 1) {
         init();
     }
 
-    
+
     count++;
+
     if (count % 2 > 0) {
-        ind1 = index
+        compareList[0] = filteredList[index];
     }
-  
+
 
     if (count % 2 == 0) {
-        ind2 = index
-        compare(ind1, ind2);
-        selectTab(4);
+        setTimeout(prepareTab, 750);
+        setTimeout(render, 1000);
+        compareList[1] = filteredList[index];
+        compare(compareList[0], compareList[1]);
         
     }
-   
+
+};
+
+function prepareTab() {
+    selectTab(4);
 }
 
 renderList();
+
+function render() {
+    renderList();
+}

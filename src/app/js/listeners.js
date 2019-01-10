@@ -30,6 +30,16 @@ newStart2Button.addEventListener('click', () => {
     ipcRenderer.send('start-measurement');
 });
 
+comparisonTab.addEventListener('click', () => {
+    if (count % 2 > 0 ||count == 0) {
+        alert("You did not select two measurements for a comparison");
+        
+    }
+});
+
+newReturnButton.addEventListener('click', () => {
+    selectTab(2);
+});
 
 newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {
