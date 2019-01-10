@@ -1,5 +1,7 @@
 var databaseList = [];
 var filteredList = [];
+var compareList = [];
+var count = 0;
 var rowsPerPage = 10;
 
 var filter = {
@@ -63,6 +65,11 @@ var renderList = (currentPage = 1) => {
                 <a class="button is-small is-danger is-outlined">
                     Delete
                 </a>
+            </p>
+            <p class="control" onclick="compareItem(this, ${index})">
+                <a class="button is-small is-success is-outlined">
+                    Compare
+                </a>
             </p>`;
 
         let row = document.createElement('tr');
@@ -98,7 +105,42 @@ var deleteItem = (index) => {
     ipcRenderer.send('delete-db-row', filteredList[index].id);
     databaseList.splice(databaseList.indexOf(filteredList[index]), 1);
     renderList();
-}
+};
+
+var compareItem = (element, index) => {
+    
+    element.firstElementChild.setAttribute('class', 'button is-warning');
+
+
+    if (count == 0) {
+        alert("Please do not forget that you always need two measurements for a comparison");
+    }
+
+    else if (count == 1) {
+        init();
+    }
+
+
+    count++;
+
+    if (count % 2 > 0) {
+        compareList[0] = filteredList[index];
+    }
+
+
+    if (count % 2 == 0) {
+        setTimeout(prepareTab, 750);
+        setTimeout(render, 1000);
+        compareList[1] = filteredList[index];
+        compare(compareList[0], compareList[1]);
+        
+    }
+
+};
+
+function prepareTab() {
+    selectTab(4);
+};
 
 var sortList = (type) => {
     switch (type) {
@@ -119,3 +161,7 @@ var sortList = (type) => {
 };
 
 renderList();
+
+function render() {
+    renderList();
+};

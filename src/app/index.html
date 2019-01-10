@@ -379,7 +379,61 @@
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
+        </div>
+    </div>
+    <!-- Comparison Tab -->
+    <div id="comparison" class="hidden tab">
+        <h1 class="subtitle is-3" align="center">Comparison</h1>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+            }
+
+            #box1 {
+                position: fixed;
+                top: 500px;
+                left: 50%;
+            }
+
+            #cssTable td {
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
+
+        <table id="cssTable">
+
+            <tr>
+                <th style="text-align:center">Data Type</th>
+                <th style="text-align:center">Patient 1</th>
+                <th style="text-align:center">Patient 2</th>
+            </tr>
+            <tr id="row1">
+                <td style="text-align:center">Name</td>
+            </tr>
+            <tr id="row2">
+                <td style="text-align:center">ID</td>
+            </tr>
+            <tr id="row3">
+                <td style="text-align:center">Result</td>
+            </tr>
+            <tr id="row4">
+                <td style="text-align:center">Date</td>
+            </tr>
+
+        </table>
+        <div id="box1">
+            <a id="new-return-btn" class="button is-hoverable">Return</a>
         </div>
     </div>
     <!-- Connection Tab -->
@@ -487,6 +541,7 @@
             <li id="result-tab"><a>Result</a></li>
             <li id="database-tab"><a>Database</a></li>
             <li id="connection-tab"><a>Connection</a></li>
+            <li id="comparison-tab"><a>Comparison</a></li>
         </ul>
     </div>
     <!-- Scripts -->
@@ -501,6 +556,7 @@
     <script src="js/tabs/resultTab.js"></script>
     <script src="js/listeners.js"></script>
     <script src="js/renderer.js"></script>
+    <script src="js/tabs/comparisonTab.js"></script>
 </body>
 
 </html>

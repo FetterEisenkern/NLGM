@@ -34,6 +34,8 @@ ipcRenderer.on('port-close', () => {
     renderNotConnected();
 });
 
+
+
 // Request data
 ipcRenderer.send('get-data-rows');
 ipcRenderer.send('get-patient-rows');

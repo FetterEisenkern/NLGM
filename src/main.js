@@ -21,7 +21,7 @@ const createWindow = async () => {
     //window.webContents.openDevTools({ mode: 'bottom' });
 
     window.on('closed', () => win = null);
-
+  
     // New
     ipcMain.on('start-measurement', () => {
         processor.controller.send('s');

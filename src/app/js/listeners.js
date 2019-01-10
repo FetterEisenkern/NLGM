@@ -10,6 +10,7 @@ databaseTab.addEventListener('click', () => {
     databasePatientInput.focus();
 });
 connectionTab.addEventListener('click', () => selectTab(3));
+comparisonTab.addEventListener('click', () => selectTab(4));
 
 // New
 newBackButton.addEventListener('click', () => {
@@ -62,6 +63,18 @@ newStart2Button.addEventListener('click', () => {
         newStart2Button.setAttribute('class', 'button is-success');
     }
 });
+
+comparisonTab.addEventListener('click', () => {
+    if (count % 2 > 0 ||count == 0) {
+        alert("You did not select two measurements for a comparison");
+        
+    }
+});
+
+newReturnButton.addEventListener('click', () => {
+    selectTab(2);
+});
+
 newViewResultButton.addEventListener('click', () => {
     if (!newViewResultButton.hasAttribute('disabled')) {
         let data = getMeasurementData();

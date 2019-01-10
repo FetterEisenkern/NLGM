@@ -3,11 +3,12 @@ const newTab = document.querySelector('#new-tab');
 const resultTab = document.querySelector('#result-tab');
 const databaseTab = document.querySelector('#database-tab');
 const connectionTab = document.querySelector('#connection-tab');
+const comparisonTab = document.querySelector('#comparison-tab');
 const newView = document.querySelector('#new');
 const resultView = document.querySelector('#result');
 const databaseView = document.querySelector('#database');
 const connectionView = document.querySelector('#connection');
-
+const comparisonView = document.querySelector('#comparison');
 // New
 const newSteps = document.querySelector('#new-steps');
 const newBackButton = document.querySelector('#new-back-btn');
@@ -29,6 +30,7 @@ const newResultPatient = document.querySelector('#new-result-patient');
 const newResultLengths = document.querySelector('#new-result-lengths');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
+const newReturnButton = document.querySelector('#new-return-btn')
 
 // Result
 const resultPlot = document.querySelector('#result-plot');
