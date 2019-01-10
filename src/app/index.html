@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="lib/css/bulma.min.css">
-    <style>
-        @import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';
-    </style>
+    <style>@import '../node_modules/bulma-steps/dist/css/bulma-steps.min.css';</style>
+    <style>@import '../node_modules/bulma-calendar/dist/css/bulma-calendar.min.css';</style>
     <link rel="stylesheet" href="lib/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,13 +17,16 @@
     <!-- New Tab -->
     <div id="new" class="tab">
         <div class="columns">
-            <div class="column is-1">
-                <div id="new-back-btn" class="step-button" style="left: 5%">
-                    <i class="fas fa-arrow-left"></i>
+            <!-- Back Button -->
+            <div id="new-back-btn" class="column is-1">
+                <div class="step-button hidden">
+                    <i class="step-button-image fas fa-arrow-left"></i>
                 </div>
             </div>
+            <!-- Steps -->
             <div class="column is-10">
                 <div class="steps" id="new-steps">
+                    <!-- Step Items -->
                     <div class="step-item is-active is-success">
                         <div class="step-marker">1</div>
                         <div class="step-details">
@@ -49,28 +51,103 @@
                             <p class="step-title">Finish</p>
                         </div>
                     </div>
+                    <!-- Steps Content -->
                     <div class="steps-content">
+                        <!-- New Patient -->
                         <div class="columns">
-                            <div class="column is-4"></div>
-                            <div class="column is-4">
-                                <div class="step-content has-text-centered is-active">
+                            <div class="column is-1"></div>
+                            <div class="column is-10">
+                                <div class="step-content  is-active">
                                     <div class="field is-horizontal">
                                         <div class="field-label is-normal">
-                                            <label class="label">Name</label>
+                                            <label class="label">First Name</label>
                                         </div>
                                         <div class="field-body">
                                             <div class="field">
                                                 <div class="control">
-                                                    <input class="input input-name" id="new-patient-name" type="text"
-                                                           value="Hans" placeholder="Name of patient" autofocus
-                                                           data-validate="require">
+                                                    <input id="new-patient-first-name" class="input input-name" type="text"
+                                                        value="Hansi" autofocus data-validate="require">
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Last Name</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input id="new-patient-last-name" class="input input-name" type="text"
+                                                        value="Hansen" data-validate="require">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Date of Birth</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input id="new-patient-date-of-birth" class="input input-name" type="date"
+                                                        placeholder="YYYY-MM-DD" data-validate="require">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label"></label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <a id="new-patient-look-up-btn" class="button" style="left: 0%">
+                                                    <span class="icon is-small">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                    <span>Search Patient</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Search Modal-->
+                                    <div id="new-patient-look-up-modal" class="modal">
+                                        <div class="modal-background" onclick="closePatientDatabase()"></div>
+                                        <div class="modal-card">
+                                            <header class="modal-card-head">
+                                                <p class="modal-card-title">Patient Database</p>
+                                                <button class="delete" aria-label="close" onclick="closePatientDatabase()"></button>
+                                            </header>
+                                            <section class="modal-card-body">
+                                                <!-- Table -->
+                                                <table class="table is-hoverable is-fullwidth is-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Date of Birth</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="new-patient-table"></tbody>
+                                                </table>
+                                                <!-- Table Paginator -->
+                                                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                                                    <ul id="new-patient-paginator" class="pagination-list"></ul>
+                                                </nav>
+                                            </section>
+                                            <footer class="modal-card-foot">
+                                                <button class="button" onclick="closePatientDatabase()">Cancel</button>
+                                            </footer>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- 1. Measurement -->
                         <div class="step-content has-text-centered">
                             <div id="new-m1-plot"></div>
                             <div class="field is-horizontal">
@@ -81,15 +158,16 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m1-length" type="text" value="20cm"
-                                                   placeholder="First length" autofocus data-validate="require">
+                                                placeholder="in cm" data-validate="require">
                                         </div>
                                     </div>
-                                    <a id="start-m1-btn" class="button is-success">
+                                    <a id="start-m1-btn" class="button is-success" style="right: 75%">
                                         <span>Start</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!-- 2. Measurement -->
                         <div class="step-content has-text-centered">
                             <div id="new-m2-plot"></div>
                             <div class="field is-horizontal">
@@ -100,25 +178,30 @@
                                     <div class="field">
                                         <div class="control">
                                             <input class="input input-length" id="new-m2-length" type="text" value="18cm"
-                                                   placeholder="Second length" autofocus data-validate="require">
+                                                placeholder="in cm" data-validate="require">
                                         </div>
                                     </div>
-                                    <a id="start-m2-btn" class="button is-success">
+                                    <a id="start-m2-btn" class="button is-success" style="right: 75%">
                                         <span>Start</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!-- Finish -->
                         <div class="step-content has-text-centered">
                             <div class="columns">
                                 <div class="column is-4"></div>
                                 <div class="column is-4">
-                                    <h3 class="subtitle is-3">Result</h3>
+                                    <h3 class="subtitle is-3">Summary</h3>
                                     <table class="table is-hoverable">
                                         <tbody>
                                             <tr>
-                                                <th>Name</th>
-                                                <td id="new-result-name">Hans</td>
+                                                <th>Patient</th>
+                                                <td id="new-result-patient">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="vertical-align: middle;display: table-cell;">Lengths</th>
+                                                <td id="new-result-lengths">0cm<br>0cm</td>
                                             </tr>
                                             <tr>
                                                 <th>Measurements</th>
@@ -133,9 +216,10 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-1">
-                <div id="new-next-btn" class="step-button" style="left: 95%">
-                    <i class="fas fa-arrow-right"></i>
+            <!-- Next Button -->
+            <div id="new-next-btn" class="column is-1">
+                <div class="step-button">
+                    <i class="step-button-image fas fa-arrow-right"></i>
                 </div>
             </div>
         </div>
@@ -163,7 +247,7 @@
                     <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Patient</p>
-                            <p id="result-name" class="subtitle is-6">Hans</p>
+                            <p id="result-name" class="subtitle is-6">-</p>
                         </div>
                     </div>
                 </nav>
@@ -171,7 +255,42 @@
                     <div class="level-item has-text-centered">
                         <div>
                             <p class="heading">Date</p>
-                            <p id="result-date" class="subtitle is-6">2018-01-01 12:00</p>
+                            <p id="result-date" class="subtitle is-6">-</p>
+                        </div>
+                    </div>
+                </nav>
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading"></p>
+                            <table class="table is-hoverable is-fullwidth">
+                                <tbody id="result-table">
+                                    <tr>
+                                        <td>60-120 m/s</td>
+                                        <td>Aα</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40-90 m/s</td>
+                                        <td>Aβ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20-50 m/s</td>
+                                        <td>Aγ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10-30 m/s</td>
+                                        <td>Aδ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5-20 m/s</td>
+                                        <td>B</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0.5-2 m/s</td>
+                                        <td>C</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </nav>
@@ -180,11 +299,10 @@
     </div>
     <!-- Database Tab -->
     <div id="database" class="hidden tab">
-        <!-- Database Table -->
         <div class="columns">
             <div class="column is-1"></div>
-            <!-- Left Side -->
             <div class="column is-8">
+                <!-- Table -->
                 <table class="table is-hoverable is-fullwidth is-striped">
                     <thead>
                         <tr>
@@ -193,22 +311,23 @@
                             <th>Patient</th>
                             <th>Result</th>
                             <th></th>
-                            <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="database-table"></tbody>
                 </table>
+                <!-- Table Paginator -->
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                    <ul id="database-paginator" class="pagination-list"></ul>
+                </nav>
             </div>
-            <!-- Right Side -->
             <div class="column is-2 stuck">
                 <!-- Search -->
                 <h3 class="subtitle is-3">Search</h3>
                 <div class="field">
                     <label class="label">Patient</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-patient-input" class="input is-success" type="text" placeholder="Name"
-                               value="">
+                        <input id="database-patient-input" class="input is-success" type="text" placeholder="name"
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
@@ -218,43 +337,52 @@
                     <label class="label">Result</label>
                     <div class="control has-icons-left has-icons-right">
                         <input id="database-result-input" class="input is-success" type="text" placeholder="in m/s"
-                               value="">
+                            value="">
                         <span class="icon is-small is-left">
                             <i class="fas fa-ruler-horizontal"></i>
                         </span>
                     </div>
                 </div>
-
-
                 <div class="field">
-                    <label class="label">ID</label>
+                    <label class="label">Id</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-id-input" class="input is-success" type="text" placeholder="ID"
-                               value="">
+                        <input id="database-id-input" class="input is-success" type="text" placeholder="0-99+" value="">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-list-ol"></i>
                         </span>
                     </div>
                 </div>
-
-
                 <div class="field">
                     <label class="label">Date</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input id="database-date-input" class="input is-success" type="text" placeholder="Date"
-                               value="">
+                        <input id="database-date-input" class="input is-success" type="text" placeholder="yyyy-mm-dd"
+                            value="">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-calendar"></i>
                         </span>
                     </div>
                 </div>
-
+                <br>
+                <h3 class="subtitle is-4">Sort by</h3>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <div class="select is-small">
+                            <select id="database-sorter">
+                                <option selected>Date (newest)</option>
+                                <option>Date (oldest)</option>
+                                <option>Result (best)</option>
+                                <option>Result (worst)</option>
+                            </select>
+                        </div>
+                        <div class="icon is-small is-left">
+                            <i class="fas fa-sort"></i>
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>
-
-
-
     <!-- Comparison Tab -->
     <div id="comparison" class="hidden tab">
         <h1 class="subtitle is-3" align="center">Comparison</h1>
@@ -308,9 +436,6 @@
             <a id="new-return-btn" class="button is-hoverable">Return</a>
         </div>
     </div>
-
-    <!---------------------------------------------------------------->
-
     <!-- Connection Tab -->
     <div id="connection" class="hidden tab">
         <div class="columns center-columns">
@@ -338,6 +463,77 @@
             </div>
         </div>
     </div>
+    <!-- Error Modal-->
+    <div id="error-modal" class="modal">
+        <div class="modal-background" onclick="closeErrorModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Error</p>
+            </header>
+            <section id="error-modal-content" class="modal-card-body">
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" onclick="closeErrorModal()">OK</button>
+            </footer>
+        </div>
+    </div>
+    <!-- Patient Modal-->
+    <div id="patient-modal" class="modal">
+        <div class="modal-background" onclick="closePatientModal()"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p id="patient-modal-title" class="modal-card-title">Hansi Hansen</p>
+                <button class="delete" aria-label="close" onclick="closePatientModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Stats -->
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div title="Total amount of measurements">
+                            <p class="heading">Total</p>
+                            <p id="patient-modal-total" class="title">6</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Best result in m/s">
+                            <p class="heading">Best</p>
+                            <p id="patient-modal-best" class="title">1.03</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Worst result in m/s">
+                            <p class="heading">Worst</p>
+                            <p id="patient-modal-worst" class="title">1.00</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div title="Most recent result in m/s">
+                            <p class="heading">Most Recent</p>
+                            <p id="patient-modal-most-recent" class="title">1.03</p>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Table -->
+                <table class="table is-hoverable is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Result</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-modal-table"></tbody>
+                </table>
+                <!-- Table Paginator -->
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                    <ul id="patient-modal-paginator" class="pagination-list"></ul>
+                </nav>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" onclick="closePatientModal()">Close</button>
+            </footer>
+        </div>
+    </div>
     <!-- Tabs -->
     <div class="tabs is-centered bottom-tab" style="margin:0px">
         <ul>
@@ -351,6 +547,8 @@
     <!-- Scripts -->
     <script src="lib/js/plotly-latest.min.js"></script>
     <script src="js/elements.js"></script>
+    <script src="js/error.js"></script>
+    <script src="js/patient.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/tabs/connectionTab.js"></script>
     <script src="js/tabs/databaseTab.js"></script>
