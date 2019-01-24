@@ -42,11 +42,13 @@ class Database {
         }));
 
         return this.db.prepare(`INSERT INTO nlgm (patient, date, data) VALUES (?, date('now'), ?)`)
-            .run([id, buffer], callback);
+            .run([id, buffer], callback)
+            .finalize();
     }
     insertPatient(data, callback = undefined) {
         return this.db.prepare(`INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt) VALUES (?, ?, date(?), date('now'))`)
-            .run([data.firstName, data.lastName, data.dateOfBirth], callback);
+            .run([data.firstName, data.lastName, data.dateOfBirth], callback)
+            .finalize();
     }
     select(id, callback) {
         this.db.each(`SELECT id, patient, date, data
@@ -112,11 +114,13 @@ class Database {
     }
     delete(id, callback = undefined) {
         this.db.prepare('DELETE FROM nlgm WHERE id == ?')
-            .run([id], callback);
+            .run([id], callback)
+            .finalize();
     }
     deletePatient(id, callback = undefined) {
         this.db.prepare('DELETE FROM patients WHERE id == ?')
-            .run([id], callback);
+            .run([id], callback)
+            .finalize();
     }
 }
 
