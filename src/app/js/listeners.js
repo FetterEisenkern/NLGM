@@ -80,9 +80,10 @@ newViewResultButton.addEventListener('click', () => {
         databaseList = [];
         patientList = [];
         ipcRenderer.send('save-data', data);
-        selectTab(1);
-        renderResult(data);
-        resetMeasurement();
+        selectTab(1, true, () => {
+            renderResult(data);
+            resetMeasurement();
+        });
     }
 });
 

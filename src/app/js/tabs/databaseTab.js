@@ -97,7 +97,7 @@ var renderList = (currentPage = 1) => {
 };
 
 var addToResultPlot = (index) => {
-    selectTab(1);
+    selectTab(1, true);
     renderResult(filteredList[index]);
 };
 
@@ -122,7 +122,7 @@ var compareItem = (element, index) => {
     if (count % 2 == 0) {
         let item = filteredList[index];
         if (compareList[0] != item) {
-            setTimeout(() => selectTab(4), 750);
+            selectTab(4, true);
             setTimeout(() => renderList(), 1000);
             compareList[1] = item;
             compare(compareList[0], compareList[1]);

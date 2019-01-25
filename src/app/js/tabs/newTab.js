@@ -177,7 +177,7 @@ var addToNewPlot = (lines, data, legend) => {
         y: voltage,
         x: time,
         line: {
-            shape: 'linear', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
+            shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
             //smoothing: 0
         },
         mode: 'lines+markers',
