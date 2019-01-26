@@ -150,6 +150,8 @@ var deletePatient = (index) => {
     ipcRenderer.send('delete-patient', filteredPatientList[index].patientId);
     patientList = [];
     filteredPatientList = [];
+    databaseList = [];
+    filteredList = [];
 };
 var closePatientDatabase = () => {
     newPatientLookUpModal.setAttribute('class', 'modal');
