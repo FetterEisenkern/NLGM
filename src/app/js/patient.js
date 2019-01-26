@@ -45,11 +45,12 @@ var renderPatientModalTable = (currentPage = 1) => {
         date.innerHTML = item.date;
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
-            <p class="control">
-                <a class="button is-small is-primary is-outlined" onclick="addToResultPlotFromModal(${index})">
-                    View
-                </a>
-            </p>`;
+                <p class="control">
+                    <a class="button is-small is-primary is-outlined" onclick="addToResultPlotFromModal(${index})">
+                        View
+                    </a>
+                </p>
+            </div>`;
 
         let row = document.createElement('tr');
         row.appendChild(date);

@@ -37,6 +37,17 @@ const createWindow = async () => {
             });
         });
     });
+    ipcMain.on('delete-db-row', (_, id) => processor.db.delete(id));
+    ipcMain.on('delete-patient', (_, id) => {
+        processor.db.deletePatient(id, () => {
+            processor.db.selectAllPatients((_, row) => {
+                processor.sendDatabasePatientRow(row);
+            });
+            processor.db.selectAll((_, row) => {
+                processor.sendDatabaseDataRow(row);
+            });
+        })
+    });
     // Database
     ipcMain.on('get-data-rows', () => {
         processor.db.selectAll((_, row) => {
@@ -50,7 +61,6 @@ const createWindow = async () => {
     });
     // Connection
     ipcMain.on('get-port-info', async () => await processor.checkPort());
-    ipcMain.on('delete-db-row', (_, id) => processor.db.delete(id));
 };
 
 app.on('ready', async () => {

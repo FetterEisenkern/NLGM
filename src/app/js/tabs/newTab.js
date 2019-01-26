@@ -96,11 +96,17 @@ var renderPatientDatabase = (currentPage = 1) => {
         last.innerHTML = item.lastName;
         birth.innerHTML = item.dateOfBirth;
         actions.innerHTML = `<div class="field is-grouped">
-            <p class="control">
-                <a class="button is-small is-primary is-outlined" onclick="selectPatient(${index})">
-                    Select
-                </a>
-            </p>`;
+                <p class="control">
+                    <a class="button is-small is-primary is-outlined" onclick="selectPatient(${index})">
+                        Select
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-small is-danger is-outlined" onclick="deletePatient(${index})">
+                        Delete
+                    </a>
+                </p>
+            </div>`;
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -139,6 +145,11 @@ var selectPatient = (index) => {
         </span>
         <span>Edit</span>`;
     closePatientDatabase();
+};
+var deletePatient = (index) => {
+    ipcRenderer.send('delete-patient', filteredPatientList[index].patientId);
+    patientList = [];
+    filteredPatientList = [];
 };
 var closePatientDatabase = () => {
     newPatientLookUpModal.setAttribute('class', 'modal');

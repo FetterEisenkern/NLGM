@@ -23,7 +23,7 @@ ipcRenderer.on('db-data-row', (_, row) => {
 ipcRenderer.on('db-patient-row', (_, row) => {
     row.getName = function () { return this.firstName + ' ' + this.lastName };
     patientList.push(row);
-    renderList();
+    renderPatientDatabase();
 });
 
 // Connection
@@ -33,8 +33,6 @@ ipcRenderer.on('port-info', (_, port) => {
 ipcRenderer.on('port-close', () => {
     renderNotConnected();
 });
-
-
 
 // Request data
 ipcRenderer.send('get-data-rows');

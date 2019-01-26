@@ -56,21 +56,22 @@ var renderList = (currentPage = 1) => {
 
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
-            <p class="control">
-                <a class="button is-small is-primary is-outlined" onclick="addToResultPlot(${index})">
-                    View
-                </a>
-            </p>
-            <p class="control" onclick="compareItem(this, ${index})">
-                <a class="button is-small is-success is-outlined">
-                    Compare
-                </a>
-            </p>
-            <p class="control" onclick="deleteItem(${index})">
-                <a class="button is-small is-danger is-outlined">
-                    Delete
-                </a>
-            </p>`;
+                <p class="control">
+                    <a class="button is-small is-primary is-outlined" onclick="addToResultPlot(${index})">
+                        View
+                    </a>
+                </p>
+                <p class="control" onclick="compareItem(this, ${index})">
+                    <a class="button is-small is-success is-outlined">
+                        Compare
+                    </a>
+                </p>
+                <p class="control" onclick="deleteItem(${index})">
+                    <a class="button is-small is-danger is-outlined">
+                        Delete
+                    </a>
+                </p>
+            </div>`;
 
         let row = document.createElement('tr');
         row.appendChild(id);

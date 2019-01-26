@@ -119,8 +119,12 @@ class Database {
             .finalize();
     }
     deletePatient(id, callback = undefined) {
-        this.db.prepare('DELETE FROM patients WHERE id == ?')
-            .run([id], callback)
+        this.db.prepare('DELETE FROM patients WHERE patientId == ?')
+            .run([id], () => {
+                this.db.prepare('DELETE FROM nlgm WHERE patient == ?')
+                    .run([id], callback)
+                    .finalize();
+            })
             .finalize();
     }
 }
