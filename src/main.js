@@ -37,7 +37,13 @@ const createWindow = async () => {
             });
         });
     });
-    ipcMain.on('delete-db-row', (_, id) => processor.db.delete(id));
+    ipcMain.on('delete-db-row', (_, id) => {
+        processor.db.delete(id, () => {
+            processor.db.selectAll((_, row) => {
+                processor.sendDatabaseDataRow(row);
+            });
+        });
+    });
     ipcMain.on('delete-patient', (_, id) => {
         processor.db.deletePatient(id, () => {
             processor.db.selectAllPatients((_, row) => {

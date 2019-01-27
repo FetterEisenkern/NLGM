@@ -103,9 +103,12 @@ var addToResultPlot = (index) => {
 };
 
 var deleteItem = (index) => {
-    ipcRenderer.send('delete-db-row', filteredList[index].id);
-    databaseList.splice(databaseList.indexOf(filteredList[index]), 1);
+    let item = filteredList[index];
+    databaseList.splice(databaseList.indexOf(item, 1));
     renderList();
+    ipcRenderer.send('delete-db-row', item.id);
+    databaseList = [];
+    filteredList = [];
 };
 
 var compareItem = (element, index) => {
