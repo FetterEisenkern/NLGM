@@ -70,8 +70,11 @@ newStart2Button.addEventListener('click', () => {
     }
 }); */
 
-newReturnButton.addEventListener('click', () => {
+comparisonReturnButton.addEventListener('click', () => {
     selectTab(2);
+});
+comparisonPageButton.addEventListener('click', () => {
+    changeComparisonPage();
 });
 
 newViewResultButton.addEventListener('click', () => {

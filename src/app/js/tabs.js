@@ -8,6 +8,8 @@ const tabs = [
 ];
 var currentTab = 0;
 
+var withPageLoader = true;
+
 var selectTab = (index, loadPage = false, callback = undefined) => {
     let select = () => {
         if (index >= 0 && index <= 4) {
@@ -30,7 +32,7 @@ var selectTab = (index, loadPage = false, callback = undefined) => {
         }
     };
 
-    if (loadPage) {
+    if (loadPage && withPageLoader) {
         pageloader.classList.toggle('is-active');
         var timeout = setTimeout(() => {
             select();

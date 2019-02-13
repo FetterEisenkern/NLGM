@@ -15,6 +15,77 @@ let compare = (index1, index2) => {
     date2.innerHTML = index2.date;
 };
 
+let comparisonPage = 0;
+let maxComparisonPage = 1;
+
+let changeComparisonPage = () => {
+    comparisonPage++;
+    if (comparisonPage > maxComparisonPage) {
+        comparisonPage = 0;
+    }
+
+    if (comparisonPage == 0) {
+        comparisonPlot.setAttribute('class', 'hidden');
+        comparisonTable.setAttribute('class', 'table is-hoverable is-fullwidth');
+        comparisonPageButton.innerHTML = 'Graph';
+    } else if (comparisonPage == 1) {
+        comparisonPlot.removeAttribute('class');
+        comparisonTable.setAttribute('class', 'table is-hoverable is-fullwidth hidden');
+        comparisonPageButton.innerHTML = 'Table';
+        addLinesToComparisonPlot(data, 'm1');
+        addLinesToComparisonPlot(data, 'm2');
+        addLinesToComparisonPlot(data, 'm3');
+        addLinesToComparisonPlot(data, 'm4');
+    } else {
+        console.error('Invalid comparison page index!');
+    }
+    renderComparisonPlot();
+};
+
+var comparisonLines = [];
+
+var comparisonPlotLayout = {
+    xaxis: {
+        title: 'Time [ms]',
+    },
+    yaxis: {
+        title: 'Volt [mV]',
+    },
+    margin: {
+        t: 0
+    },
+    width: 720,
+    height: 350
+};
+
+var addLinesToComparisonPlot = (data, legend) => {
+    // Mapping
+    let voltage = [];
+    let time = [];
+    for (let point of data) {
+        voltage.push(point.volt);
+        time.push(point.ms);
+    }
+
+    comparisonLines.push({
+        y: voltage,
+        x: time,
+        line: {
+            shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
+            //smoothing: 0
+        },
+        mode: 'lines+markers',
+        marker: {
+            symbol: 'circle'
+        },
+        name: legend
+    });
+};
+
+var renderComparisonPlot = () => {
+    Plotly.newPlot(comparisonPlot, comparisonLines, comparisonPlotLayout, { responsive: false, displayModeBar: false });
+};
+
 let init = () => {
     row1 = document.getElementById('row1');
     row2 = document.getElementById('row2');

@@ -31,7 +31,6 @@ const newResultPatient = document.querySelector('#new-result-patient');
 const newResultLengths = document.querySelector('#new-result-lengths');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
-const newReturnButton = document.querySelector('#new-return-btn')
 
 // Result
 const resultPlot = document.querySelector('#result-plot');
@@ -54,6 +53,12 @@ const conPortName = document.querySelector('#connection-port-name');
 const conPortId = document.querySelector('#connection-port-id');
 const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
 const conConnectButton = document.querySelector('#connection-connect-btn');
+
+// Comparison
+const comparisonReturnButton = document.querySelector('#comparison-return-btn');
+const comparisonPageButton = document.querySelector('#comparison-page-btn');
+const comparisonTable = document.querySelector('#comparison-table');
+const comparisonPlot = document.querySelector('#comparison-plot');
 
 // Others
 const errorModal = document.querySelector('#error-modal');
