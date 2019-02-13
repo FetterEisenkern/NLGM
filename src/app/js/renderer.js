@@ -9,7 +9,7 @@ ipcRenderer.on('measurement-error', () => {
         <p>
             Measurement has timed out. Please make sure that a connection has been established between device and computer.<br>
             <br>
-            Check the <a onclick="closeErrorModal();selectTab(3);">Connection Tab</a> and retry.
+            Check the <a onclick="closeErrorModal();selectTab(4);">Options Tab</a> and retry.
         </p>`);
 });
 
@@ -26,7 +26,7 @@ ipcRenderer.on('db-patient-row', (_, row) => {
     renderPatientDatabase();
 });
 
-// Connection
+// Options
 ipcRenderer.on('port-info', (_, port) => {
     setTimeout(() => renderPortInfo(port.info), 1000);
 });

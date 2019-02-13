@@ -132,7 +132,7 @@ var compareItem = (element, index) => {
     if (count % 2 == 0) {
         let item = filteredList[index];
         if (compareList[0] != item) {
-            selectTab(4, true);
+            selectTab(3, true);
             setTimeout(() => renderList(), 1000);
             compareList[1] = item;
             compare(compareList[0], compareList[1]);

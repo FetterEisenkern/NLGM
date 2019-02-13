@@ -9,8 +9,8 @@ databaseTab.addEventListener('click', () => {
     }
     databasePatientInput.focus();
 });
-connectionTab.addEventListener('click', () => selectTab(3));
-comparisonTab.addEventListener('click', () => selectTab(4));
+comparisonTab.addEventListener('click', () => selectTab(3));
+optionsTab.addEventListener('click', () => selectTab(4));
 
 // New
 newBackButton.addEventListener('click', () => {
@@ -111,7 +111,7 @@ databaseSorter.addEventListener('change', () => {
     sortList(databaseSorter.selectedIndex);
 });
 
-// Connection
+// Options
 conConnectButton.addEventListener('click', () => {
     if (!conConnectButton.hasAttribute('disabled')) {
         conConnectButton.classList.add('is-loading');

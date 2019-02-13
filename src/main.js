@@ -65,7 +65,7 @@ const createWindow = async () => {
             processor.sendDatabasePatientRow(row);
         });
     });
-    // Connection
+    // Options
     ipcMain.on('get-port-info', async () => await processor.checkPort());
 };
 

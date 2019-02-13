@@ -2,12 +2,12 @@
 const newTab = document.querySelector('#new-tab');
 const resultTab = document.querySelector('#result-tab');
 const databaseTab = document.querySelector('#database-tab');
-const connectionTab = document.querySelector('#connection-tab');
+const optionsTab = document.querySelector('#options-tab');
 const comparisonTab = document.querySelector('#comparison-tab');
 const newView = document.querySelector('#new');
 const resultView = document.querySelector('#result');
 const databaseView = document.querySelector('#database');
-const connectionView = document.querySelector('#connection');
+const optionsView = document.querySelector('#options');
 const comparisonView = document.querySelector('#comparison');
 
 // New
@@ -48,11 +48,12 @@ const databaseIdInput = document.querySelector('#database-id-input');
 const databaseDateInput = document.querySelector('#database-date-input');
 const databaseSorter = document.querySelector('#database-sorter');
 
-// Connection
-const conPortName = document.querySelector('#connection-port-name');
-const conPortId = document.querySelector('#connection-port-id');
-const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
-const conConnectButton = document.querySelector('#connection-connect-btn');
+// Options
+const conPortName = document.querySelector('#options-port-name');
+const conPortId = document.querySelector('#options-port-id');
+const conPortManufacturer = document.querySelector('#options-port-manufacturer');
+const conConnectButton = document.querySelector('#options-connect-btn');
+const optAnimationCheckbox = document.querySelector('#options-animation-cbx');
 
 // Comparison
 const comparisonReturnButton = document.querySelector('#comparison-return-btn');

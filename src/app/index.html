@@ -416,8 +416,8 @@
             </div>
         </div>
     </div>
-    <!-- Connection Tab -->
-    <div id="connection" class="hidden tab">
+    <!-- Options Tab -->
+    <div id="options" class="hidden tab">
         <div class="columns center-columns">
             <!-- Port Control & Status -->
             <div class="column is-4"></div>
@@ -427,19 +427,27 @@
                     <tbody>
                         <tr>
                             <th>Name</th>
-                            <td id="connection-port-name"></td>
+                            <td id="options-port-name"></td>
                         </tr>
                         <tr>
                             <th>Id</th>
-                            <td id="connection-port-id"></td>
+                            <td id="options-port-id"></td>
                         </tr>
                         <tr>
                             <th>Manufacturer</th>
-                            <td id="connection-port-manufacturer"></td>
+                            <td id="options-port-manufacturer"></td>
                         </tr>
                     </tbody>
                 </table>
-                <a id="connection-connect-btn" class="button is-danger">Connect</a>
+                <a id="options-connect-btn" class="button is-danger">Connect</a>
+                <br>
+                <br>
+                <!-- App Settings -->
+                <h3 class="subtitle is-3">Settings</h3>
+                <label class="checkbox">
+                    <input id="options-animation-cbx" type="checkbox">
+                    Loading Animation
+                </label>
             </div>
         </div>
     </div>
@@ -521,8 +529,8 @@
             <li id="new-tab" class="is-active"><a>New</a></li>
             <li id="result-tab"><a>Result</a></li>
             <li id="database-tab"><a>Database</a></li>
-            <li id="connection-tab"><a>Connection</a></li>
             <li id="comparison-tab"><a>Comparison</a></li>
+            <li id="options-tab"><a>Options</a></li>
         </ul>
     </div>
     <!-- Scripts -->
@@ -531,7 +539,7 @@
     <script src="js/error.js"></script>
     <script src="js/patient.js"></script>
     <script src="js/tabs.js"></script>
-    <script src="js/tabs/connectionTab.js"></script>
+    <script src="js/tabs/optionsTab.js"></script>
     <script src="js/tabs/databaseTab.js"></script>
     <script src="js/tabs/newTab.js"></script>
     <script src="js/tabs/resultTab.js"></script>

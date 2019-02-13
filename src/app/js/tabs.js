@@ -3,8 +3,8 @@ const tabs = [
     { tab: newTab, div: newView },
     { tab: resultTab, div: resultView },
     { tab: databaseTab, div: databaseView },
-    { tab: connectionTab, div: connectionView },
-    { tab: comparisonTab, div: comparisonView }
+    { tab: comparisonTab, div: comparisonView },
+    { tab: optionsTab, div: optionsView }
 ];
 var currentTab = 0;
 
@@ -32,7 +32,7 @@ var selectTab = (index, loadPage = false, callback = undefined) => {
         }
     };
 
-    if (loadPage && withPageLoader) {
+    if (loadPage && withPageLoader && optAnimationCheckbox.checked) {
         pageloader.classList.toggle('is-active');
         var timeout = setTimeout(() => {
             select();
