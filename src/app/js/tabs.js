@@ -8,7 +8,7 @@ const tabs = [
 ];
 var currentTab = 0;
 
-var withPageLoader = true;
+var withPageLoader = false;
 
 var selectTab = (index, loadPage = false, callback = undefined) => {
     let select = () => {

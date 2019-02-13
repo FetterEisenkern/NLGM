@@ -2,17 +2,25 @@
 var name2, id2, result2, date2;
 var row1, row2, row3, row4;
 
-let compare = (index1, index2) => {
+let compare = (obj1, obj2) => {
     // add values to the cells
-    name1.innerHTML = index1.getName();
-    id1.innerHTML = index1.id;
-    result1.innerHTML = index1.data.result.toFixed(2) + " m/s";
-    date1.innerHTML = index1.date;
+    name1.innerHTML = obj1.getName();
+    id1.innerHTML = obj1.id;
+    result1.innerHTML = obj1.data.result.toFixed(2) + " m/s";
+    date1.innerHTML = obj1.date;
 
-    name2.innerHTML = index2.getName();
-    id2.innerHTML = index2.id;
-    result2.innerHTML = index2.data.result.toFixed(2) + " m/s";
-    date2.innerHTML = index2.date;
+    name2.innerHTML = obj2.getName();
+    id2.innerHTML = obj2.id;
+    result2.innerHTML = obj2.data.result.toFixed(2) + " m/s";
+    date2.innerHTML = obj2.date;
+
+    comparisonLines = [];
+    let p1m = new Array(...obj1.data.m1);
+    let p2m = new Array(...obj2.data.m1);
+    p1m.push(...obj1.data.m2);
+    p2m.push(...obj2.data.m2);
+    addLinesToComparisonPlot(p1m, name1.innerHTML);
+    addLinesToComparisonPlot(p2m, name2.innerHTML);
 };
 
 let comparisonPage = 0;
@@ -32,10 +40,6 @@ let changeComparisonPage = () => {
         comparisonPlot.removeAttribute('class');
         comparisonTable.setAttribute('class', 'table is-hoverable is-fullwidth hidden');
         comparisonPageButton.innerHTML = 'Table';
-        addLinesToComparisonPlot(data, 'm1');
-        addLinesToComparisonPlot(data, 'm2');
-        addLinesToComparisonPlot(data, 'm3');
-        addLinesToComparisonPlot(data, 'm4');
     } else {
         console.error('Invalid comparison page index!');
     }

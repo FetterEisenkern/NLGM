@@ -112,7 +112,13 @@ var deleteItem = (index) => {
 };
 
 var compareItem = (element, index) => {
-    element.firstElementChild.setAttribute('class', 'button is-small is-success');
+    if (element.firstElementChild.getAttribute('class') != 'button is-small is-success') {
+        element.firstElementChild.setAttribute('class', 'button is-small is-success');
+    } else {
+        element.firstElementChild.setAttribute('class', 'button is-small is-success is-outlined');
+        count--;
+        return;
+    }
 
     if (count == 0) {
         //alert("Please do not forget that you always need two measurements for a comparison");

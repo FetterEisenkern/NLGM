@@ -19,7 +19,6 @@ var addDataResult = (data) => {
     selectResult(data.data.result);
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
-    
 };
 
 var selectResult = (result) => {
