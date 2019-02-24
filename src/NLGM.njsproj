@@ -84,7 +84,7 @@
     <Compile Include="app\js\listeners.js" />
     <Compile Include="app\js\renderer.js" />
     <Compile Include="app\js\tabs.js" />
-    <Compile Include="app\js\tabs\connectionTab.js" />
+    <Compile Include="app\js\tabs\optionsTab.js" />
     <Compile Include="app\js\tabs\databaseTab.js" />
     <Compile Include="app\js\tabs\newTab.js" />
     <Compile Include="app\js\tabs\resultTab.js" />

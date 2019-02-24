@@ -25,8 +25,9 @@ class Database {
     }
     insert(data, callback = undefined) {
         if (data.patient.id == undefined) {
-            let stmt = this.insertPatient(data.patient, () => {
-                this.insertData(stmt.lastID, data.data, callback);
+            let that = this;
+            this.insertPatient(data.patient, function () {
+                that.insertData(this.lastID, data.data, callback);
             });
         } else {
             this.insertData(data.patient.id, data.data, callback);
@@ -118,8 +119,12 @@ class Database {
             .finalize();
     }
     deletePatient(id, callback = undefined) {
-        this.db.prepare('DELETE FROM patients WHERE id == ?')
-            .run([id], callback)
+        this.db.prepare('DELETE FROM patients WHERE patientId == ?')
+            .run([id], () => {
+                this.db.prepare('DELETE FROM nlgm WHERE patient == ?')
+                    .run([id], callback)
+                    .finalize();
+            })
             .finalize();
     }
 }

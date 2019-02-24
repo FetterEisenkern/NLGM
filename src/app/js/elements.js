@@ -2,12 +2,12 @@
 const newTab = document.querySelector('#new-tab');
 const resultTab = document.querySelector('#result-tab');
 const databaseTab = document.querySelector('#database-tab');
-const connectionTab = document.querySelector('#connection-tab');
+const optionsTab = document.querySelector('#options-tab');
 const comparisonTab = document.querySelector('#comparison-tab');
 const newView = document.querySelector('#new');
 const resultView = document.querySelector('#result');
 const databaseView = document.querySelector('#database');
-const connectionView = document.querySelector('#connection');
+const optionsView = document.querySelector('#options');
 const comparisonView = document.querySelector('#comparison');
 
 // New
@@ -15,7 +15,7 @@ const newSteps = document.querySelector('#new-steps');
 const newBackButton = document.querySelector('#new-back-btn');
 const newNextButton = document.querySelector('#new-next-btn');
 const newPatientFirstNameInput = document.querySelector('#new-patient-first-name');
-const newPatientLastNameInput= document.querySelector('#new-patient-last-name');
+const newPatientLastNameInput = document.querySelector('#new-patient-last-name');
 const newPatientDateOfBirthInput = document.querySelector('#new-patient-date-of-birth');
 const newPatientLookUpButton = document.querySelector('#new-patient-look-up-btn');
 const newPatientLookUpModal = document.querySelector('#new-patient-look-up-modal');
@@ -31,7 +31,6 @@ const newResultPatient = document.querySelector('#new-result-patient');
 const newResultLengths = document.querySelector('#new-result-lengths');
 const newResultMeasurements = document.querySelector('#new-result-m');
 const newViewResultButton = document.querySelector('#new-get-result-btn');
-const newReturnButton = document.querySelector('#new-return-btn')
 
 // Result
 const resultPlot = document.querySelector('#result-plot');
@@ -49,11 +48,18 @@ const databaseIdInput = document.querySelector('#database-id-input');
 const databaseDateInput = document.querySelector('#database-date-input');
 const databaseSorter = document.querySelector('#database-sorter');
 
-// Connection
-const conPortName = document.querySelector('#connection-port-name');
-const conPortId = document.querySelector('#connection-port-id');
-const conPortManufacturer = document.querySelector('#connection-port-manufacturer');
-const conConnectButton = document.querySelector('#connection-connect-btn');
+// Options
+const conPortName = document.querySelector('#options-port-name');
+const conPortId = document.querySelector('#options-port-id');
+const conPortManufacturer = document.querySelector('#options-port-manufacturer');
+const conConnectButton = document.querySelector('#options-connect-btn');
+const optAnimationCheckbox = document.querySelector('#options-animation-cbx');
+
+// Comparison
+const comparisonReturnButton = document.querySelector('#comparison-return-btn');
+const comparisonPageButton = document.querySelector('#comparison-page-btn');
+const comparisonTable = document.querySelector('#comparison-table');
+const comparisonPlot = document.querySelector('#comparison-plot');
 
 // Others
 const errorModal = document.querySelector('#error-modal');
@@ -66,3 +72,4 @@ const patientModalStatsWorst = document.querySelector('#patient-modal-worst');
 const patientModalStatsMostRecent = document.querySelector('#patient-modal-most-recent');
 const patientModalTable = document.querySelector('#patient-modal-table');
 const patientModalPaginator = document.querySelector('#patient-modal-paginator');
+const pageloader = document.querySelector('.pageloader');

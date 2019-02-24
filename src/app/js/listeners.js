@@ -9,8 +9,8 @@ databaseTab.addEventListener('click', () => {
     }
     databasePatientInput.focus();
 });
-connectionTab.addEventListener('click', () => selectTab(3));
-comparisonTab.addEventListener('click', () => selectTab(4));
+comparisonTab.addEventListener('click', () => selectTab(3));
+optionsTab.addEventListener('click', () => selectTab(4));
 
 // New
 newBackButton.addEventListener('click', () => {
@@ -70,8 +70,11 @@ newStart2Button.addEventListener('click', () => {
     }
 }); */
 
-newReturnButton.addEventListener('click', () => {
+comparisonReturnButton.addEventListener('click', () => {
     selectTab(2);
+});
+comparisonPageButton.addEventListener('click', () => {
+    changeComparisonPage();
 });
 
 newViewResultButton.addEventListener('click', () => {
@@ -80,9 +83,10 @@ newViewResultButton.addEventListener('click', () => {
         databaseList = [];
         patientList = [];
         ipcRenderer.send('save-data', data);
-        selectTab(1);
-        renderResult(data);
-        resetMeasurement();
+        selectTab(1, true, () => {
+            renderResult(data);
+            resetMeasurement();
+        });
     }
 });
 
@@ -107,7 +111,7 @@ databaseSorter.addEventListener('change', () => {
     sortList(databaseSorter.selectedIndex);
 });
 
-// Connection
+// Options
 conConnectButton.addEventListener('click', () => {
     if (!conConnectButton.hasAttribute('disabled')) {
         conConnectButton.classList.add('is-loading');

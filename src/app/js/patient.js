@@ -10,7 +10,7 @@ var renderPatientModal = (patient) => {
     if (currentPatientMeasurements.length != 0) {
         patientModalStatsBest.innerHTML = currentPatientMeasurements.map(m => m.data.result).reduce((a, b) => Math.max(a, b)).toFixed(2);
         patientModalStatsWorst.innerHTML = currentPatientMeasurements.map(m => m.data.result).reduce((a, b) => Math.min(a, b)).toFixed(2);
-        patientModalStatsMostRecent.innerHTML = currentPatientMeasurements.sort((a, b) => a.id < b.id)[0].data.result .toFixed(2);
+        patientModalStatsMostRecent.innerHTML = currentPatientMeasurements.sort((a, b) => a.id < b.id)[0].data.result.toFixed(2);
     } else {
         patientModalStatsBest.innerHTML = '-';
         patientModalStatsWorst.innerHTML = '-';
@@ -45,11 +45,12 @@ var renderPatientModalTable = (currentPage = 1) => {
         date.innerHTML = item.date;
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
-            <p class="control">
-                <a class="button is-small is-primary is-outlined" onclick="addToResultPlotFromModal(${index})">
-                    View
-                </a>
-            </p>`;
+                <p class="control">
+                    <a class="button is-small is-primary is-outlined" onclick="addToResultPlotFromModal(${index})">
+                        View
+                    </a>
+                </p>
+            </div>`;
 
         let row = document.createElement('tr');
         row.appendChild(date);
@@ -73,9 +74,10 @@ var renderPatientModalTable = (currentPage = 1) => {
     }
 };
 var addToResultPlotFromModal = (index) => {
-    closePatientModal();
-    selectTab(1);
-    renderResult(currentPatientMeasurements[index]);
+    selectTab(1, true, () => {
+        closePatientModal();
+        renderResult(currentPatientMeasurements[index]);
+    });
 };
 var closePatientModal = () => {
     patientModal.setAttribute('class', 'modal');

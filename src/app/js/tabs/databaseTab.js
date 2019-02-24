@@ -56,21 +56,22 @@ var renderList = (currentPage = 1) => {
 
         result.innerHTML = ((item.data.result) ? item.data.result.toFixed(2) : '0.00') + ' m/s';
         actions.innerHTML = `<div class="field is-grouped">
-            <p class="control">
-                <a class="button is-small is-primary is-outlined" onclick="addToResultPlot(${index})">
-                    View
-                </a>
-            </p>
-            <p class="control" onclick="compareItem(this, ${index})">
-                <a class="button is-small is-success is-outlined">
-                    Compare
-                </a>
-            </p>
-            <p class="control" onclick="deleteItem(${index})">
-                <a class="button is-small is-danger is-outlined">
-                    Delete
-                </a>
-            </p>`;
+                <p class="control">
+                    <a class="button is-small is-primary is-outlined" onclick="addToResultPlot(${index})">
+                        View
+                    </a>
+                </p>
+                <p class="control" onclick="compareItem(this, ${index})">
+                    <a class="button is-small is-success is-outlined">
+                        Compare
+                    </a>
+                </p>
+                <p class="control" onclick="deleteItem(${index})">
+                    <a class="button is-small is-danger is-outlined">
+                        Delete
+                    </a>
+                </p>
+            </div>`;
 
         let row = document.createElement('tr');
         row.appendChild(id);
@@ -97,18 +98,27 @@ var renderList = (currentPage = 1) => {
 };
 
 var addToResultPlot = (index) => {
-    selectTab(1);
+    selectTab(1, true);
     renderResult(filteredList[index]);
 };
 
 var deleteItem = (index) => {
-    ipcRenderer.send('delete-db-row', filteredList[index].id);
-    databaseList.splice(databaseList.indexOf(filteredList[index]), 1);
+    let item = filteredList[index];
+    databaseList.splice(databaseList.indexOf(item, 1));
     renderList();
+    ipcRenderer.send('delete-db-row', item.id);
+    databaseList = [];
+    filteredList = [];
 };
 
 var compareItem = (element, index) => {
-    element.firstElementChild.setAttribute('class', 'button is-small is-success');
+    if (element.firstElementChild.getAttribute('class') != 'button is-small is-success') {
+        element.firstElementChild.setAttribute('class', 'button is-small is-success');
+    } else {
+        element.firstElementChild.setAttribute('class', 'button is-small is-success is-outlined');
+        count--;
+        return;
+    }
 
     if (count == 0) {
         //alert("Please do not forget that you always need two measurements for a comparison");
@@ -122,7 +132,7 @@ var compareItem = (element, index) => {
     if (count % 2 == 0) {
         let item = filteredList[index];
         if (compareList[0] != item) {
-            setTimeout(() => selectTab(4), 750);
+            selectTab(3, true);
             setTimeout(() => renderList(), 1000);
             compareList[1] = item;
             compare(compareList[0], compareList[1]);
