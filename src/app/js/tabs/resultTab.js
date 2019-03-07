@@ -19,6 +19,10 @@ var addDataResult = (data) => {
     selectResult(data.data.result);
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
+    /* addLinesToResultPlot(data.data.m1, 'm3', true);
+    addLinesToResultPlot(data.data.m2, 'm4', true);
+    addLinesToResultPlot([...data.data.m1, ...data.data.m2], 'm5');
+    addLinesToResultPlot([...data.data.m1, ...data.data.m2], 'm6', true); */
 };
 
 var selectResult = (result) => {
@@ -43,7 +47,7 @@ var selectResult = (result) => {
     }
 };
 
-var addLinesToResultPlot = (data, legend) => {
+var addLinesToResultPlot = (data, legend, autoC = false) => {
     // Mapping
     let voltage = [];
     let time = [];
@@ -51,6 +55,8 @@ var addLinesToResultPlot = (data, legend) => {
         voltage.push(point.volt);
         time.push(point.ms);
     }
+
+    if (autoC) voltage = autoCorrelation(voltage);
 
     resultLines.push({
         y: voltage,

@@ -71,7 +71,7 @@ class Controller {
         if (this.portOpened) {
             this.port.write(command, (err) => {
                 if (err) {
-                    console.error(`Failed to send command: ${err.message}`);
+                    return console.error(`Failed to send command: ${err.message}`);
                 }
                 console.log(`Command '${command}' sent!`);
             });

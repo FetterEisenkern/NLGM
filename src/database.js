@@ -51,11 +51,6 @@ class Database {
             .run([data.firstName, data.lastName, data.dateOfBirth], callback)
             .finalize();
     }
-    select(id, callback) {
-        this.db.each(`SELECT id, patient, date, data
-                      FROM nlgm
-                      WHERE id == ?`, id, callback);
-    }
     selectPatient(id, callback) {
         this.db.each(`SELECT id, firstName, lastName, dateOfBirth, createdAt
                       FROM patients

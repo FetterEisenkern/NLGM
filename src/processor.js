@@ -61,7 +61,8 @@ class Processor {
         }
     }
     setWindowCallbacks(window) {
-        this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getTestData());
+        //this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getTestData());
+        this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getData());
         this.sendMeasurementError = () => window.webContents.send('measurement-error');
         this.sendDatabaseDataRow = (row) => window.webContents.send('db-data-row', row);
         this.sendDatabasePatientRow = (row) => window.webContents.send('db-patient-row', row);

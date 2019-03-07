@@ -253,7 +253,7 @@ var calculateResult = (data) => {
             }
         }
         return max;
-    }
+    };
 
     /*
                | l1 - l2 |

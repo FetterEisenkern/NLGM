@@ -20,12 +20,12 @@ const createWindow = async () => {
 
     //window.webContents.openDevTools({ mode: 'bottom' });
 
-    window.on('closed', () => win = null);
+    window.on('closed', () => window = null);
   
     // New
     ipcMain.on('start-measurement', () => {
         processor.controller.send('s');
-        processor.sendMeasurementSuccess(processor.measurement);
+        //processor.sendMeasurementSuccess(processor.measurement);
     });
     ipcMain.on('save-data', (_, data) => {
         processor.db.insert(data, () => {

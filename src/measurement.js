@@ -18,6 +18,12 @@ class Measurement {
         var point = new Point(parseFloat(m[0]), parseFloat(m[1]));
         this.points.push(point);
     }
+    getData() {
+        return {
+            m1: this.points,
+            m2: this.points
+        };
+    }
     getTestData() {
         let p = (volt, ms) => new Point(volt, ms);
         let RNG = (min, max) => Math.floor(Math.random() * (max - min) + min);
