@@ -5,7 +5,7 @@ const autoCorrelation = (a1, a2 = undefined) => {
               1 2  3  4 mx
             4 4 8 12 16
             3 3 6  9 12
-            2 2 4  4  8
+            2 2 4  6  8
             1 1 2  3  4
             my
     */
@@ -28,7 +28,7 @@ const autoCorrelation = (a1, a2 = undefined) => {
 
             4 8 12  . x
             3 6  . 12
-            2 .  4  8
+            2 .  6  8
             . 2  3  4
             y
 
@@ -49,7 +49,7 @@ const autoCorrelation = (a1, a2 = undefined) => {
 
             . . . .
             3 6 9 .
-            2 4 4 .
+            2 4 6 .
             1 2 3 .
 
             matrix[0][x]
