@@ -1,5 +1,6 @@
-const autoCorrelation = (mx, my = undefined) => {
-    my = my || mx;
+const autoCorrelation = (a1, a2 = undefined) => {
+    let mx = [...a1];
+    let my = (a2) ? [...a2] : [...a1];
 
     let matrix = [];
     for (let y of my.reverse()) {
@@ -10,7 +11,7 @@ const autoCorrelation = (mx, my = undefined) => {
         matrix.push(row);
     }
  
-    let getSum = (x, y) => {
+    const getSum = (x, y) => {
         let sum = 0;
         while (x < matrix.length && y >= 0) {
             sum += matrix[x++][y--];
@@ -32,4 +33,8 @@ const autoCorrelation = (mx, my = undefined) => {
     return result;
 };
 
-exports.default = autoCorrelation;
+/* const test = autoCorrelation([1, 2, 3, 4]);
+const test2 = autoCorrelation([1, 2, 3, 4], [1, 2, 3, 4]);
+console.log(test, 'and', test2, 'should be the same as', [4, 11, 20, 30, 20, 11, 4]); */
+
+module.exports = autoCorrelation;

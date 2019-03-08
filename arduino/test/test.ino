@@ -1,6 +1,8 @@
 #define PROTO_BAUD 19200
 #define PROTO_DELIMITER ','
 #define PROTO_EOF "\r\n"
+#define PROTO_ACK "ACK"
+#define PROTO_FIN "FIN"
 
 #define BUTTON_PIN 2
 #define SIGNAL_PIN A2
@@ -46,7 +48,9 @@ void input()
 
 void output()
 {
-    Serial.println(count);
+    //Serial.println(count);
+    Serial.print(PROTO_ACK);
+    Serial.print(PROTO_EOF);
     for (auto idx = 0; idx < count; ++idx) {
         //auto result = ((points[idx].voltage * level - offset) / amplification) * 1000;
         //Serial.print(result);
@@ -55,6 +59,8 @@ void output()
         Serial.print(points[idx].us);
         Serial.print(PROTO_EOF);
     }
+    Serial.print(PROTO_FIN);
+    Serial.print(PROTO_EOF);
 }
 
 void setup() {
