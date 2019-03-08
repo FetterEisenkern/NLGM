@@ -13,7 +13,7 @@ const autoCorrelation = (a1, a2 = undefined) => {
     let matrix = [];
     {
         const mx = a1; // No copy for optimization
-        const my = (a2) ? [...a2].reverse() : [...a1].reverse();
+        const my = [...(a2 ? a2 : a1)].reverse();
         for (let y of my) {
             let row = [];
             for (let x of mx) {
