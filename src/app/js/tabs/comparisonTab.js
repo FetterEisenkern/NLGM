@@ -67,8 +67,8 @@ var addLinesToComparisonPlot = (data, legend) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volt);
-        time.push(point.ms);
+        voltage.push(point.volts);
+        time.push(point.us);
     }
 
     comparisonLines.push({

@@ -165,10 +165,11 @@ var m2Lines = [];
 
 var newPlotLayout = {
     xaxis: {
-        title: 'Time [us]',
+        title: 'Time [us]'
     },
     yaxis: {
         title: 'Volt [mV]',
+        range: [0, 1024] // TODO
     },
     margin: {
         t: 0
@@ -182,8 +183,8 @@ var addToNewPlot = (lines, data, legend) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volt);
-        time.push(point.ms);
+        voltage.push(point.volts);
+        time.push(point.us);
     }
 
     lines.push({
@@ -248,7 +249,7 @@ var calculateResult = (data) => {
     let findMaximum = (points) => {
         let max = points[0];
         for (let point of points) {
-            if (point.volt > max.volt) {
+            if (point.volt > max.volts) {
                 max = point;
             }
         }
@@ -261,8 +262,8 @@ var calculateResult = (data) => {
             | tmax1 - tmax2 |
     */
 
-    let tmax1 = findMaximum(data.m1).ms / 1000; // ms -> s
-    let tmax2 = findMaximum(data.m2).ms / 1000; // ms -> s
+    let tmax1 = findMaximum(data.m1).us / 1000000; // us -> s
+    let tmax2 = findMaximum(data.m2).us / 1000000; // us -> s
     let l1 = data.l1 / 100; // cm -> m
     let l2 = data.l2 / 100; // cm -> m
     let deltaLength = Math.abs(l1 - l2);

@@ -2,10 +2,11 @@
 var resultLines = undefined;
 var resultPlotLayout = {
     xaxis: {
-        title: 'Time [us]',
+        title: 'Time [us]'
     },
     yaxis: {
         title: 'Volt [mV]',
+        range: [0, 1024] // TODO
     },
     margin: {
         t: 0
@@ -20,8 +21,8 @@ var addDataResult = (data) => {
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
     if (optAutocorrelationCheckbox.checked) {
-        addLinesToResultPlot(data.data.m1, 'm1 (ac)', true);
-        addLinesToResultPlot(data.data.m2, 'm2 (ac)', true);
+        addLinesToResultPlot(data.data.m1, 'm1 ac.', true);
+        addLinesToResultPlot(data.data.m2, 'm2 ac.', true);
     }
 };
 
@@ -52,8 +53,8 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volt);
-        time.push(point.ms);
+        voltage.push(point.volts);
+        time.push(point.us);
     }
 
     if (ac) {
@@ -62,12 +63,8 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
         voltage = [...voltage.reverse(), ...temp];
 
         // Rewrite time
-        const max = time.length;
-        let t = -max;
-        time = [];
-        while (t < max) {
-            time.push(++t);
-        }
+        temp = [...time].slice(1);
+        time = [...time.reverse().map(t => -t), ...temp];
     }
 
     resultLines.push({

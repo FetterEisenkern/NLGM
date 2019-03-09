@@ -6,16 +6,16 @@ class Measurement {
         this.points = [];
     }
     start() {
+        this.points = [];
         this.isRunning = true;
     }
     finish() {
-        this.points = [];
         this.isRunning = false;
     }
     // 2.000;1
     process(data) {
         var m = data.split(';');
-        var point = new Point(parseFloat(m[0]), parseFloat(m[1]));
+        var point = new Point(parseFloat(m[0]), parseInt(m[1]));
         this.points.push(point);
     }
     getData() {

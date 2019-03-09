@@ -1,7 +1,7 @@
 class Point {
-    constructor(volt, ms) {
-        this.volt = volt;
-        this.ms = ms;
+    constructor(volts, us) {
+        this.volts = volts;
+        this.us = us;
     }
 };
 

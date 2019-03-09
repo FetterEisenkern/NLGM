@@ -73,7 +73,7 @@ class Controller {
                 if (err) {
                     return console.error(`Failed to send command: ${err.message}`);
                 }
-                console.log(`Command '${command}' sent!`);
+                console.log(`app -> device: ${command}`);
             });
         }
     }

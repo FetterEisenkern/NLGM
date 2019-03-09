@@ -15,7 +15,7 @@ const createWindow = async () => {
 
     processor.setWindowCallbacks(window);
 
-    //window.setMenu(null);
+    window.setMenu(null);
     window.loadFile(path.join(__dirname, '/app/index.html'));
 
     //window.webContents.openDevTools({ mode: 'bottom' });
@@ -26,6 +26,7 @@ const createWindow = async () => {
     ipcMain.on('start-measurement', () => {
         if (processor.controller.isConnected()) {
             processor.controller.send('SYN');
+            processor.resetTimeout();
         } else {
             processor.sendMeasurementError();
         }
