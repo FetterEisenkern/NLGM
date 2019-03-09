@@ -12,8 +12,6 @@ var resultPlotLayout = {
     }
 };
 
-var withAutoCorrelation = true;
-
 var addDataResult = (data) => {
     resultResult.textContent = ((data.data.result) ? data.data.result.toFixed(2) : '0.00') + ' m/s';
     resultName.textContent = data.getName();
@@ -21,9 +19,9 @@ var addDataResult = (data) => {
     selectResult(data.data.result);
     addLinesToResultPlot(data.data.m1, 'm1');
     addLinesToResultPlot(data.data.m2, 'm2');
-    if (withAutoCorrelation) {
-        addLinesToResultPlot(data.data.m1, 'm3', true);
-        addLinesToResultPlot(data.data.m2, 'm4', true);
+    if (optAutocorrelationCheckbox.checked) {
+        addLinesToResultPlot(data.data.m1, 'm1 (ac)', true);
+        addLinesToResultPlot(data.data.m2, 'm2 (ac)', true);
     }
 };
 
@@ -49,7 +47,7 @@ var selectResult = (result) => {
     }
 };
 
-var addLinesToResultPlot = (data, legend, autoC = false) => {
+var addLinesToResultPlot = (data, legend, ac = false) => {
     // Mapping
     let voltage = [];
     let time = [];
@@ -58,8 +56,8 @@ var addLinesToResultPlot = (data, legend, autoC = false) => {
         time.push(point.ms);
     }
 
-    if (autoC) {
-        voltage = autoCorrelation(voltage);
+    if (ac) {
+        voltage = autoCorrelation(voltage, true, true);
         // Time interpolation
         let rest = voltage.length - time.length;
         let t = time[time.length - 1];

@@ -54,6 +54,7 @@ const conPortId = document.querySelector('#options-port-id');
 const conPortManufacturer = document.querySelector('#options-port-manufacturer');
 const conConnectButton = document.querySelector('#options-connect-btn');
 const optAnimationCheckbox = document.querySelector('#options-animation-cbx');
+const optAutocorrelationCheckbox = document.querySelector('#options-autoc-cbx');
 
 // Comparison
 const comparisonReturnButton = document.querySelector('#comparison-return-btn');
