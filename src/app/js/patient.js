@@ -3,11 +3,11 @@ var currentPatientMeasurements = [];
 var renderPatientModal = (patient) => {
     patientModalTitle.innerHTML = patient.getName();
 
-    currentPatientMeasurements = databaseList.filter(x => x.patient == patient.patient);
+    currentPatientMeasurements = databaseList.filter(x => x.patient === patient.patient);
 
     patientModalStatsTotal.innerHTML = currentPatientMeasurements.length;
 
-    if (currentPatientMeasurements.length != 0) {
+    if (currentPatientMeasurements.length !== 0) {
         patientModalStatsBest.innerHTML = currentPatientMeasurements.map(m => m.data.result).reduce((a, b) => Math.max(a, b)).toFixed(2);
         patientModalStatsWorst.innerHTML = currentPatientMeasurements.map(m => m.data.result).reduce((a, b) => Math.min(a, b)).toFixed(2);
         patientModalStatsMostRecent.innerHTML = currentPatientMeasurements.sort((a, b) => a.id < b.id)[0].data.result.toFixed(2);
@@ -28,11 +28,11 @@ var renderPatientModalTable = (currentPage = 1) => {
     let rowsPerPage = 20;
 
     for (let index = 0; index < currentPatientMeasurements.length; ++index) {
-        if (index % rowsPerPage == 0) {
+        if (index % rowsPerPage === 0) {
             ++paginatorPages;
         }
 
-        if (paginatorPages != currentPage) {
+        if (paginatorPages !== currentPage) {
             continue;
         }
 
@@ -64,7 +64,7 @@ var renderPatientModalTable = (currentPage = 1) => {
 
     for (let i = 1; i <= paginatorPages; ++i) {
         let link = document.createElement('a');
-        link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
+        link.setAttribute('class', (i === currentPage) ? 'pagination-link is-current' : 'pagination-link');
         link.setAttribute('onclick', `renderPatientModalTable(${i});`);
         link.innerHTML = i;
 

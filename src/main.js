@@ -15,17 +15,21 @@ const createWindow = async () => {
 
     processor.setWindowCallbacks(window);
 
-    //window.setMenu(null);
+    window.setMenu(null);
     window.loadFile(path.join(__dirname, '/app/index.html'));
 
     //window.webContents.openDevTools({ mode: 'bottom' });
 
-    window.on('closed', () => win = null);
+    window.on('closed', () => window = null);
   
     // New
     ipcMain.on('start-measurement', () => {
-        processor.controller.send('s');
-        processor.sendMeasurementSuccess(processor.measurement);
+        if (processor.controller.isConnected()) {
+            processor.controller.send('SYN');
+            processor.resetTimeout();
+        } else {
+            processor.sendMeasurementError();
+        }
     });
     ipcMain.on('save-data', (_, data) => {
         processor.db.insert(data, () => {

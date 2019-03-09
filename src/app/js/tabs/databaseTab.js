@@ -30,11 +30,11 @@ var renderList = (currentPage = 1) => {
     let paginatorPages = 0;
 
     for (let index = 0; index < filteredList.length; ++index) {
-        if (index % rowsPerPage == 0) {
+        if (index % rowsPerPage === 0) {
             ++paginatorPages;
         }
 
-        if (paginatorPages != currentPage) {
+        if (paginatorPages !== currentPage) {
             continue;
         }
 
@@ -87,7 +87,7 @@ var renderList = (currentPage = 1) => {
 
     for (let i = 1; i <= paginatorPages; ++i) {
         let link = document.createElement('a');
-        link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
+        link.setAttribute('class', (i === currentPage) ? 'pagination-link is-current' : 'pagination-link');
         link.setAttribute('onclick', `renderList(${i});`);
         link.innerHTML = i;
 
@@ -112,7 +112,7 @@ var deleteItem = (index) => {
 };
 
 var compareItem = (element, index) => {
-    if (element.firstElementChild.getAttribute('class') != 'button is-small is-success') {
+    if (element.firstElementChild.getAttribute('class') !== 'button is-small is-success') {
         element.firstElementChild.setAttribute('class', 'button is-small is-success');
     } else {
         element.firstElementChild.setAttribute('class', 'button is-small is-success is-outlined');
@@ -120,7 +120,7 @@ var compareItem = (element, index) => {
         return;
     }
 
-    if (count == 0) {
+    if (count === 0) {
         //alert("Please do not forget that you always need two measurements for a comparison");
     }
     count++;
@@ -129,9 +129,9 @@ var compareItem = (element, index) => {
         compareList[0] = filteredList[index];
     }
 
-    if (count % 2 == 0) {
+    if (count % 2 === 0) {
         let item = filteredList[index];
-        if (compareList[0] != item) {
+        if (compareList[0] !== item) {
             selectTab(3, true);
             setTimeout(() => renderList(), 1000);
             compareList[1] = item;

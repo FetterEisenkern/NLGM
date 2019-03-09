@@ -6,6 +6,7 @@
 *.db
 doc/
 nlgm.db-journal
+_docs.js
 
 # Logs
 logs

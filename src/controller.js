@@ -28,7 +28,7 @@ class Controller {
             }
         });
 
-        if (this.io != undefined) {
+        if (this.io !== undefined) {
             this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => {
                 if (err) {
                     console.error(`SerialPort: ${err.message}`);
@@ -71,9 +71,9 @@ class Controller {
         if (this.portOpened) {
             this.port.write(command, (err) => {
                 if (err) {
-                    console.error(`Failed to send command: ${err.message}`);
+                    return console.error(`Failed to send command: ${err.message}`);
                 }
-                console.log(`Command '${command}' sent!`);
+                console.log(`app -> device: ${command}`);
             });
         }
     }

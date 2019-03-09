@@ -24,7 +24,7 @@ class Database {
         this.db.close();
     }
     insert(data, callback = undefined) {
-        if (data.patient.id == undefined) {
+        if (data.patient.id === undefined) {
             let that = this;
             this.insertPatient(data.patient, function () {
                 that.insertData(this.lastID, data.data, callback);
@@ -50,11 +50,6 @@ class Database {
         return this.db.prepare(`INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt) VALUES (?, ?, date(?), date('now'))`)
             .run([data.firstName, data.lastName, data.dateOfBirth], callback)
             .finalize();
-    }
-    select(id, callback) {
-        this.db.each(`SELECT id, patient, date, data
-                      FROM nlgm
-                      WHERE id == ?`, id, callback);
     }
     selectPatient(id, callback) {
         this.db.each(`SELECT id, firstName, lastName, dateOfBirth, createdAt
