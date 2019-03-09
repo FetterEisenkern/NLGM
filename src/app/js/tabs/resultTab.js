@@ -2,7 +2,7 @@
 var resultLines = undefined;
 var resultPlotLayout = {
     xaxis: {
-        title: 'Time [ms]',
+        title: 'Time [us]',
     },
     yaxis: {
         title: 'Volt [mV]',
@@ -58,10 +58,14 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
 
     if (ac) {
         voltage = autoCorrelation(voltage, true, true);
-        // Time interpolation
-        let rest = voltage.length - time.length;
-        let t = time[time.length - 1];
-        while (rest--) {
+        let temp = [...voltage].slice(1);
+        voltage = [...voltage.reverse(), ...temp];
+
+        // Rewrite time
+        const max = time.length;
+        let t = -max;
+        time = [];
+        while (t < max) {
             time.push(++t);
         }
     }
@@ -77,7 +81,8 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
         marker: {
             symbol: 'circle'
         },
-        name: legend
+        name: legend,
+        visible: ac ? "legendonly" : true
     });
 };
 

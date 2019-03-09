@@ -17,18 +17,15 @@ const autoCorrelation = (x, normalize = false, scaling = false) => {
         c.push(sum);
     }
 
-    let result = [...c].slice(1);
-    result = [...c.reverse(), ...result];
-
     if (normalize || scaling) {
-        const max = normalize ? Math.max(...result) : 1;
+        const max = normalize ? Math.max(...c) : 1;
         const scale = scaling ? Math.max(...x) : 1;
-        result = result.map(x => x / max * scale);
+        c = c.map(x => x / max * scale);
     }
 
-    return result;
+    return c;
 };
 
-//console.log(autoCorrelation([1, 2, 3, 4]), 'should be the same as', [4, 11, 20, 30, 20, 11, 4]);
+//console.log(autoCorrelation([1, 2, 3, 4]), 'should be the same as', [30, 20, 11, 4]);
 
 module.exports = autoCorrelation;

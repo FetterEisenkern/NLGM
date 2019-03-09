@@ -1,5 +1,5 @@
 #define PROTO_BAUD 19200
-#define PROTO_DELIMITER ','
+#define PROTO_DELIMITER ';'
 #define PROTO_EOF "\r\n"
 #define PROTO_ACK "ACK"
 #define PROTO_FIN "FIN"

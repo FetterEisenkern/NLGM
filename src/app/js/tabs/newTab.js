@@ -165,7 +165,7 @@ var m2Lines = [];
 
 var newPlotLayout = {
     xaxis: {
-        title: 'Time [ms]',
+        title: 'Time [us]',
     },
     yaxis: {
         title: 'Volt [mV]',

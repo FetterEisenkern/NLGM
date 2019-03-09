@@ -123,7 +123,7 @@ void PrintOut()
     aryMS[i] = aryTim[i];
     aryMS[i] = aryMS[i]/1000;
     Serial.print(aryMS[i], 3);
-    Serial.print(" [ms]");
+    Serial.print(" [us]");
     Serial.println();
   }
  

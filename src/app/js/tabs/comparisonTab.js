@@ -50,7 +50,7 @@ var comparisonLines = [];
 
 var comparisonPlotLayout = {
     xaxis: {
-        title: 'Time [ms]',
+        title: 'Time [us]',
     },
     yaxis: {
         title: 'Volt [mV]',

@@ -12,9 +12,9 @@ class Measurement {
         this.points = [];
         this.isRunning = false;
     }
-    // 2.000 [mV], 1 [ms]
+    // 2.000;1
     process(data) {
-        var m = data.split(',');
+        var m = data.split(';');
         var point = new Point(parseFloat(m[0]), parseFloat(m[1]));
         this.points.push(point);
     }
