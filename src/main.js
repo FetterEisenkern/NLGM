@@ -24,8 +24,11 @@ const createWindow = async () => {
   
     // New
     ipcMain.on('start-measurement', () => {
-        processor.controller.send('s');
-        //processor.sendMeasurementSuccess(processor.measurement);
+        if (processor.controller.isConnected()) {
+            processor.controller.send('SYN');
+        } else {
+            processor.sendMeasurementError();
+        }
     });
     ipcMain.on('save-data', (_, data) => {
         processor.db.insert(data, () => {

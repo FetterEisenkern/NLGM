@@ -26,7 +26,7 @@ var addDataResult = (data) => {
 };
 
 var selectResult = (result) => {
-    if (result != undefined) {
+    if (result !== undefined) {
         for (let tr of resultTable.children) {
             tr.removeAttribute('class');
         }

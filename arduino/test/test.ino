@@ -1,6 +1,7 @@
 #define PROTO_BAUD 19200
 #define PROTO_DELIMITER ';'
 #define PROTO_EOF "\r\n"
+#define PROTO_SYN "SYN"
 #define PROTO_ACK "ACK"
 #define PROTO_FIN "FIN"
 
@@ -71,7 +72,7 @@ void setup() {
 }
 
 void loop() {
-    if (digitalRead(BUTTON_PIN) == HIGH) {
+    if (Serial.readString() == PROTO_SYN) {
         auto curTime = millis();
         if (curTime - prevTime > DEBOUNCE_TIME) {
             reset();

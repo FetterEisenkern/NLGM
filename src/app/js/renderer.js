@@ -11,6 +11,13 @@ ipcRenderer.on('measurement-error', () => {
             <br>
             Check the <a onclick="closeErrorModal();selectTab(4);">Options Tab</a> and retry.
         </p>`);
+    if (m1Lines.length === 0) {
+        newStart1Button.innerHTML = '<span>Start</span>';
+        newStart1Button.setAttribute('class', 'button is-success');
+    } else if (m2Lines.length === 0) {
+        newStart2Button.innerHTML = '<span>Start</span>';
+        newStart2Button.setAttribute('class', 'button is-success');
+    }
 });
 
 // Database

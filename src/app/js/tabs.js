@@ -19,7 +19,7 @@ var selectTab = (index, loadPage = false, callback = undefined) => {
             selected.div.setAttribute('class', 'tab');
             // Unselect and hide others
             for (let unselected of tabs) {
-                if (unselected == selected) {
+                if (unselected === selected) {
                     continue;
                 }
                 unselected.tab.removeAttribute('class');

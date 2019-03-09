@@ -32,11 +32,11 @@ let changeComparisonPage = () => {
         comparisonPage = 0;
     }
 
-    if (comparisonPage == 0) {
+    if (comparisonPage === 0) {
         comparisonPlot.setAttribute('class', 'hidden');
         comparisonTable.setAttribute('class', 'table is-hoverable is-fullwidth');
         comparisonPageButton.innerHTML = 'Graph';
-    } else if (comparisonPage == 1) {
+    } else if (comparisonPage === 1) {
         comparisonPlot.removeAttribute('class');
         comparisonTable.setAttribute('class', 'table is-hoverable is-fullwidth hidden');
         comparisonPageButton.innerHTML = 'Table';

@@ -4,7 +4,7 @@ resultTab.addEventListener('click', () => selectTab(1));
 
 databaseTab.addEventListener('click', () => {
     selectTab(2);
-    if (databaseList.length == 0) {
+    if (databaseList.length === 0) {
         ipcRenderer.send('get-db-rows');
     }
     databasePatientInput.focus();
@@ -14,17 +14,17 @@ optionsTab.addEventListener('click', () => selectTab(4));
 
 // New
 newBackButton.addEventListener('click', () => {
-    if (currentStep != 0) {
+    if (currentStep !== 0) {
         steps.previous_step();
     }
 });
 newNextButton.addEventListener('click', () => {
-    if (currentStep != 3) {
+    if (currentStep !== 3) {
         steps.next_step();
     }
 });
 newPatientLookUpButton.addEventListener('click', () => {
-    if (currentPatient == undefined) {
+    if (currentPatient === undefined) {
         renderPatientDatabase();
         newPatientLookUpModal.setAttribute('class', 'modal is-active');
     } else {
@@ -40,7 +40,7 @@ newPatientLookUpButton.addEventListener('click', () => {
     }
 });
 newStart1Button.addEventListener('click', () => {
-    if (m1Lines.length == 0) {
+    if (m1Lines.length === 0) {
         newStart1Button.innerHTML = '<span>Reset</span>';
         newStart1Button.setAttribute('class', 'button is-danger');
         ipcRenderer.send('start-measurement');
@@ -52,7 +52,7 @@ newStart1Button.addEventListener('click', () => {
     }
 });
 newStart2Button.addEventListener('click', () => {
-    if (m2Lines.length == 0) {
+    if (m2Lines.length === 0) {
         newStart2Button.innerHTML = '<span>Reset</span>';
         newStart2Button.setAttribute('class', 'button is-danger');
         ipcRenderer.send('start-measurement');
@@ -65,7 +65,7 @@ newStart2Button.addEventListener('click', () => {
 });
 
 /* comparisonTab.addEventListener('click', () => {
-    if (count % 2 > 0 || count == 0) {
+    if (count % 2 > 0 || count === 0) {
         alert("You did not select two measurements for a comparison");
     }
 }); */
@@ -92,19 +92,19 @@ newViewResultButton.addEventListener('click', () => {
 
 // Database
 databasePatientInput.addEventListener('input', () => {
-    filter.name = (databasePatientInput.value.length != 0) ? databasePatientInput.value : undefined;
+    filter.name = (databasePatientInput.value.length !== 0) ? databasePatientInput.value : undefined;
     renderList();
 });
 databaseResultInput.addEventListener('input', () => {
-    filter.result = (databaseResultInput.value.length != 0) ? databaseResultInput.value : undefined;
+    filter.result = (databaseResultInput.value.length !== 0) ? databaseResultInput.value : undefined;
     renderList();
 });
 databaseIdInput.addEventListener('input', () => {
-    filter.id = (databaseIdInput.value.length != 0) ? databaseIdInput.value : undefined;
+    filter.id = (databaseIdInput.value.length !== 0) ? databaseIdInput.value : undefined;
     renderList();
 });
 databaseDateInput.addEventListener('input', () => {
-    filter.date = (databaseDateInput.value.length != 0) ? databaseDateInput.value : undefined;
+    filter.date = (databaseDateInput.value.length !== 0) ? databaseDateInput.value : undefined;
     renderList();
 });
 databaseSorter.addEventListener('change', () => {
@@ -121,9 +121,9 @@ conConnectButton.addEventListener('click', () => {
 
 // Global
 document.addEventListener('keyup', (ev) => {
-    if (ev.ctrlKey && ev.keyCode == 37) {
+    if (ev.ctrlKey && ev.keyCode === 37) {
         selectTab(currentTab - 1);
-    } else if (ev.ctrlKey && ev.keyCode == 39) {
+    } else if (ev.ctrlKey && ev.keyCode === 39) {
         selectTab(currentTab + 1);
     }
 });

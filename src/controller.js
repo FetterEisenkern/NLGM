@@ -28,7 +28,7 @@ class Controller {
             }
         });
 
-        if (this.io != undefined) {
+        if (this.io !== undefined) {
             this.port = new SerialPort(this.io.name, { baudRate: this.baudRate }, (err) => {
                 if (err) {
                     console.error(`SerialPort: ${err.message}`);

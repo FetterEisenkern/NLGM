@@ -24,7 +24,7 @@ class Database {
         this.db.close();
     }
     insert(data, callback = undefined) {
-        if (data.patient.id == undefined) {
+        if (data.patient.id === undefined) {
             let that = this;
             this.insertPatient(data.patient, function () {
                 that.insertData(this.lastID, data.data, callback);

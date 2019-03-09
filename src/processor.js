@@ -35,9 +35,9 @@ class Processor {
     handleData(data) {
         console.log(data);
 
-        if (data == 'a') {
+        if (data === 'ACK') {
             this.measurement.start();
-        } else if (data == 'f') {
+        } else if (data === 'FIN') {
             this.measurement.finish();
             this.sendMeasurementSuccess(this.measurement);
         } else if (this.measurement.isRunning) {

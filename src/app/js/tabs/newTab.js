@@ -29,11 +29,11 @@ const steps = new bulmaSteps(newSteps, {
                     newViewResultButton.setAttribute('title', 'Data not complete!');
                 }
 
-                newResultPatient.innerHTML = (newPatientFirstNameInput.value != '')
+                newResultPatient.innerHTML = (newPatientFirstNameInput.value !== '')
                     ? `${newPatientFirstNameInput.value} ${newPatientLastNameInput.value}`
                     : '-';
-                newResultLengths.innerHTML = `${(newLength1Input.value != '') ? parseInt(newLength1Input.value) : '0'}cm<br>`
-                    + `${(newLength2Input.value != '') ? parseInt(newLength2Input.value) : '0'}cm`;
+                newResultLengths.innerHTML = `${(newLength1Input.value !== '') ? parseInt(newLength1Input.value) : '0'}cm<br>`
+                    + `${(newLength2Input.value !== '') ? parseInt(newLength2Input.value) : '0'}cm`;
 
                 newResultMeasurements.innerHTML = (m1Data)
                     ? (m2Data)
@@ -56,12 +56,12 @@ var filteredPatientList = [];
 var currentPatient = undefined;
 
 var renderPatientDatabase = (currentPage = 1) => {
-    if (newPatientFirstNameInput.value != '' || newPatientLastNameInput.value != '' || newPatientDateOfBirthInput.value != '') {
+    if (newPatientFirstNameInput.value !== '' || newPatientLastNameInput.value !== '' || newPatientDateOfBirthInput.value !== '') {
         filteredPatientList = [];
         for (let item of patientList) {
-            if (newPatientFirstNameInput.value != '' && item.firstName.startsWith(newPatientFirstNameInput.value)
-                || (newPatientLastNameInput.value != '' && item.lastName.startsWith(newPatientLastNameInput.value))
-                || (newPatientDateOfBirthInput.value != '' && item.dateOfBirth.startsWith(newPatientDateOfBirthInput.value))) {
+            if (newPatientFirstNameInput.value !== '' && item.firstName.startsWith(newPatientFirstNameInput.value)
+                || (newPatientLastNameInput.value !== '' && item.lastName.startsWith(newPatientLastNameInput.value))
+                || (newPatientDateOfBirthInput.value !== '' && item.dateOfBirth.startsWith(newPatientDateOfBirthInput.value))) {
                 filteredPatientList.push(item);
             }
         }
@@ -75,11 +75,11 @@ var renderPatientDatabase = (currentPage = 1) => {
     let rowsPerPage = 10;
 
     for (let index = 0; index < filteredPatientList.length; ++index) {
-        if (index % rowsPerPage == 0) {
+        if (index % rowsPerPage === 0) {
             ++paginatorPages;
         }
 
-        if (paginatorPages != currentPage) {
+        if (paginatorPages !== currentPage) {
             continue;
         }
 
@@ -122,7 +122,7 @@ var renderPatientDatabase = (currentPage = 1) => {
 
     for (let i = 1; i <= paginatorPages; ++i) {
         let link = document.createElement('a');
-        link.setAttribute('class', (i == currentPage) ? 'pagination-link is-current' : 'pagination-link');
+        link.setAttribute('class', (i === currentPage) ? 'pagination-link is-current' : 'pagination-link');
         link.setAttribute('onclick', `renderPatientDatabase(${i});`);
         link.innerHTML = i;
 
@@ -209,14 +209,14 @@ var renderNewPlot2 = () => {
 };
 
 var validateData = () => {
-    return newPatientFirstNameInput.value.length != 0
-        && newPatientLastNameInput.value.length != 0
-        && newPatientDateOfBirthInput.value.length != 0
-        && newLength1Input.value.length != 0
-        && newLength2Input.value.length != 0
-        && parseInt(newLength1Input.value) != parseInt(newLength2Input.value)
-        && m1Lines.length != 0
-        && m2Lines.length != 0;
+    return newPatientFirstNameInput.value.length !== 0
+        && newPatientLastNameInput.value.length !== 0
+        && newPatientDateOfBirthInput.value.length !== 0
+        && newLength1Input.value.length !== 0
+        && newLength2Input.value.length !== 0
+        && parseInt(newLength1Input.value) !== parseInt(newLength2Input.value)
+        && m1Lines.length !== 0
+        && m2Lines.length !== 0;
 };
 
 var getMeasurementData = () => {
@@ -267,15 +267,15 @@ var calculateResult = (data) => {
     let l2 = data.l2 / 100; // cm -> m
     let deltaLength = Math.abs(l1 - l2);
     let deltaTime = Math.abs(tmax1 - tmax2);
-    return (deltaTime != 0) ? deltaLength / deltaTime : 0;
+    return (deltaTime !== 0) ? deltaLength / deltaTime : 0;
 };
 
 var renderMeasurement = (data) => {
-    if (currentStep == 1) {
+    if (currentStep === 1) {
         m1Lines = [];
         addToNewPlot(m1Lines, m1Data = data.m1, 'm1');
         renderNewPlot1();
-    } else if (currentStep == 2) {
+    } else if (currentStep === 2) {
         m2Lines = [];
         addToNewPlot(m2Lines, m2Data = data.m2, 'm2');
         renderNewPlot2();
@@ -285,7 +285,7 @@ var renderMeasurement = (data) => {
 };
 
 var resetMeasurement = () => {
-    if (currentStep == 3) {
+    if (currentStep === 3) {
         steps.previous_step();
         steps.previous_step();
         steps.previous_step();
