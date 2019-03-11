@@ -2,8 +2,8 @@
 var name2, id2, result2, date2;
 var row1, row2, row3, row4;
 
-let compare = (obj1, obj2) => {
-    // add values to the cells
+var compare = (obj1, obj2) => {
+    // Add values to the cells
     name1.innerHTML = obj1.getName();
     id1.innerHTML = obj1.id;
     result1.innerHTML = obj1.data.result.toFixed(2) + " m/s";
@@ -15,21 +15,19 @@ let compare = (obj1, obj2) => {
     date2.innerHTML = obj2.date;
 
     comparisonLines = [];
-    let p1m = new Array(...obj1.data.m1);
-    let p2m = new Array(...obj2.data.m1);
-    p1m.push(...obj1.data.m2);
-    p2m.push(...obj2.data.m2);
-    addLinesToComparisonPlot(p1m, name1.innerHTML);
-    addLinesToComparisonPlot(p2m, name2.innerHTML);
+    addLinesToComparisonPlot([...obj1.data.m1, ...obj1.data.m2], name1.innerHTML);
+    addLinesToComparisonPlot([...obj2.data.m1, ...obj2.data.m2], name2.innerHTML);
+    changeComparisonPage(0);
 };
 
-let comparisonPage = 0;
-let maxComparisonPage = 1;
+var comparisonPage = 0;
+var maxComparisonPage = 1;
 
-let changeComparisonPage = () => {
-    comparisonPage++;
-    if (comparisonPage > maxComparisonPage) {
+var changeComparisonPage = (page) => {
+    if (page > maxComparisonPage) {
         comparisonPage = 0;
+    } else {
+        comparisonPage = page;
     }
 
     if (comparisonPage === 0) {
@@ -67,7 +65,7 @@ var addLinesToComparisonPlot = (data, legend) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volts);
+        voltage.push(point.mv);
         time.push(point.us);
     }
 
@@ -90,7 +88,7 @@ var renderComparisonPlot = () => {
     Plotly.newPlot(comparisonPlot, comparisonLines, comparisonPlotLayout, { responsive: false, displayModeBar: false });
 };
 
-let init = () => {
+var initComparisonTable = () => {
     row1 = document.getElementById('row1');
     row2 = document.getElementById('row2');
     row3 = document.getElementById('row3');
@@ -106,4 +104,4 @@ let init = () => {
     date2 = row4.insertCell(2);
 };
 
-init();
+initComparisonTable();

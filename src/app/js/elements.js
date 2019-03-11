@@ -53,6 +53,10 @@ const conPortName = document.querySelector('#options-port-name');
 const conPortId = document.querySelector('#options-port-id');
 const conPortManufacturer = document.querySelector('#options-port-manufacturer');
 const conConnectButton = document.querySelector('#options-connect-btn');
+const conConnectToCloudHost = document.querySelector('#options-connect-cloud-host');
+const conConnectToCloudUser = document.querySelector('#options-connect-cloud-user');
+const conConnectToCloudPassword = document.querySelector('#options-connect-cloud-password');
+const conConnectToCloudButton = document.querySelector('#options-connect-cloud-btn');
 const optAnimationCheckbox = document.querySelector('#options-animation-cbx');
 const optAutocorrelationCheckbox = document.querySelector('#options-autoc-cbx');
 

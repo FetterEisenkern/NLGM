@@ -58,7 +58,7 @@
                         <div class="columns">
                             <div class="column is-1"></div>
                             <div class="column is-10">
-                                <div class="step-content  is-active">
+                                <div class="step-content is-active">
                                     <div class="field is-horizontal">
                                         <div class="field-label is-normal">
                                             <label class="label">First Name</label>
@@ -420,7 +420,7 @@
     <div id="options" class="hidden tab">
         <div class="columns center-columns">
             <!-- Port Control & Status -->
-            <div class="column is-4"></div>
+            <div class="column is-2"></div>
             <div class="column is-4">
                 <h3 class="subtitle is-3">Port Info</h3>
                 <table class="table is-hoverable">
@@ -454,6 +454,49 @@
                     <input id="options-autoc-cbx" type="checkbox" checked>
                     Autocorrelation Lines
                 </label>
+            </div>
+            <div class="column is-5">
+                <h3 class="subtitle is-3">Cloud</h3>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Host</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="options-connect-cloud-host" class="input input-name" type="text"
+                                    value="192.168.43.186" autofocus data-validate="require">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">User</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="options-connect-cloud-user" class="input input-name" type="text"
+                                    value="nlgm_user" autofocus data-validate="require">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Password</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="options-connect-cloud-password" class="input input-name" type="password"
+                                    value="user123" data-validate="require">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a id="options-connect-cloud-btn" class="button is-danger">Connect</a>
             </div>
         </div>
     </div>

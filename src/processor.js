@@ -1,10 +1,14 @@
 const Database = require('./database');
 const Controller = require('./controller');
 const Measurement = require('./measurement');
+const Cloud = require('./cloud');
 
 class Processor {
     constructor() {
         this.db = new Database('nlgm.db');
+        this.cloud = new Cloud('nlgm',
+            () => this.sendCloudConnected(),
+            () => this.sendCloudNotConnected());
         this.controller = new Controller(115200);
         this.measurement = new Measurement();
         this.timeout = undefined;
@@ -15,6 +19,8 @@ class Processor {
         this.sendDatabasePatientRow = undefined;
         this.sendPortClose = undefined;
         this.sendPortInfo = undefined;
+        this.sendCloudConnected = undefined;
+        this.sendCloudNotConnected = undefined;
     }
     static default() {
         return new Processor();
@@ -31,7 +37,11 @@ class Processor {
     }
     shutdown() {
         this.db.shutdown();
+        this.cloud.shutdown();
         this.controller.shutdown();
+    }
+    getDb() {
+        return this.cloud.isConnected() ? this.cloud : this.db;
     }
     handleData(data) {
         console.log(`device -> app: ${data}`);
@@ -84,6 +94,8 @@ class Processor {
         this.sendDatabasePatientRow = (row) => window.webContents.send('db-patient-row', row);
         this.sendPortClose = () => window.webContents.send('port-close');
         this.sendPortInfo = (controller) => window.send('port-info', controller.getInfo());
+        this.sendCloudConnected = () => window.send('cloud-connected');
+        this.sendCloudNotConnected = () => window.send('cloud-not-connected');
     }
 }
 

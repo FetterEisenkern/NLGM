@@ -42,30 +42,33 @@ class Database {
             result: data.result
         }));
 
-        return this.db.prepare(`INSERT INTO nlgm (patient, date, data) VALUES (?, date('now'), ?)`)
+        return this.db.prepare(`INSERT INTO nlgm (patient, date, data)
+                                VALUES (?, date('now'), ?)`)
             .run([id, buffer], callback)
             .finalize();
     }
     insertPatient(data, callback = undefined) {
-        return this.db.prepare(`INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt) VALUES (?, ?, date(?), date('now'))`)
+        return this.db.prepare(`INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt)
+                                VALUES (?, ?, date(?), date('now'))`)
             .run([data.firstName, data.lastName, data.dateOfBirth], callback)
             .finalize();
     }
     selectPatient(id, callback) {
         this.db.each(`SELECT id, firstName, lastName, dateOfBirth, createdAt
-                      FROM patients
-                      WHERE id == ?`, id, callback);
+                        FROM patients
+                       WHERE id == ?`, id, callback);
     }
     selectAll(callback) {
         this.db.each(`SELECT id, patient, patients.firstName, patients.lastName, date, data
-                      FROM nlgm
-                      INNER JOIN patients ON patients.patientId == patient
-                      ORDER BY id DESC`, callback);
+                        FROM nlgm
+                             INNER JOIN patients
+                             ON patients.patientId == patient
+                             ORDER BY id DESC`, callback);
     }
     selectAllPatients(callback) {
         this.db.each(`SELECT patientId, firstName, lastName, dateOfBirth, createdAt
-                      FROM patients
-                      ORDER BY patientId DESC`, callback);
+                        FROM patients
+                       ORDER BY patientId DESC`, callback);
     }
     testSelectAll() {
         this.selectAll((err, row) => {
@@ -109,14 +112,17 @@ class Database {
         this.insert(data);
     }
     delete(id, callback = undefined) {
-        this.db.prepare('DELETE FROM nlgm WHERE id == ?')
+        this.db.prepare(`DELETE FROM nlgm
+                          WHERE id == ?`)
             .run([id], callback)
             .finalize();
     }
     deletePatient(id, callback = undefined) {
-        this.db.prepare('DELETE FROM patients WHERE patientId == ?')
+        this.db.prepare(`DELETE FROM patients
+                          WHERE patientId == ?`)
             .run([id], () => {
-                this.db.prepare('DELETE FROM nlgm WHERE patient == ?')
+                this.db.prepare(`DELETE FROM nlgm
+                                  WHERE patient == ?`)
                     .run([id], callback)
                     .finalize();
             })

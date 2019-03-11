@@ -19,7 +19,7 @@
 
 // Measurement point
 typedef struct {
-    float volts;
+    float mv;
     unsigned long us;
 } point_t;
 
@@ -37,7 +37,7 @@ void read_signal()
 {
     auto start = micros();
     for (auto now = start; now - start < MAX_READ_TIME; now = micros()) {
-        points[count].volts = analogRead(SIGNAL_PIN);
+        points[count].mv = analogRead(SIGNAL_PIN);
         points[count].us = now - start;
         count++;
         if (count >= MAX_POINTS) break;
@@ -50,7 +50,7 @@ void send_to_app()
     Serial.print(PROTO_ACK);
     Serial.print(PROTO_EOF);
     for (auto idx = 0; idx < count; ++idx) {
-        Serial.print(points[idx].volts);
+        Serial.print(points[idx].mv);
         Serial.print(PROTO_DELIMITER);
         Serial.print(points[idx].us);
         Serial.print(PROTO_EOF);

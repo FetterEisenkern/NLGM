@@ -74,7 +74,7 @@ comparisonReturnButton.addEventListener('click', () => {
     selectTab(2);
 });
 comparisonPageButton.addEventListener('click', () => {
-    changeComparisonPage();
+    changeComparisonPage(comparisonPage + 1);
 });
 
 newViewResultButton.addEventListener('click', () => {
@@ -116,6 +116,16 @@ conConnectButton.addEventListener('click', () => {
     if (!conConnectButton.hasAttribute('disabled')) {
         conConnectButton.classList.add('is-loading');
         ipcRenderer.send('get-port-info');
+    }
+});
+conConnectToCloudButton.addEventListener('click', () => {
+    if (!conConnectToCloudButton.hasAttribute('disabled')) {
+        conConnectToCloudButton.classList.add('is-loading');
+        ipcRenderer.send('connect-to-cloud', {
+            host: conConnectToCloudHost.value,
+            user: conConnectToCloudUser.value,
+            password: conConnectToCloudPassword.value
+        });
     }
 });
 
