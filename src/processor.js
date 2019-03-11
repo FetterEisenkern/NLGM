@@ -36,19 +36,31 @@ class Processor {
     handleData(data) {
         console.log(`device -> app: ${data}`);
 
-        if (data === 'ACK') {
-            this.measurement.start();
-        } else if (data === 'FIN') {
-            this.measurement.finish();
-            this.sendMeasurementSuccess(this.measurement);
-            return clearTimeout(this.timeout);
-        } else if (this.measurement.isRunning) {
-            this.measurement.process(data);
-        } else {
-            console.error('Unhandled data!');
-            this.measurement.finish();
-            this.sendMeasurementError();
-            return clearTimeout(this.timeout);
+        switch (data) {
+            case 'ACK':
+                {
+                    this.measurement.start();
+                    break;
+                }
+            case 'FIN':
+                {
+                    this.measurement.finish();
+                    this.sendMeasurementSuccess(this.measurement);
+                    clearTimeout(this.timeout);
+                    break;
+                }
+            default:
+                {
+                    if (this.measurement.isRunning) {
+                        this.measurement.process(data);
+                    } else {
+                        console.error('Unhandled data!');
+                        this.measurement.finish();
+                        this.sendMeasurementError();
+                        clearTimeout(this.timeout);
+                    }
+                    break;
+                }
         }
     }
     resetTimeout() {
@@ -66,7 +78,6 @@ class Processor {
         }
     }
     setWindowCallbacks(window) {
-        //this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getTestData());
         this.sendMeasurementSuccess = (measurement) => window.webContents.send('measurement-success', measurement.getData());
         this.sendMeasurementError = () => window.webContents.send('measurement-error');
         this.sendDatabaseDataRow = (row) => window.webContents.send('db-data-row', row);

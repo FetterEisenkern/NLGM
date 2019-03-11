@@ -1,5 +1,6 @@
 #include "Arduino.h"
 
+// PROTOCOL (DO NOT CHANGE)
 #define PROTO_BAUD 115200
 #define PROTO_DELIMITER ';'
 #define PROTO_EOF "\r\n"
@@ -7,13 +8,16 @@
 #define PROTO_ACK "ACK"
 #define PROTO_FIN "FIN"
 
-#define BUTTON_PIN 2
+// Connected hardware
 #define SIGNAL_PIN A2
 
-#define MAX_POINTS 100      // max points in buffer
-#define DEBOUNCE_TIME 200   // in milliseconds
-#define MAX_READ_TIME 8000  // in microseconds
+// Max points in buffer
+#define MAX_POINTS 100    
 
+// Max read time in microseconds
+#define MAX_READ_TIME 8000 
+
+// Measurement point
 typedef struct {
     float volts;
     unsigned long us;
@@ -21,12 +25,6 @@ typedef struct {
 
 point_t* points;
 int count = 0;
-
-unsigned long prevTime = 0;
-
-const float level = 0.00489;
-const float offset = 3.3;
-const float amplification = 106;
 
 void clear_memory()
 {
@@ -38,7 +36,7 @@ void clear_memory()
 void read_signal()
 {
     auto start = micros();
-    for (auto now = start; now - start < 8000; now = micros()) {
+    for (auto now = start; now - start < MAX_READ_TIME; now = micros()) {
         points[count].volts = analogRead(SIGNAL_PIN);
         points[count].us = now - start;
         count++;
@@ -52,8 +50,6 @@ void send_to_app()
     Serial.print(PROTO_ACK);
     Serial.print(PROTO_EOF);
     for (auto idx = 0; idx < count; ++idx) {
-        //auto result = ((points[idx].volts * level - offset) / amplification) * 1000;
-        //Serial.print(result);
         Serial.print(points[idx].volts);
         Serial.print(PROTO_DELIMITER);
         Serial.print(points[idx].us);
@@ -67,12 +63,10 @@ void setup() {
     Serial.begin(PROTO_BAUD);
     pinMode(BUTTON_PIN, INPUT);
     pinMode(SIGNAL_PIN, INPUT);
-    prevTime = millis();
 }
 
 void loop() {
-    auto data = Serial.readString();
-    if (data.equals(PROTO_SYN)) {
+    if (Serial.readString().equals(PROTO_SYN)) {
         clear_memory();
         read_signal();
         send_to_app();
