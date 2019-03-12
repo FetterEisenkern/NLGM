@@ -135,5 +135,9 @@ document.addEventListener('keyup', (ev) => {
         selectTab(currentTab - 1);
     } else if (ev.ctrlKey && ev.keyCode === 39) {
         selectTab(currentTab + 1);
+    } else if (ev.keyCode === 27) {
+        closeErrorModal();
+        closePatientModal();
+        closePatientDatabase();
     }
 });
