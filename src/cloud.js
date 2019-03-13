@@ -14,7 +14,7 @@ class Cloud {
         this.db.connect((err) => {
             if (err) {
                 this.connected = false;
-                this.handleNotConnected();
+                this.handleNotConnected(err.message);
                 return console.error(err);
             }
 
@@ -34,6 +34,10 @@ class Cloud {
                                date    DATE,
                                data    BLOB,
                                FOREIGN KEY(patient) REFERENCES patients(id));`);
+
+            for (let i = 0; i < 3; ++i) { this.testInsert(); };
+            //this.testSelectAll();
+            //this.testSelectAllPatients();
         });
     }
     shutdown() {

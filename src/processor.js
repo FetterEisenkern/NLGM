@@ -8,7 +8,7 @@ class Processor {
         this.db = new Database('nlgm.db');
         this.cloud = new Cloud('nlgm',
             () => this.sendCloudConnected(),
-            () => this.sendCloudNotConnected());
+            (error) => this.sendCloudNotConnected(error));
         this.controller = new Controller(115200);
         this.measurement = new Measurement();
         this.timeout = undefined;
@@ -95,7 +95,7 @@ class Processor {
         this.sendPortClose = () => window.webContents.send('port-close');
         this.sendPortInfo = (controller) => window.send('port-info', controller.getInfo());
         this.sendCloudConnected = () => window.send('cloud-connected');
-        this.sendCloudNotConnected = () => window.send('cloud-not-connected');
+        this.sendCloudNotConnected = (error) => window.send('cloud-not-connected', error);
     }
 }
 

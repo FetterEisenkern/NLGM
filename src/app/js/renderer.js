@@ -44,8 +44,11 @@ ipcRenderer.on('port-close', () => {
 ipcRenderer.on('cloud-connected', () => {
     setTimeout(() => renderCloudConnected(), 1000);
 });
-ipcRenderer.on('cloud-not-connected', () => {
-    setTimeout(() => renderCloudNotConnected(), 1000);
+ipcRenderer.on('cloud-not-connected', (_, error) => {
+    setTimeout(() => {
+        renderCloudNotConnected();
+        renderErrorModal(error);
+    }, 1000);
 });
 
 // Request data
