@@ -10,12 +10,13 @@
 
 // Connected hardware
 #define SIGNAL_PIN A2
+#define START_PIN 7
 
 // Max points in buffer
-#define MAX_POINTS 100    
+#define MAX_POINTS 100   
 
 // Max read time in microseconds
-#define MAX_READ_TIME 8000 
+#define MAX_READ_TIME 8000
 
 // Measurement point
 typedef struct {
@@ -61,14 +62,16 @@ void send_to_app()
 
 void setup() {
     Serial.begin(PROTO_BAUD);
-    pinMode(BUTTON_PIN, INPUT);
+    pinMode(START_PIN, OUTPUT);
     pinMode(SIGNAL_PIN, INPUT);
 }
 
 void loop() {
     if (Serial.readString().equals(PROTO_SYN)) {
+        digitalWrite(START_PIN, HIGH);
         clear_memory();
         read_signal();
+        digitalWrite(START_PIN, LOW);
         send_to_app();
     }
 }
