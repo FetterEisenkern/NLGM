@@ -20,20 +20,22 @@ class Cloud {
 
             this.connected = true;
             this.handleConnected();
-            console.log(`Connected to cloud: ${this.db.config}`);
+            console.log(`Connected to cloud!`);
 
             this.db.query(`CREATE TABLE IF NOT EXISTS patients(
                                patientId   INTEGER PRIMARY KEY AUTO_INCREMENT,
                                firstName   VARCHAR(32),
                                lastName    VARCHAR(32),
                                dateOfBirth DATE,
-                               createdAt   DATE);
-                           CREATE TABLE IF NOT EXISTS nlgm(
+                               createdAt   DATE)`, () => {
+                this.db.query(`CREATE TABLE IF NOT EXISTS nlgm(
                                id      INTEGER PRIMARY KEY AUTO_INCREMENT,
                                patient INTEGER,
                                date    DATE,
                                data    BLOB,
-                               FOREIGN KEY(patient) REFERENCES patients(id));`);
+                               FOREIGN KEY(patient) REFERENCES patients(patientId))`);
+                }
+            );
 
             for (let i = 0; i < 3; ++i) { this.testInsert(); };
             //this.testSelectAll();
@@ -73,6 +75,7 @@ class Cloud {
                        VALUES (?, date('now'), ?)`, [id, buffer], callback);
     }
     insertPatient(data) {
+        console.log('hi')
         this.db.query(`INSERT INTO patients (firstName, lastName, dateOfBirth, createdAt)
                        VALUES (?, ?, date(?), date('now'))`, [data.firstName, data.lastName, data.dateOfBirth]);
     }
@@ -118,7 +121,7 @@ class Cloud {
         let p = (mv, us) => new Point(mv, us);
         var data = {
             patient: {
-                id: undefined,
+                id: 1,
                 firstName: 'Hansi',
                 lastName: 'Hansen',
                 dateOfBirth: '1998-10-10'

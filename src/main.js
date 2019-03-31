@@ -6,7 +6,7 @@ var window = undefined;
 
 const processor = Processor.default();
 
-const createWindow = async () => {
+const createWindow = () => {
     window = new BrowserWindow({
         width: 1080,
         height: 720,

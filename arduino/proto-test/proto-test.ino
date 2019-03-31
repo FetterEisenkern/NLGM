@@ -69,6 +69,7 @@ void setup() {
 void loop() {
     if (Serial.readString().equals(PROTO_SYN)) {
         digitalWrite(START_PIN, HIGH);
+        delay(400);
         clear_memory();
         read_signal();
         digitalWrite(START_PIN, LOW);

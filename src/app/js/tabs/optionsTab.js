@@ -1,13 +1,13 @@
 var renderConnected = (info) => {
     conPortName.innerHTML = info.name;
-    conPortId.innerHTML = info.id;
+    conPortId.innerHTML = info.id.split('.')[2];
     conPortManufacturer.innerHTML = info.mf;
     conConnectButton.setAttribute('class', 'button is-success');
     conConnectButton.setAttribute('disabled', '');
     conConnectButton.innerHTML = 'Connected';
 };
 var renderNotConnected = () => {
-    conPortName.innerHTML = conPortId.innerHTML = conPortManufacturer.innerHTML = 'Not connected';
+    //conPortName.innerHTML = conPortId.innerHTML = conPortManufacturer.innerHTML = 'Not connected';
     conConnectButton.setAttribute('class', 'button is-danger');
     conConnectButton.removeAttribute('disabled');
     conConnectButton.innerHTML = 'Connect';

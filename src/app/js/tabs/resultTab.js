@@ -1,4 +1,3 @@
-
 var resultLines = undefined;
 var resultPlotLayout = {
     xaxis: {

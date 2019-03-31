@@ -169,7 +169,7 @@ var newPlotLayout = {
     },
     yaxis: {
         title: 'Volt [mV]',
-        range: [0, 1024] // TODO
+        //range: [0, 1024] // TODO
     },
     margin: {
         t: 0
