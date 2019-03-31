@@ -89,7 +89,7 @@
     <Compile Include="app\js\tabs\newTab.js" />
     <Compile Include="app\js\tabs\resultTab.js" />
     <Compile Include="app\js\tabs\comparisonTab.js" />
-    <Compile Include="app\js\utils\autoCorrelation.js" />
+    <Compile Include="app\js\utils\autoc.js" />
     <Compile Include="point.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

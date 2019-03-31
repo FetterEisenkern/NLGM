@@ -6,7 +6,7 @@ var window = undefined;
 
 const processor = Processor.default();
 
-const createWindow = async () => {
+const createWindow = () => {
     window = new BrowserWindow({
         width: 1080,
         height: 720,
@@ -15,7 +15,7 @@ const createWindow = async () => {
 
     processor.setWindowCallbacks(window);
 
-    window.setMenu(null);
+    //window.setMenu(null);
     window.loadFile(path.join(__dirname, '/app/index.html'));
 
     //window.webContents.openDevTools({ mode: 'bottom' });
@@ -32,45 +32,46 @@ const createWindow = async () => {
         }
     });
     ipcMain.on('save-data', (_, data) => {
-        processor.db.insert(data, () => {
-            processor.db.selectAll((_, row) => {
+        processor.getDb().insert(data, () => {
+            processor.getDb().selectAll((_, row) => {
                 processor.sendDatabaseDataRow(row);
             });
-            processor.db.selectAllPatients((_, row) => {
+            processor.getDb().selectAllPatients((_, row) => {
                 processor.sendDatabasePatientRow(row);
             });
         });
     });
     ipcMain.on('delete-db-row', (_, id) => {
-        processor.db.delete(id, () => {
-            processor.db.selectAll((_, row) => {
+        processor.getDb().delete(id, () => {
+            processor.getDb().selectAll((_, row) => {
                 processor.sendDatabaseDataRow(row);
             });
         });
     });
     ipcMain.on('delete-patient', (_, id) => {
-        processor.db.deletePatient(id, () => {
-            processor.db.selectAllPatients((_, row) => {
+        processor.getDb().deletePatient(id, () => {
+            processor.getDb().selectAllPatients((_, row) => {
                 processor.sendDatabasePatientRow(row);
             });
-            processor.db.selectAll((_, row) => {
+            processor.getDb().selectAll((_, row) => {
                 processor.sendDatabaseDataRow(row);
             });
         })
     });
     // Database
     ipcMain.on('get-data-rows', () => {
-        processor.db.selectAll((_, row) => {
+        processor.getDb().selectAll((_, row) => {
             processor.sendDatabaseDataRow(row);
         });
     });
     ipcMain.on('get-patient-rows', () => {
-        processor.db.selectAllPatients((_, row) => {
+        processor.getDb().selectAllPatients((_, row) => {
             processor.sendDatabasePatientRow(row);
         });
     });
     // Options
     ipcMain.on('get-port-info', async () => await processor.checkPort());
+    ipcMain.on('connect-to-cloud', (_, config) => processor.cloud.init(config));
 };
 
 app.on('ready', async () => {

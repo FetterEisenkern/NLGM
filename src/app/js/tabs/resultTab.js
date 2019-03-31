@@ -1,4 +1,3 @@
-
 var resultLines = undefined;
 var resultPlotLayout = {
     xaxis: {
@@ -53,7 +52,7 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volts);
+        voltage.push(point.mv);
         time.push(point.us);
     }
 

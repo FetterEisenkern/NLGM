@@ -74,7 +74,7 @@ comparisonReturnButton.addEventListener('click', () => {
     selectTab(2);
 });
 comparisonPageButton.addEventListener('click', () => {
-    changeComparisonPage();
+    changeComparisonPage(comparisonPage + 1);
 });
 
 newViewResultButton.addEventListener('click', () => {
@@ -118,6 +118,16 @@ conConnectButton.addEventListener('click', () => {
         ipcRenderer.send('get-port-info');
     }
 });
+conConnectToCloudButton.addEventListener('click', () => {
+    if (!conConnectToCloudButton.hasAttribute('disabled')) {
+        conConnectToCloudButton.classList.add('is-loading');
+        ipcRenderer.send('connect-to-cloud', {
+            host: conConnectToCloudHost.value,
+            user: conConnectToCloudUser.value,
+            password: conConnectToCloudPassword.value
+        });
+    }
+});
 
 // Global
 document.addEventListener('keyup', (ev) => {
@@ -125,5 +135,9 @@ document.addEventListener('keyup', (ev) => {
         selectTab(currentTab - 1);
     } else if (ev.ctrlKey && ev.keyCode === 39) {
         selectTab(currentTab + 1);
+    } else if (ev.keyCode === 27) {
+        closeErrorModal();
+        closePatientModal();
+        closePatientDatabase();
     }
 });

@@ -13,17 +13,17 @@ class Controller {
         this.io = undefined;
         await SerialPort.list((err, ports) => {
             if (err) {
-                console.error(err);
-            } else {
-                for (let port of ports) {
-                    if (port.manufacturer && port.manufacturer.startsWith('Arduino')) {
-                        this.io = {
-                            name: port.comName,
-                            id: port.pnpId,
-                            mf: port.manufacturer
-                        };
-                        break;
-                    }
+                return console.error(err);
+            }
+
+            for (let port of ports) {
+                if (port.manufacturer && port.manufacturer.startsWith('Arduino')) {
+                    this.io = {
+                        name: port.comName,
+                        id: port.pnpId,
+                        mf: port.manufacturer
+                    };
+                    break;
                 }
             }
         });

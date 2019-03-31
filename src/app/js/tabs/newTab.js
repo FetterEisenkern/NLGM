@@ -169,7 +169,7 @@ var newPlotLayout = {
     },
     yaxis: {
         title: 'Volt [mV]',
-        range: [0, 1024] // TODO
+        //range: [0, 1024] // TODO
     },
     margin: {
         t: 0
@@ -183,7 +183,7 @@ var addToNewPlot = (lines, data, legend) => {
     let voltage = [];
     let time = [];
     for (let point of data) {
-        voltage.push(point.volts);
+        voltage.push(point.mv);
         time.push(point.us);
     }
 
@@ -249,7 +249,7 @@ var calculateResult = (data) => {
     let findMaximum = (points) => {
         let max = points[0];
         for (let point of points) {
-            if (point.volt > max.volts) {
+            if (point.volt > max.mv) {
                 max = point;
             }
         }

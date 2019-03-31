@@ -14,7 +14,8 @@ ipcRenderer.on('measurement-error', () => {
     if (m1Lines.length === 0) {
         newStart1Button.innerHTML = '<span>Start</span>';
         newStart1Button.setAttribute('class', 'button is-success');
-    } else if (m2Lines.length === 0) {
+    }
+    if (m2Lines.length === 0) {
         newStart2Button.innerHTML = '<span>Start</span>';
         newStart2Button.setAttribute('class', 'button is-success');
     }
@@ -39,6 +40,15 @@ ipcRenderer.on('port-info', (_, port) => {
 });
 ipcRenderer.on('port-close', () => {
     renderNotConnected();
+});
+ipcRenderer.on('cloud-connected', () => {
+    setTimeout(() => renderCloudConnected(), 1000);
+});
+ipcRenderer.on('cloud-not-connected', (_, error) => {
+    setTimeout(() => {
+        renderCloudNotConnected();
+        renderErrorModal(error);
+    }, 1000);
 });
 
 // Request data
