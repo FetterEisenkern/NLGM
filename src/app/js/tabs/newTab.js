@@ -165,7 +165,7 @@ var m2Lines = [];
 
 var newPlotLayout = {
     xaxis: {
-        title: 'Time [us]'
+        title: 'Time [us]',
     },
     yaxis: {
         title: 'Volt [mV]',
@@ -194,7 +194,7 @@ var addToNewPlot = (lines, data, legend) => {
             shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
             //smoothing: 0
         },
-        mode: 'lines+markers',
+        mode: 'lines',
         marker: {
             symbol: 'circle'
         },
@@ -249,7 +249,7 @@ var calculateResult = (data) => {
     let findMaximum = (points) => {
         let max = points[0];
         for (let point of points) {
-            if (point.volt > max.mv) {
+            if (point.mv > max.mv) {
                 max = point;
             }
         }
@@ -268,6 +268,7 @@ var calculateResult = (data) => {
     let l2 = data.l2 / 100; // cm -> m
     let deltaLength = Math.abs(l1 - l2);
     let deltaTime = Math.abs(tmax1 - tmax2);
+    console.log(tmax1, tmax2, l1, l2, deltaLength, deltaTime);
     return (deltaTime !== 0) ? deltaLength / deltaTime : 0;
 };
 

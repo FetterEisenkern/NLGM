@@ -1,11 +1,11 @@
 var resultLines = undefined;
 var resultPlotLayout = {
     xaxis: {
-        title: 'Time [us]'
+        title: 'Time [us]',
     },
     yaxis: {
         title: 'Volt [mV]',
-        range: [0, 1024] // TODO
+        //range: [0, 1024] // TODO
     },
     margin: {
         t: 0
@@ -17,11 +17,11 @@ var addDataResult = (data) => {
     resultName.textContent = data.getName();
     resultDate.textContent = (data.date) ? data.date : 'Recently';
     selectResult(data.data.result);
-    addLinesToResultPlot(data.data.m1, 'm1');
-    addLinesToResultPlot(data.data.m2, 'm2');
+    addLinesToResultPlot(data.data.m1, '1. Measurement');
+    addLinesToResultPlot(data.data.m2, '2. Measurement');
     if (optAutocorrelationCheckbox.checked) {
-        addLinesToResultPlot(data.data.m1, 'm1 ac.', true);
-        addLinesToResultPlot(data.data.m2, 'm2 ac.', true);
+        addLinesToResultPlot(data.data.m1, '1. Measurement (ac.)', true);
+        addLinesToResultPlot(data.data.m2, '2. Measurement (ac.)', true);
     }
 };
 
@@ -58,12 +58,7 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
 
     if (ac) {
         voltage = autoCorrelation(voltage, true, true);
-        let temp = [...voltage].slice(1);
-        voltage = [...voltage.reverse(), ...temp];
-
-        // Rewrite time
-        temp = [...time].slice(1);
-        time = [...time.reverse().map(t => -t), ...temp];
+        time = Array.from(Array(voltage.length).keys()).map(x => x - (voltage.length + 1) / 2 + 1);
     }
 
     resultLines.push({
@@ -71,9 +66,8 @@ var addLinesToResultPlot = (data, legend, ac = false) => {
         x: time,
         line: {
             shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
-            //smoothing: 0
         },
-        mode: 'lines+markers',
+        mode: 'lines',
         marker: {
             symbol: 'circle'
         },

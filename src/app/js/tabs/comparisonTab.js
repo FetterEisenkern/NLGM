@@ -76,7 +76,7 @@ var addLinesToComparisonPlot = (data, legend) => {
             shape: 'spline', // "linear" | "spline" | "hv" | "vh" | "hvh" | "vhv"
             //smoothing: 0
         },
-        mode: 'lines+markers',
+        mode: 'lines',
         marker: {
             symbol: 'circle'
         },
